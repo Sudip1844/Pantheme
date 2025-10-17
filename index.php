@@ -1,13 +1,8 @@
-<?php
-// Add cache control headers for better performance
-header('Cache-Control: public, max-age=3600, must-revalidate');
-header('Expires: ' . gmdate('D, d M Y H:i:s', time() + 3600) . ' GMT');
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>PAN Card Photo Resizer - Free Online Tool for NSDL/UTI Applications</title>
     
     <!-- SEO Meta Tags -->
@@ -32,20 +27,18 @@ header('Expires: ' . gmdate('D, d M Y H:i:s', time() + 3600) . ' GMT');
     
     <!-- Theme Color -->
     <meta name="theme-color" content="#1e88e5">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     
-    <!-- Preload critical resources -->
-    <link rel="preload" href="pan-resizer-theme/assets/css/main-style.css" as="style">
-    <link rel="preload" href="pan-resizer-theme/assets/js/main-script.js" as="script">
-    
-    <!-- DNS Prefetch for CDN -->
-    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <!-- Preconnect to required origins -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     
-    <!-- Stylesheets with media attribute for faster rendering -->
-    <link rel="stylesheet" href="style.css" media="all">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/main-style.css">
     
-    <!-- Font Awesome with loading optimization -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="all">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -79,10 +72,12 @@ header('Expires: ' . gmdate('D, d M Y H:i:s', time() + 3600) . ' GMT');
 
 <header id="top">
     <div class="container">
-        <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-label="Toggle menu">
-            <i class="fas fa-bars" aria-hidden="true"></i>
+        <button id="menuToggle" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <i class="fas fa-bars"></i>
         </button>
+        
         <h1 style="font-weight: 800;">Online PAN Resizer</h1>
+        
         <div class="mobile-menu" id="mobileMenu">
             <a href="#" onclick="scrollToSection('top')">Home</a>
             <a href="#" onclick="scrollToSection('specifications')">Specifications</a>
@@ -94,19 +89,20 @@ header('Expires: ' . gmdate('D, d M Y H:i:s', time() + 3600) . ' GMT');
     </div>
 </header>
 
-<main id="main-content" tabindex="-1">
+<main id="main-content">
     <div class="container">
         <div class="resizer-card">
             <h1>PAN Card Photo, Signature & Document Resizer</h1>
             <h2 class="seo-subtitle">Best Free Online Tool to Resize PAN Card Photos Without Losing Quality</h2>
             
-            <?php include 'pan-resizer-theme/template-parts/pan-resizer-editor.php'; ?>
+            <?php include 'template-parts/pan-resizer-editor.php'; ?>
         </div>
     </div>
 </main>
 
-<?php include 'pan-resizer-theme/template-parts/specifications-section.php'; ?>
+<?php include 'template-parts/specifications-section.php'; ?>
 
+<!-- Footer -->
 <footer class="footer">
     <div class="container">
         <div class="footer-content">
@@ -118,13 +114,18 @@ header('Expires: ' . gmdate('D, d M Y H:i:s', time() + 3600) . ' GMT');
                 <a href="#" onclick="scrollToSection('faq')">FAQ</a>
                 <a href="#" onclick="scrollToSection('privacy')">Privacy Policy</a>
             </div>
-            <p class="copyright">&copy; <?php echo date('Y'); ?> PAN Card Resizer. All rights reserved. | Free Online Tool | No Registration Required</p>
+            <p class="copyright">
+                &copy; <?php echo date('Y'); ?> PAN Card Resizer. All rights reserved. | 
+                <a href="/" style="color: white; text-decoration: underline;">
+                    PAN Card Resizer
+                </a>
+            </p>
         </div>
     </div>
 </footer>
 
-<!-- Main JavaScript with defer for better performance -->
-<script src="script.js" defer></script>
+<!-- JavaScript -->
+<script src="assets/js/main-script.js" defer></script>
 
 </body>
 </html>
