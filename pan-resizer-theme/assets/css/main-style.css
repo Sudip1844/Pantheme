@@ -155,9 +155,47 @@ body {
 
 /* Header Styles */
 header {
-  background-color: #1e88e5; /* Blue color for header */
+  background-color: #1e88e5;
   border-bottom: 1px solid #0d47a1;
   padding: 15px 0;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #5563d1 0%, #5c3a7a 100%);
+  padding: 40px 20px;
+  text-align: center;
+  color: white;
+}
+
+.hero-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.hero-description {
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 30px 20px;
+  }
+  
+  .hero-title {
+    font-size: 24px;
+  }
+  
+  .hero-description {
+    font-size: 14px;
+  }
 }
 
 header .container {
@@ -307,10 +345,27 @@ h2 {
   background-color: #e6f0ff;
 }
 
-.upload-box i {
-  font-size: 48px;
-  color: #3b82f6;
-  margin-bottom: 15px;
+.upload-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, #5563d1 0%, #5c3a7a 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(85, 99, 209, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.upload-box:hover .upload-icon {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(85, 99, 209, 0.5);
+}
+
+.upload-icon i {
+  font-size: 36px;
+  color: white;
 }
 
 .upload-text {
@@ -1378,8 +1433,13 @@ img {
     padding: 20px 10px;
   }
 
-  .upload-box i {
-    font-size: 32px;
+  .upload-icon {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .upload-icon i {
+    font-size: 28px;
   }
 
   .quick-links {
@@ -1478,7 +1538,7 @@ img {
 
 /* High DPI Screens */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .upload-box i,
+  .upload-icon i,
   .feature-icon i {
     font-weight: 300;
   }
@@ -1528,30 +1588,6 @@ textarea:focus-visible,
   outline-offset: 2px;
 }
 
-  .type-options {
-    gap: 15px;
-  }
-
-  .type-card {
-    width: 140px;
-    height: 100px;
-  }
-
-  .preview-container {
-    width: 95%;
-    max-height: 95vh;
-  }
-
-  .preview-image {
-    max-height: 40vh;
-  }
-
-  .preview-download-btn {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
 @media (max-width: 480px) {
   h2 {
     font-size: 20px;
@@ -1561,8 +1597,13 @@ textarea:focus-visible,
     font-size: 14px;
   }
 
-  .upload-box i {
-    font-size: 36px;
+  .upload-icon {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .upload-icon i {
+    font-size: 32px;
   }
 
   .upload-text {

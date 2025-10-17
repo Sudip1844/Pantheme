@@ -93,11 +93,19 @@
     </div>
 </header>
 
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <h1 class="hero-title">PAN Card Photo & Document Resizer</h1>
+        <p class="hero-description">Free online tool to resize PAN card photos, signatures and documents. Compress images to required size for NSDL/UTI PAN applications without losing quality. Quick, secure and completely free - no software installation needed.</p>
+    </div>
+</section>
+
 <main id="main-content">
     <div class="container">
         <div class="resizer-card">
-            <h1>PAN Card Photo, Signature & Document Resizer</h1>
-            <h2 class="seo-subtitle">Best Free Online Tool to Resize PAN Card Photos Without Losing Quality</h2>
+            <h2>Photo, Signature & Document Editor</h2>
+            <p class="seo-subtitle">Professional online tool to resize and optimize your documents</p>
             
             <?php include 'pan-resizer-theme/template-parts/pan-resizer-editor.php'; ?>
         </div>
