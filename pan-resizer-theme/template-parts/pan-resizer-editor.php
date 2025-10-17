@@ -10,13 +10,7 @@
 <div class="upload-container" id="step1Container">
     <div class="upload-box" id="dropZone">
         <div class="upload-icon-modern">
-            <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="8" y="15" width="35" height="28" rx="2" stroke="white" stroke-width="2.5" fill="none"/>
-                <path d="M8 34L18 24L28 34L43 19" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="34" cy="22" r="3" fill="white"/>
-                <path d="M35 38L35 48M35 38L30 43M35 38L40 43" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <div class="icon-dot"></div>
+            <img src="pan-resizer-theme/assets/images/upload-icon.png" alt="Upload icon" width="100" height="100" style="border-radius: 20px; display: block;">
         </div>
         <p class="upload-text">Drag & drop or click to select file</p>
         <p class="supported-formats">Supported formats: jpg/jpeg, png, pdf (Max size: 10MB)</p>

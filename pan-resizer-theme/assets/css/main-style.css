@@ -347,35 +347,23 @@ h2 {
   width: 100px;
   height: 100px;
   margin: 0 auto 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .upload-box:hover .upload-icon-modern {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+  transform: translateY(-5px) scale(1.05);
+  filter: brightness(1.1);
 }
 
-.upload-icon-modern svg {
+.upload-icon-modern img {
   display: block;
-}
-
-.icon-dot {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 22px;
-  height: 22px;
-  background: #fbbf24;
-  border-radius: 50%;
-  z-index: 3;
-  box-shadow: 0 2px 8px rgba(251, 191, 36, 0.5);
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .upload-text {
@@ -1446,19 +1434,11 @@ img {
   .upload-icon-modern {
     width: 80px;
     height: 80px;
-    border-radius: 16px;
   }
   
-  .upload-icon-modern svg {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .icon-dot {
-    width: 18px;
-    height: 18px;
-    top: 8px;
-    right: 8px;
+  .upload-icon-modern img {
+    width: 100%;
+    height: 100%;
   }
 
   .quick-links {
@@ -1557,8 +1537,9 @@ img {
 
 /* High DPI Screens */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .upload-icon-modern svg {
-    shape-rendering: geometricPrecision;
+  .upload-icon-modern img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
   }
   
   .feature-icon i {
@@ -1622,19 +1603,11 @@ textarea:focus-visible,
   .upload-icon-modern {
     width: 90px;
     height: 90px;
-    border-radius: 18px;
   }
   
-  .upload-icon-modern svg {
-    width: 55px;
-    height: 55px;
-  }
-  
-  .icon-dot {
-    width: 20px;
-    height: 20px;
-    top: 10px;
-    right: 10px;
+  .upload-icon-modern img {
+    width: 100%;
+    height: 100%;
   }
 
   .upload-text {
