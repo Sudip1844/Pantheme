@@ -58,20 +58,9 @@
     <div class="container">
         <div class="footer-content">
             <div class="quick-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="javascript:void(0)" onclick="scrollToSection('top')">Top</a></li>
-                    <li><a href="javascript:void(0)" onclick="scrollToSection('specifications')">Specifications</a></li>
-                    <li><a href="javascript:void(0)" onclick="scrollToSection('features')">Features</a></li>
-                    <li><a href="javascript:void(0)" onclick="scrollToSection('how-to-use')">How to Use</a></li>
-                    <li><a href="javascript:void(0)" onclick="scrollToSection('faq')">FAQ</a></li>
-                    <li><a href="javascript:void(0)" onclick="scrollToSection('privacy')">Privacy</a></li>
-                </ul>
+                <a href="https://myqrcodetool.com/" target="_blank" rel="noopener noreferrer">Our other tool - https://myqrcodetool.com/</a>
             </div>
-            <div class="copyright">
-                <p>&copy; <?php echo date('Y'); ?> PAN Card Resizer. All rights reserved.</p>
-                <p>Free Online Tool | No Registration Required</p>
-            </div>
+            <p class="copyright">&copy; <?php echo date('Y'); ?> PAN Card Resizer. All rights reserved. | Free Online Tool | No Registration Required</p>
         </div>
     </div>
 </footer>
