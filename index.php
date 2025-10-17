@@ -47,10 +47,12 @@
             <h1>PAN Card Photo, Signature & Document Resizer</h1>
             <h2 class="seo-subtitle">Best Free Online Tool to Resize PAN Card Photos Without Losing Quality</h2>
             
-            <?php include 'pan-resizer-theme/template-parts/pan-resizer-tool.php'; ?>
+            <?php include 'pan-resizer-theme/template-parts/pan-resizer-editor.php'; ?>
         </div>
     </div>
 </main>
+
+<?php include 'pan-resizer-theme/template-parts/specifications-section.php'; ?>
 
 <footer class="footer">
     <div class="container">
