@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+    <meta charset="<?php bloginfo( 'charset' ); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    
+    <!-- Preconnect to required origins -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Meta tags -->
+    <meta name="theme-color" content="#1e88e5">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <?php wp_head(); ?>
+</head>
+
+<body <?php body_class(); ?>>
+<?php wp_body_open(); ?>
+
+<a href="#main-content" class="skip-to-content">Skip to content</a>
+
+<header id="top">
+    <div class="container">
+        <button id="menuToggle" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <h1><?php bloginfo( 'name' ); ?></h1>
+        
+        <div class="mobile-menu" id="mobileMenu">
+            <?php
+            wp_nav_menu( array(
+                'theme_location' => 'primary',
+                'container' => false,
+                'menu_class' => '',
+                'fallback_cb' => false,
+            ) );
+            ?>
+        </div>
+    </div>
+</header>
+
+<main id="main-content">

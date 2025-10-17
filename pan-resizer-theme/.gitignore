@@ -1,0 +1,18 @@
+# WordPress
+*.log
+.htaccess
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Editor Files
+*.sublime-project
+*.sublime-workspace
+.vscode/
+.idea/
+
+# Temporary Files
+*~
+*.swp
+*.swo
