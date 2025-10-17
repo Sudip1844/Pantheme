@@ -94,8 +94,8 @@ document.addEventListener('DOMContentLoaded', function() {
       item.classList.add('active');
       question.setAttribute('aria-expanded', 'true');
       answer.setAttribute('aria-hidden', 'false');
-      // Set height to auto for proper expansion
-      answer.style.maxHeight = answer.scrollHeight + 'px';
+      // Use a large max-height to ensure all content is visible
+      answer.style.maxHeight = '1000px';
     }
   }
 });
