@@ -26,7 +26,7 @@ function loadNonCriticalResources() {
 }
 
 // Initialize UI components
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('scroll', function() {}, {passive: true});
   window.addEventListener('touchstart', function() {}, {passive: true});
   window.addEventListener('touchmove', function() {}, {passive: true});
