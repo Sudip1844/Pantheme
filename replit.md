@@ -9,6 +9,7 @@ PAN Card Resizer is a client-side web application designed to resize and compres
 **UI/UX Updates:**
 - **NEW: Modern Upload Icon** - Replaced SVG upload icon with a custom-designed gradient icon featuring a purple-to-blue gradient background, white upward arrow, and yellow-orange accent dot
 - **FIXED: FAQ Toggle Functionality** - FAQ accordion now works correctly by wrapping initialization in DOMContentLoaded event
+- **FIXED: FAQ Answer Display** - Changed max-height from fixed 200px to 'none' for active FAQ answers to prevent content clipping
 - Moved "Our Other Tool" link from footer to a dedicated section below Privacy Policy
 - New section titled "Our Other Tool" with "QR Code Generator & Scanner" hyperlink to https://myqrcodetool.com/
 - Footer now contains navigation links (Home, Specifications, Features, How to Use, FAQ, Privacy Policy)

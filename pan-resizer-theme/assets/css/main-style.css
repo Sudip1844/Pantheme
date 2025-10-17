@@ -80,7 +80,7 @@
 
 .faq-item.active .faq-answer {
   padding: 20px;
-  max-height: 200px;
+  max-height: none;
 }
 
 .faq-item.active .toggle-icon {
