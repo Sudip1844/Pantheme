@@ -26,32 +26,30 @@
 
 <header id="top">
     <div class="container">
-        <button id="menuToggle" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-            <i class="fas fa-bars"></i>
+        <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-label="Toggle menu">
+            <i class="fas fa-bars" aria-hidden="true"></i>
         </button>
-        
-        <div class="logo">
-            <h1>Online PAN Resizer</h1>
+        <h1 style="font-weight: 800;">Online PAN Resizer</h1>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#" onclick="scrollToSection('top')">Home</a>
+            <a href="#" onclick="scrollToSection('specifications')">Specifications</a>
+            <a href="#" onclick="scrollToSection('features')">Key Features</a>
+            <a href="#" onclick="scrollToSection('how-to-use')">How to Use</a>
+            <a href="#" onclick="scrollToSection('faq')">FAQ</a>
+            <a href="#" onclick="scrollToSection('privacy')">Privacy Policy</a>
         </div>
-        
-        <nav id="mobileMenu" class="mobile-menu" aria-label="Main navigation">
-            <button id="closeMenu" class="close-menu" aria-label="Close menu">
-                <i class="fas fa-times"></i>
-            </button>
-            <ul>
-                <li><a href="javascript:void(0)" onclick="scrollToSection('top')">Top</a></li>
-                <li><a href="javascript:void(0)" onclick="scrollToSection('specifications')">Specifications</a></li>
-                <li><a href="javascript:void(0)" onclick="scrollToSection('features')">Features</a></li>
-                <li><a href="javascript:void(0)" onclick="scrollToSection('how-to-use')">How to Use</a></li>
-                <li><a href="javascript:void(0)" onclick="scrollToSection('faq')">FAQ</a></li>
-                <li><a href="javascript:void(0)" onclick="scrollToSection('privacy')">Privacy</a></li>
-            </ul>
-        </nav>
     </div>
 </header>
 
-<main id="main-content">
-    <?php include 'pan-resizer-theme/template-parts/pan-resizer-tool.php'; ?>
+<main id="main-content" tabindex="-1">
+    <div class="container">
+        <div class="resizer-card">
+            <h1>PAN Card Photo, Signature & Document Resizer</h1>
+            <h2 class="seo-subtitle">Best Free Online Tool to Resize PAN Card Photos Without Losing Quality</h2>
+            
+            <?php include 'pan-resizer-theme/template-parts/pan-resizer-tool.php'; ?>
+        </div>
+    </div>
 </main>
 
 <footer class="footer">
