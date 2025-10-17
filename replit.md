@@ -4,9 +4,37 @@
 
 PAN Card Resizer is a client-side web application designed to resize and compress PAN card photos, signatures, and documents according to NSDL/UTI requirements. The tool operates entirely in the browser, processing images locally without server uploads, ensuring user privacy and fast performance. The application is available both as a standalone HTML site and as a WordPress theme.
 
+## Recent Changes (October 17, 2025)
+
+**UI/UX Updates:**
+- Moved "Our Other Tool" link from footer to a dedicated section below Privacy Policy
+- New section titled "Our Other Tool" with "QR Code Generator & Scanner" hyperlink to https://myqrcodetool.com/
+- Footer now contains navigation links (Home, Specifications, Features, How to Use, FAQ, Privacy Policy)
+- Added 6 new FAQ items:
+  1. Which file formats are supported?
+  2. Is there a maximum file size limit?
+  3. Is my data safe? Do you store my files?
+  4. How long does it take to resize a photo?
+  5. Which browsers are compatible with this tool?
+  6. Can I resize multiple photos at once?
+
+**SEO Enhancements:**
+- Comprehensive meta tags (description, keywords, author, robots)
+- Open Graph tags for social sharing (Facebook, LinkedIn)
+- Twitter Card meta tags for Twitter sharing
+- Structured data (JSON-LD) for WebApplication and FAQPage schemas
+- Context-aware canonical URLs using wp_get_canonical_url()
+- Improved title tags with keyword optimization
+
+**Performance Optimizations:**
+- Cache control headers (max-age=3600) for both standalone and WordPress versions
+- Deferred script loading for better page load performance
+- DNS prefetch and preconnect for CDN resources
+- Resource preloading for critical CSS and JavaScript
+
 ## User Preferences
 
-Preferred communication style: Simple, everyday language.
+Preferred communication style: Simple, everyday language (Bengali/Bangla and English).
 
 ## System Architecture
 
@@ -83,31 +111,38 @@ Preferred communication style: Simple, everyday language.
 
 ### SEO Optimization Strategy
 
-**Dynamic Title Generation**
-- JavaScript-based dynamic page title updates based on referring search terms
-- Keyword rotation system with categorized title variations
-- Multiple keyword categories for different use cases (photo resizing, signature compression, document conversion)
-- Search engine optimization for PAN card-related queries
+**Advanced SEO Implementation**
+- Context-aware canonical URLs using WordPress's wp_get_canonical_url()
+- Comprehensive meta tags: description, keywords, author, robots directives
+- Open Graph protocol tags for social media sharing (Facebook, LinkedIn)
+- Twitter Card meta tags for enhanced Twitter sharing
+- Structured data (JSON-LD) schemas:
+  - WebApplication schema with feature list and pricing
+  - FAQPage schema for rich snippets in search results
+- Dynamic page-specific URLs for OG and Twitter cards
+- Keyword-optimized meta descriptions targeting PAN card related searches
 
 **Meta Tag Strategy**
 - Comprehensive meta descriptions and keywords
-- Structured data through meta tags
+- Structured data through JSON-LD schemas
 - Theme color and mobile app capability declarations
-- Cache control headers for performance
+- Cache control headers for performance (max-age=3600)
 
 ### Caching and Performance
 
 **Browser Caching Strategy**
-- Long-term cache headers (max-age=31536000) for static assets
+- HTML page cache headers (max-age=3600, must-revalidate) via template_redirect hook
+- Static asset cache headers for long-term caching
 - Content encoding optimization (gzip)
 - Public cache control for CDN compatibility
 - DNS prefetching for external resources
 
 **Resource Loading Strategy**
 - Critical CSS and JS preloading
-- Deferred loading of third-party resources (Font Awesome)
+- Deferred script loading for improved initial page load
+- Font Awesome loaded asynchronously
 - Image fetch priority optimization (high priority for logo)
-- Async/defer script loading patterns
+- DNS prefetch and preconnect for CDN resources (cdnjs.cloudflare.com)
 
 ## External Dependencies
 
