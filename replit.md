@@ -6,6 +6,13 @@ PAN Card Resizer is a client-side web application designed to resize and compres
 
 ## Recent Changes (October 17, 2025)
 
+**WordPress Theme Package:**
+- **Created WordPress-ready theme zip** - pan-resizer-theme-wordpress.zip (619 KB) ready for WordPress installation
+- **Fixed missing index.php** - Added required index.php template file for WordPress theme compatibility
+- Theme now includes all necessary files: style.css, index.php, functions.php, header.php, footer.php, page.php, single.php
+
+## Recent Changes
+
 **UI/UX Updates:**
 - **NEW: Modern Upload Icon** - Replaced SVG upload icon with a custom-designed gradient icon featuring a purple-to-blue gradient background, white upward arrow, and yellow-orange accent dot
 - **FIXED: FAQ Toggle Functionality** - FAQ accordion now works correctly by wrapping initialization in DOMContentLoaded event
