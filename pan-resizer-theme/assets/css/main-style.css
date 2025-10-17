@@ -344,8 +344,8 @@ h2 {
 }
 
 .upload-icon-modern {
-  width: 90px;
-  height: 90px;
+  width: 100px;
+  height: 100px;
   margin: 0 auto 20px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 20px;
@@ -362,36 +362,16 @@ h2 {
   box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
 }
 
-.icon-image {
-  position: relative;
-  z-index: 1;
-}
-
-.icon-image i {
-  font-size: 40px;
-  color: white;
-}
-
-.icon-arrow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-}
-
-.icon-arrow i {
-  font-size: 28px;
-  color: white;
-  font-weight: bold;
+.upload-icon-modern svg {
+  display: block;
 }
 
 .icon-dot {
   position: absolute;
   top: 12px;
   right: 12px;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   background: #fbbf24;
   border-radius: 50%;
   z-index: 3;
@@ -1464,22 +1444,19 @@ img {
   }
 
   .upload-icon-modern {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     border-radius: 16px;
   }
   
-  .icon-image i {
-    font-size: 32px;
-  }
-  
-  .icon-arrow i {
-    font-size: 22px;
+  .upload-icon-modern svg {
+    width: 50px;
+    height: 50px;
   }
   
   .icon-dot {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     top: 8px;
     right: 8px;
   }
@@ -1580,8 +1557,10 @@ img {
 
 /* High DPI Screens */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .icon-image i,
-  .icon-arrow i,
+  .upload-icon-modern svg {
+    shape-rendering: geometricPrecision;
+  }
+  
   .feature-icon i {
     font-weight: 300;
   }
@@ -1641,22 +1620,19 @@ textarea:focus-visible,
   }
 
   .upload-icon-modern {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     border-radius: 18px;
   }
   
-  .icon-image i {
-    font-size: 36px;
-  }
-  
-  .icon-arrow i {
-    font-size: 24px;
+  .upload-icon-modern svg {
+    width: 55px;
+    height: 55px;
   }
   
   .icon-dot {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     top: 10px;
     right: 10px;
   }
