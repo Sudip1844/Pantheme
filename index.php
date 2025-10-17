@@ -1,9 +1,37 @@
+<?php
+// Add cache control headers for better performance
+header('Cache-Control: public, max-age=3600, must-revalidate');
+header('Expires: ' . gmdate('D, d M Y H:i:s', time() + 3600) . ' GMT');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAN Card Resizer - WordPress Theme Preview</title>
+    <title>PAN Card Photo Resizer - Free Online Tool for NSDL/UTI Applications</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Free online PAN card photo resizer tool. Resize photos to 40-50KB, signatures to standard dimensions, and compress documents to 200-300KB for NSDL/UTI applications. No registration required.">
+    <meta name="keywords" content="PAN card photo resizer, resize PAN card photo, compress PAN photo, PAN signature resizer, NSDL photo resize, UTI photo size, free photo resizer, online image compressor, PAN document converter">
+    <meta name="author" content="PAN Card Resizer">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="<?php echo 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="PAN Card Photo Resizer - Free Online Tool">
+    <meta property="og:description" content="Free online PAN card photo resizer. Resize photos, compress signatures, and convert documents for NSDL/UTI applications. No registration required.">
+    <meta property="og:url" content="<?php echo 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>">
+    <meta property="og:site_name" content="PAN Card Resizer">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PAN Card Photo Resizer - Free Online Tool">
+    <meta name="twitter:description" content="Free online PAN card photo resizer. Resize photos to 40-50KB, compress signatures, and convert documents for NSDL/UTI applications.">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1e88e5">
     
     <!-- Preload critical resources -->
     <link rel="preload" href="pan-resizer-theme/assets/css/main-style.css" as="style">
@@ -13,11 +41,36 @@
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="style.css">
+    <!-- Stylesheets with media attribute for faster rendering -->
+    <link rel="stylesheet" href="style.css" media="all">
     
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome with loading optimization -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="all">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "PAN Card Photo Resizer",
+        "url": "<?php echo 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>",
+        "description": "Free online tool to resize PAN card photos, signatures, and documents for NSDL/UTI applications",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "Resize PAN card photos to 40-50KB",
+            "Compress signatures to standard size",
+            "Convert documents to PDF",
+            "No registration required",
+            "Client-side processing for privacy"
+        ]
+    }
+    </script>
 </head>
 
 <body>
@@ -58,15 +111,20 @@
     <div class="container">
         <div class="footer-content">
             <div class="quick-links">
-                <a href="https://myqrcodetool.com/" target="_blank" rel="noopener noreferrer">Our other tool - https://myqrcodetool.com/</a>
+                <a href="#" onclick="scrollToSection('top')">Home</a>
+                <a href="#" onclick="scrollToSection('specifications')">Specifications</a>
+                <a href="#" onclick="scrollToSection('features')">Key Features</a>
+                <a href="#" onclick="scrollToSection('how-to-use')">How to Use</a>
+                <a href="#" onclick="scrollToSection('faq')">FAQ</a>
+                <a href="#" onclick="scrollToSection('privacy')">Privacy Policy</a>
             </div>
             <p class="copyright">&copy; <?php echo date('Y'); ?> PAN Card Resizer. All rights reserved. | Free Online Tool | No Registration Required</p>
         </div>
     </div>
 </footer>
 
-<!-- Main JavaScript -->
-<script src="script.js"></script>
+<!-- Main JavaScript with defer for better performance -->
+<script src="script.js" defer></script>
 
 </body>
 </html>

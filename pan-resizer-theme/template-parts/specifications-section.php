@@ -185,6 +185,66 @@
                     <p>No, our tool works entirely in your web browser. There's no need to download or install any additional software.</p>
                 </div>
             </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Which file formats are supported?</h3>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Our tool supports JPG, JPEG, PNG, and PDF formats. You can upload images in any of these formats and the tool will automatically process them for PAN card requirements.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Is there a maximum file size limit?</h3>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, the maximum file size allowed is 10MB. This is sufficient for most photos and documents. If your file is larger, please compress it first before uploading.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Is my data safe? Do you store my files?</h3>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Your privacy is our priority. All image processing happens entirely in your browser using client-side JavaScript. We do not upload, store, or have access to any of your files. Your data never leaves your device.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>How long does it take to resize a photo?</h3>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>The resizing process is almost instant. Once you upload your photo and click the resize button, it typically takes just 1-3 seconds to process and prepare your file for download.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Which browsers are compatible with this tool?</h3>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Our tool works on all modern browsers including Google Chrome, Mozilla Firefox, Safari, Microsoft Edge, and Opera. For the best experience, we recommend using the latest version of your browser.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Can I resize multiple photos at once?</h3>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Currently, our tool processes one file at a time to ensure the best quality output. However, you can quickly resize multiple files one after another without any limits or delays.</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -205,6 +265,20 @@
                     <li style="margin-bottom: 10px; color: #666;"><i class="fas fa-check" style="color: #3b82f6; margin-right: 10px;"></i> Automatic memory clearance</li>
                 </ul>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Other Tool Section -->
+<section id="other-tool" class="other-tool-section" style="padding: 40px 0; background-color: #fff;">
+    <div class="container">
+        <h2 class="features-title">Our Other Tool</h2>
+        <div class="other-tool-content" style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <p style="font-size: 18px; color: #333;">
+                <a href="https://myqrcodetool.com/" target="_blank" rel="noopener noreferrer" style="color: #3b82f6; text-decoration: none; font-weight: 600;">
+                    QR Code Generator & Scanner
+                </a>
+            </p>
         </div>
     </div>
 </section>
