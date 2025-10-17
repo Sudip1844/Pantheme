@@ -35,7 +35,7 @@
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="assets/css/main-style.css">
+    <link rel="stylesheet" href="pan-resizer-theme/assets/css/main-style.css">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -95,12 +95,12 @@
             <h1>PAN Card Photo, Signature & Document Resizer</h1>
             <h2 class="seo-subtitle">Best Free Online Tool to Resize PAN Card Photos Without Losing Quality</h2>
             
-            <?php include 'template-parts/pan-resizer-editor.php'; ?>
+            <?php include 'pan-resizer-theme/template-parts/pan-resizer-editor.php'; ?>
         </div>
     </div>
 </main>
 
-<?php include 'template-parts/specifications-section.php'; ?>
+<?php include 'pan-resizer-theme/template-parts/specifications-section.php'; ?>
 
 <!-- Footer -->
 <footer class="footer">
@@ -125,7 +125,7 @@
 </footer>
 
 <!-- JavaScript -->
-<script src="assets/js/main-script.js" defer></script>
+<script src="pan-resizer-theme/assets/js/main-script.js" defer></script>
 
 </body>
 </html>
