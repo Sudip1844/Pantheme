@@ -96,7 +96,7 @@
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="container">
-        <h1 class="hero-title">PAN Card Photo & Document Resizer</h1>
+        <h1 class="hero-title">PAN Card Photo, Signature & Document Resizer</h1>
         <p class="hero-description">Free online tool to resize PAN card photos, signatures and documents. Compress images to required size for NSDL/UTI PAN applications without losing quality. Quick, secure and completely free - no software installation needed.</p>
     </div>
 </section>

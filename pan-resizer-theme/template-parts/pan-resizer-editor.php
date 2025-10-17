@@ -9,8 +9,14 @@
 <!-- Step 1: File Upload -->
 <div class="upload-container" id="step1Container">
     <div class="upload-box" id="dropZone">
-        <div class="upload-icon">
-            <i class="fas fa-cloud-upload-alt"></i>
+        <div class="upload-icon-modern">
+            <div class="icon-image">
+                <i class="fas fa-image"></i>
+            </div>
+            <div class="icon-arrow">
+                <i class="fas fa-arrow-up"></i>
+            </div>
+            <div class="icon-dot"></div>
         </div>
         <p class="upload-text">Drag & drop or click to select file</p>
         <p class="supported-formats">Supported formats: jpg/jpeg, png, pdf (Max size: 10MB)</p>

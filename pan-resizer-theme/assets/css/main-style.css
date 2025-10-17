@@ -164,13 +164,12 @@ header {
 .hero-section {
   background: linear-gradient(135deg, #5563d1 0%, #5c3a7a 100%);
   padding: 40px 20px;
-  text-align: center;
   color: white;
 }
 
 .hero-title {
   font-size: 32px;
-  font-weight: 700;
+  font-weight: 500;
   margin-bottom: 15px;
   color: white;
 }
@@ -179,7 +178,6 @@ header {
   font-size: 16px;
   line-height: 1.6;
   max-width: 800px;
-  margin: 0 auto;
   color: #ffffff;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -345,27 +343,59 @@ h2 {
   background-color: #e6f0ff;
 }
 
-.upload-icon {
-  width: 80px;
-  height: 80px;
+.upload-icon-modern {
+  width: 90px;
+  height: 90px;
   margin: 0 auto 20px;
-  background: linear-gradient(135deg, #5563d1 0%, #5c3a7a 100%);
-  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 15px rgba(85, 99, 209, 0.4);
+  position: relative;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.upload-box:hover .upload-icon {
+.upload-box:hover .upload-icon-modern {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(85, 99, 209, 0.5);
+  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
 }
 
-.upload-icon i {
-  font-size: 36px;
+.icon-image {
+  position: relative;
+  z-index: 1;
+}
+
+.icon-image i {
+  font-size: 40px;
   color: white;
+}
+
+.icon-arrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.icon-arrow i {
+  font-size: 28px;
+  color: white;
+  font-weight: bold;
+}
+
+.icon-dot {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  background: #fbbf24;
+  border-radius: 50%;
+  z-index: 3;
+  box-shadow: 0 2px 8px rgba(251, 191, 36, 0.5);
 }
 
 .upload-text {
@@ -1433,13 +1463,25 @@ img {
     padding: 20px 10px;
   }
 
-  .upload-icon {
-    width: 60px;
-    height: 60px;
+  .upload-icon-modern {
+    width: 70px;
+    height: 70px;
+    border-radius: 16px;
   }
   
-  .upload-icon i {
-    font-size: 28px;
+  .icon-image i {
+    font-size: 32px;
+  }
+  
+  .icon-arrow i {
+    font-size: 22px;
+  }
+  
+  .icon-dot {
+    width: 16px;
+    height: 16px;
+    top: 8px;
+    right: 8px;
   }
 
   .quick-links {
@@ -1538,7 +1580,8 @@ img {
 
 /* High DPI Screens */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .upload-icon i,
+  .icon-image i,
+  .icon-arrow i,
   .feature-icon i {
     font-weight: 300;
   }
@@ -1597,13 +1640,25 @@ textarea:focus-visible,
     font-size: 14px;
   }
 
-  .upload-icon {
-    width: 70px;
-    height: 70px;
+  .upload-icon-modern {
+    width: 80px;
+    height: 80px;
+    border-radius: 18px;
   }
   
-  .upload-icon i {
-    font-size: 32px;
+  .icon-image i {
+    font-size: 36px;
+  }
+  
+  .icon-arrow i {
+    font-size: 24px;
+  }
+  
+  .icon-dot {
+    width: 18px;
+    height: 18px;
+    top: 10px;
+    right: 10px;
   }
 
   .upload-text {
