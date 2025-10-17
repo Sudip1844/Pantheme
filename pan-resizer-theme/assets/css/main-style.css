@@ -209,6 +209,26 @@ header h1 {
   opacity: 0.8;
 }
 
+.share-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+  margin-left: 15px;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.share-button:hover {
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+
+.share-button:active {
+  transform: scale(0.95);
+}
+
 .mobile-menu {
   display: none;
   position: absolute;

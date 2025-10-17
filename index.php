@@ -78,6 +78,10 @@
         
         <h1 style="font-weight: 800;">Online PAN Resizer</h1>
         
+        <button id="shareButton" class="share-button" aria-label="Share website" title="Share this website">
+            <i class="fas fa-share-alt"></i>
+        </button>
+        
         <div class="mobile-menu" id="mobileMenu">
             <a href="#" onclick="scrollToSection('top')">Home</a>
             <a href="#" onclick="scrollToSection('specifications')">Specifications</a>

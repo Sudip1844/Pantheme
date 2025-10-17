@@ -111,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const resetBtn = document.getElementById('resetBtn');
   const nextBtn = document.getElementById('nextBtn');
   const menuToggle = document.getElementById('menuToggle');
+  const shareButton = document.getElementById('shareButton');
 
   // Elements - Step 2
   const step2Container = document.getElementById('step2Container');
@@ -195,6 +196,45 @@ document.addEventListener('DOMContentLoaded', function() {
     mobileMenu.classList.toggle('active');
     menuToggle.setAttribute('aria-expanded', !isExpanded);
   });
+
+  // Share button functionality
+  if (shareButton) {
+    shareButton.addEventListener('click', async function() {
+      const shareData = {
+        title: 'PAN Card Photo Resizer - Free Online Tool',
+        text: 'Check out this free online PAN Card photo resizer tool! Resize photos, signatures, and documents for NSDL/UTI applications.',
+        url: window.location.href
+      };
+
+      try {
+        // Check if Web Share API is supported
+        if (navigator.share) {
+          await navigator.share(shareData);
+        } else {
+          // Fallback: Copy link to clipboard
+          await navigator.clipboard.writeText(window.location.href);
+          
+          // Show a temporary notification
+          const originalIcon = shareButton.innerHTML;
+          shareButton.innerHTML = '<i class="fas fa-check"></i>';
+          shareButton.style.color = '#4caf50';
+          
+          setTimeout(() => {
+            shareButton.innerHTML = originalIcon;
+            shareButton.style.color = 'white';
+          }, 2000);
+          
+          // Optional: You can also add a toast notification here
+          alert('Link copied to clipboard!');
+        }
+      } catch (err) {
+        // User cancelled or error occurred
+        if (err.name !== 'AbortError') {
+          console.error('Error sharing:', err);
+        }
+      }
+    });
+  }
 
   // Close menu when clicking outside
   document.addEventListener('click', function(e) {
