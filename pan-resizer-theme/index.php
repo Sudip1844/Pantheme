@@ -11,102 +11,7 @@
 get_header();
 ?>
 
-<!DOCTYPE html>
-<html <?php language_attributes(); ?>>
-<head>
-    <meta charset="<?php bloginfo( 'charset' ); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-    <title><?php bloginfo('name'); ?> - <?php bloginfo('description'); ?></title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Free online PAN card photo resizer tool. Resize photos to 40-50KB, signatures to standard dimensions, and compress documents to 200-300KB for NSDL/UTI applications. No registration required.">
-    <meta name="keywords" content="PAN card photo resizer, resize PAN card photo, compress PAN photo, PAN signature resizer, NSDL photo resize, UTI photo size, free photo resizer, online image compressor, PAN document converter">
-    <meta name="author" content="PAN Card Resizer">
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-    <link rel="canonical" href="<?php echo esc_url( wp_get_canonical_url() ); ?>">
-    
-    <!-- Open Graph Tags -->
-    <meta property="og:locale" content="en_US">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="PAN Card Photo Resizer - Free Online Tool">
-    <meta property="og:description" content="Free online PAN card photo resizer. Resize photos, compress signatures, and convert documents for NSDL/UTI applications. No registration required.">
-    <meta property="og:url" content="<?php echo esc_url( home_url( '/' ) ); ?>">
-    <meta property="og:site_name" content="PAN Card Resizer">
-    
-    <!-- Twitter Card Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="PAN Card Photo Resizer - Free Online Tool">
-    <meta name="twitter:description" content="Free online PAN card photo resizer. Resize photos to 40-50KB, compress signatures, and convert documents for NSDL/UTI applications.">
-    
-    <!-- Theme Color -->
-    <meta name="theme-color" content="#1e88e5">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    
-    <!-- Preconnect to required origins -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-    
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/main-style.css">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "PAN Card Photo Resizer",
-        "url": "<?php echo esc_url( home_url( '/' ) ); ?>",
-        "description": "Free online tool to resize PAN card photos, signatures, and documents for NSDL/UTI applications",
-        "applicationCategory": "UtilitiesApplication",
-        "operatingSystem": "Any",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-        },
-        "featureList": [
-            "Resize PAN card photos to 40-50KB",
-            "Compress signatures to standard size",
-            "Convert documents to PDF",
-            "No registration required",
-            "Client-side processing for privacy"
-        ]
-    }
-    </script>
-    
-    <?php wp_head(); ?>
-</head>
-
-<body <?php body_class(); ?>>
-
-<a href="#main-content" class="skip-to-content">Skip to content</a>
-
-<header id="top">
-    <div class="container">
-        <button id="menuToggle" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-            <i class="fas fa-bars"></i>
-        </button>
-        
-        <h1 style="font-weight: 800;">Online PAN Resizer</h1>
-        
-        <button id="shareButton" class="share-button" aria-label="Share website" title="Share this website">
-            <i class="fas fa-share-alt"></i>
-        </button>
-        
-        <div class="mobile-menu" id="mobileMenu">
-            <a href="#" onclick="scrollToSection('top')">Home</a>
-            <a href="#" onclick="scrollToSection('specifications')">Specifications</a>
-            <a href="#" onclick="scrollToSection('features')">Key Features</a>
-            <a href="#" onclick="scrollToSection('how-to-use')">How to Use</a>
-            <a href="#" onclick="scrollToSection('faq')">FAQ</a>
-            <a href="#" onclick="scrollToSection('privacy')">Privacy Policy</a>
-        </div>
-    </div>
-</header>
+<main id="main-content">
 
 <!-- Hero Section -->
 <section class="hero-section">
@@ -116,7 +21,7 @@ get_header();
     </div>
 </section>
 
-<main id="main-content">
+<section class="editor-section">
     <div class="container">
         <div class="resizer-card">
             <h2>Photo, Signature & Document Editor</h2>
@@ -125,16 +30,10 @@ get_header();
             <?php get_template_part( 'template-parts/pan-resizer-editor' ); ?>
         </div>
     </div>
-</main>
+</section>
 
 <?php get_template_part( 'template-parts/specifications-section' ); ?>
 
+</main>
+
 <?php get_footer(); ?>
-
-<!-- JavaScript -->
-<script src="<?php echo get_template_directory_uri(); ?>/assets/js/main-script.js" defer></script>
-
-<?php wp_footer(); ?>
-
-</body>
-</html>

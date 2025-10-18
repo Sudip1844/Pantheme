@@ -29,17 +29,17 @@
         
         <h1><?php bloginfo( 'name' ); ?></h1>
         
+        <button id="shareButton" class="share-button" aria-label="Share website" title="Share this website">
+            <i class="fas fa-share-alt"></i>
+        </button>
+        
         <div class="mobile-menu" id="mobileMenu">
-            <?php
-            wp_nav_menu( array(
-                'theme_location' => 'primary',
-                'container' => false,
-                'menu_class' => '',
-                'fallback_cb' => false,
-            ) );
-            ?>
+            <a href="#top">Home</a>
+            <a href="#specifications">Specifications</a>
+            <a href="#features">Key Features</a>
+            <a href="#how-to-use">How to Use</a>
+            <a href="#faq">FAQ</a>
+            <a href="#privacy">Privacy Policy</a>
         </div>
     </div>
 </header>
-
-<main id="main-content">

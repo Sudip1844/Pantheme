@@ -10,7 +10,18 @@
 <div class="upload-container" id="step1Container">
     <div class="upload-box" id="dropZone">
         <div class="upload-icon-modern">
-            <img src="pan-resizer-theme/assets/images/upload-icon.png" alt="Upload icon" width="100" height="100" style="border-radius: 20px; display: block;">
+            <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="display: block;">
+                <defs>
+                    <linearGradient id="uploadGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#9333ea;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <rect width="100" height="100" rx="20" fill="url(#uploadGradient)"/>
+                <path d="M50 30 L50 60 M35 45 L50 30 L65 45" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <rect x="30" y="65" width="40" height="5" rx="2" fill="white"/>
+                <circle cx="75" cy="25" r="5" fill="#fbbf24"/>
+            </svg>
         </div>
         <p class="upload-text">Drag & drop or click to select file</p>
         <p class="supported-formats">Supported formats: jpg/jpeg, png, pdf (Max size: 10MB)</p>

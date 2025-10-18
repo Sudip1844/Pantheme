@@ -1,16 +1,14 @@
-</main>
-
 <!-- Footer -->
 <footer class="footer">
     <div class="container">
         <div class="footer-content">
             <div class="quick-links">
-                <a href="#" onclick="scrollToSection('top')">Home</a>
-                <a href="#" onclick="scrollToSection('specifications')">Specifications</a>
-                <a href="#" onclick="scrollToSection('features')">Key Features</a>
-                <a href="#" onclick="scrollToSection('how-to-use')">How to Use</a>
-                <a href="#" onclick="scrollToSection('faq')">FAQ</a>
-                <a href="#" onclick="scrollToSection('privacy')">Privacy Policy</a>
+                <a href="#top">Home</a>
+                <a href="#specifications">Specifications</a>
+                <a href="#features">Key Features</a>
+                <a href="#how-to-use">How to Use</a>
+                <a href="#faq">FAQ</a>
+                <a href="#privacy">Privacy Policy</a>
             </div>
             <p class="copyright">
                 &copy; <?php echo date('Y'); ?> <?php bloginfo( 'name' ); ?>. All rights reserved. | 
