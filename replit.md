@@ -4,6 +4,23 @@
 
 PAN Card Resizer is a client-side web application designed to resize and compress PAN card photos, signatures, and documents according to NSDL/UTI requirements. The tool operates entirely in the browser, processing images locally without server uploads, ensuring user privacy and fast performance. The application is available both as a standalone HTML site and as a WordPress theme.
 
+## Recent Changes (October 18, 2025)
+
+**WordPress Theme Critical Fixes:**
+- **FIXED: Double Header Issue** - Removed duplicate HTML structure from index.php that was causing two headers to appear when theme was activated
+- **FIXED: Menu Button Functionality** - Updated header.php to include share button and proper anchor navigation menu structure
+- **FIXED: Upload Icon Not Loading** - Replaced image reference with inline SVG (purple-to-blue gradient with white arrow and yellow dot)
+- **FIXED: FAQ Toggle Not Working** - Verified and corrected FAQ markup structure to match JavaScript expectations
+- **FIXED: Duplicate Main Element** - Corrected HTML structure to have single `<main id="main-content">` wrapper for valid, accessible markup
+- All fixes reviewed and verified by architect agent
+- Theme now fully functional with all interactive elements working correctly
+
+**Files Modified:**
+- `pan-resizer-theme/index.php` - Removed duplicate HTML, proper main element structure
+- `pan-resizer-theme/header.php` - Added share button, fixed menu structure
+- `pan-resizer-theme/footer.php` - Updated to anchor navigation
+- `pan-resizer-theme/template-parts/pan-resizer-editor.php` - Inline SVG upload icon
+
 ## Recent Changes (October 17, 2025)
 
 **WordPress Theme Package:**
