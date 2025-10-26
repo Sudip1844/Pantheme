@@ -6,6 +6,18 @@ PAN Card Resizer is a client-side web application designed to resize and compres
 
 ## Recent Changes (October 26, 2025)
 
+**LATEST: Preset Sections Layout Improvements (Today)**
+- **NEW: Side-by-Side Layout for Controls** - DPI control and calculated info now displayed horizontally (side-by-side) instead of vertically
+- **Enhanced Calculated Info Box** - Added white background card with padding and border for better visual separation
+- **Upload Label Repositioned** - "Upload Image" text moved inside the upload container for cleaner layout
+- **Improved Typography** - Calculated values shown in larger font (16px) for better readability
+- **Responsive Design** - Layout automatically stacks vertically on mobile devices (max-width: 768px)
+- **Professional Styling** - Rounded corners (12px) and consistent spacing throughout controls section
+- **Applies to All Sections** - Changes implemented across all 5 preset resizer sections (NSDL Photo, NSDL Signature, UTI Photo, UTI Signature, Custom CM Resizer)
+- **Files Modified:**
+  - `pan-resizer-theme/assets/css/main-style.css` - Updated `.preset-controls`, `.dpi-control`, `.calculated-info`, and `.upload-label` styles
+  - `pan-resizer-theme/template-parts/preset-resizers.php` - Restructured HTML to move upload labels inside containers
+
 **LATEST: Floating Card Sticky Header Design (Today)**
 - **NEW: Floating Card Header** - Header redesigned as a modern floating card with rounded corners
 - **Rounded Corners** - Added 20px border-radius for smooth rounded edges (15px on mobile)
