@@ -6,14 +6,19 @@ PAN Card Resizer is a client-side web application designed to resize and compres
 
 ## Recent Changes (October 26, 2025)
 
-**LATEST: Sticky Header & Permanent Title (Today)**
-- **NEW: Sticky Header** - Header now remains fixed at the top of the page when scrolling
-- **CSS Changes** - Added position: fixed, z-index: 1000, and box-shadow to header for professional sticky effect
-- **Body Padding** - Added 60px padding-top to body to prevent content from hiding under fixed header
+**LATEST: Floating Card Sticky Header Design (Today)**
+- **NEW: Floating Card Header** - Header redesigned as a modern floating card with rounded corners
+- **Rounded Corners** - Added 20px border-radius for smooth rounded edges (15px on mobile)
+- **Professional Spacing** - Header floats with margin from both sides, not full-width
+- **Enhanced Shadow** - Multi-layer box-shadow for depth effect (0 4px 20px rgba black 15%)
+- **Hover Effect** - Shadow intensifies on hover for interactive feedback
+- **Perfect Centering** - Header centered using transform: translateX(-50%) technique
+- **Responsive Design** - Adjusts width and border-radius for mobile devices
 - **Permanent Header Title** - Changed header title from dynamic WordPress bloginfo to permanent hardcoded "Online PAN Resizer"
 - **WordPress Theme Compatibility** - Header title will remain "Online PAN Resizer" even when activated as WordPress theme
+- **Body Padding** - Increased to 90px to accommodate floating header design
 - **Files Modified:**
-  - `pan-resizer-theme/assets/css/main-style.css` - Added sticky header styles and body padding
+  - `pan-resizer-theme/assets/css/main-style.css` - Complete header redesign with floating card styles
   - `pan-resizer-theme/header.php` - Changed from `<?php bloginfo('name'); ?>` to hardcoded "Online PAN Resizer"
 
 **LATEST: Custom Centimeter Resizer Section Added (Today)**
