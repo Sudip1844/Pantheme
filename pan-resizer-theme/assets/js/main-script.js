@@ -2667,3 +2667,292 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+// Preset Resizer Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Preset configurations
+    const presets = {
+        'nsdl-photo': {
+            widthCm: 2.5,
+            heightCm: 3.5,
+            dpi: 200,
+            maxSize: 20
+        },
+        'nsdl-signature': {
+            widthCm: 4.5,
+            heightCm: 2,
+            dpi: 200,
+            maxSize: 10
+        },
+        'uti-photo': {
+            width: 213,
+            height: 213,
+            dpi: 300,
+            maxSize: 30
+        },
+        'uti-signature': {
+            width: 400,
+            height: 200,
+            dpi: 600,
+            maxSize: 60
+        }
+    };
+
+    // State for each preset
+    const presetStates = {};
+    
+    // Initialize each preset section
+    Object.keys(presets).forEach(sectionId => {
+        initPresetSection(sectionId, presets[sectionId]);
+    });
+
+    function initPresetSection(sectionId, config) {
+        const fileInput = document.getElementById(`fileInput-${sectionId}`);
+        const uploadBox = document.querySelector(`[data-section="${sectionId}"]`);
+        const dpiInput = document.getElementById(`dpi-${sectionId}`);
+        const calcDisplay = document.getElementById(`calc-${sectionId}`);
+        const resizeBtn = document.getElementById(`resize-${sectionId}`);
+        const resetBtn = document.getElementById(`reset-${sectionId}`);
+        const canvas = document.getElementById(`canvas-${sectionId}`);
+        const previewContainer = document.getElementById(`preview-${sectionId}`);
+        
+        if (!fileInput || !uploadBox) return;
+
+        // Initialize state
+        presetStates[sectionId] = {
+            file: null,
+            image: null,
+            config: config
+        };
+
+        // File input change handler
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file && file.type.match('image.*')) {
+                handleFileSelect(sectionId, file);
+            }
+        });
+
+        // Drag and drop handlers
+        uploadBox.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadBox.classList.add('drag-over');
+        });
+
+        uploadBox.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadBox.classList.remove('drag-over');
+        });
+
+        uploadBox.addEventListener('drop', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadBox.classList.remove('drag-over');
+            
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.match('image.*')) {
+                fileInput.files = e.dataTransfer.files;
+                handleFileSelect(sectionId, file);
+            }
+        });
+
+        // Click to upload
+        uploadBox.addEventListener('click', function() {
+            fileInput.click();
+        });
+
+        // DPI change handler (for adjustable DPI sections)
+        if (dpiInput && !dpiInput.hasAttribute('readonly')) {
+            dpiInput.addEventListener('input', function() {
+                updateCalculation(sectionId);
+            });
+        }
+
+        // Resize button handler
+        if (resizeBtn) {
+            resizeBtn.addEventListener('click', function() {
+                resizeImage(sectionId);
+            });
+        }
+
+        // Reset button handler
+        if (resetBtn) {
+            resetBtn.addEventListener('click', function() {
+                resetPreset(sectionId);
+            });
+        }
+
+        // Initial calculation display
+        updateCalculation(sectionId);
+    }
+
+    function handleFileSelect(sectionId, file) {
+        presetStates[sectionId].file = file;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                presetStates[sectionId].image = img;
+                const resizeBtn = document.getElementById(`resize-${sectionId}`);
+                if (resizeBtn) {
+                    resizeBtn.disabled = false;
+                }
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function updateCalculation(sectionId) {
+        const config = presetStates[sectionId].config;
+        const dpiInput = document.getElementById(`dpi-${sectionId}`);
+        const calcDisplay = document.getElementById(`calc-${sectionId}`);
+        
+        if (!calcDisplay) return;
+
+        let width, height;
+        
+        if (config.widthCm && config.heightCm) {
+            // Calculate from cm
+            const dpi = dpiInput ? parseInt(dpiInput.value) || config.dpi : config.dpi;
+            width = Math.round((config.widthCm / 2.54) * dpi);
+            height = Math.round((config.heightCm / 2.54) * dpi);
+        } else {
+            // Fixed pixel dimensions
+            width = config.width;
+            height = config.height;
+        }
+
+        calcDisplay.textContent = `${width}px (W) x ${height}px (H)`;
+    }
+
+    function resizeImage(sectionId) {
+        const state = presetStates[sectionId];
+        if (!state.image) return;
+
+        const config = state.config;
+        const canvas = document.getElementById(`canvas-${sectionId}`);
+        const ctx = canvas.getContext('2d');
+        const previewContainer = document.getElementById(`preview-${sectionId}`);
+        const placeholder = previewContainer.querySelector('.preview-placeholder');
+        const dpiInput = document.getElementById(`dpi-${sectionId}`);
+
+        let targetWidth, targetHeight;
+
+        if (config.widthCm && config.heightCm) {
+            const dpi = dpiInput ? parseInt(dpiInput.value) || config.dpi : config.dpi;
+            targetWidth = Math.round((config.widthCm / 2.54) * dpi);
+            targetHeight = Math.round((config.heightCm / 2.54) * dpi);
+        } else {
+            targetWidth = config.width;
+            targetHeight = config.height;
+        }
+
+        // Set canvas size
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+
+        // Draw white background
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, targetWidth, targetHeight);
+
+        // Calculate scaling to fit image
+        const scale = Math.max(targetWidth / state.image.width, targetHeight / state.image.height);
+        const scaledWidth = state.image.width * scale;
+        const scaledHeight = state.image.height * scale;
+        const x = (targetWidth - scaledWidth) / 2;
+        const y = (targetHeight - scaledHeight) / 2;
+
+        // Draw image
+        ctx.drawImage(state.image, x, y, scaledWidth, scaledHeight);
+
+        // Compress to target size
+        compressCanvas(canvas, config.maxSize, function(compressedDataUrl) {
+            // Show preview
+            if (placeholder) placeholder.style.display = 'none';
+            canvas.style.display = 'block';
+            
+            // Add download button if not exists
+            addDownloadButton(sectionId, compressedDataUrl, targetWidth, targetHeight);
+        });
+    }
+
+    function compressCanvas(canvas, maxSizeKB, callback) {
+        let quality = 0.9;
+        let dataUrl = canvas.toDataURL('image/jpeg', quality);
+
+        function getFileSizeKB(dataUrl) {
+            const base64 = dataUrl.split(',')[1];
+            const bytes = atob(base64).length;
+            return bytes / 1024;
+        }
+
+        function compress() {
+            dataUrl = canvas.toDataURL('image/jpeg', quality);
+            const sizeKB = getFileSizeKB(dataUrl);
+
+            if (sizeKB <= maxSizeKB || quality <= 0.1) {
+                callback(dataUrl);
+            } else {
+                quality -= 0.05;
+                setTimeout(compress, 10);
+            }
+        }
+
+        compress();
+    }
+
+    function addDownloadButton(sectionId, dataUrl, width, height) {
+        const previewContainer = document.getElementById(`preview-${sectionId}`);
+        let downloadBtn = previewContainer.querySelector('.preset-download-btn');
+        
+        if (!downloadBtn) {
+            downloadBtn = document.createElement('button');
+            downloadBtn.className = 'preset-download-btn';
+            downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download Resized Image';
+            previewContainer.appendChild(downloadBtn);
+        }
+
+        downloadBtn.onclick = function() {
+            const link = document.createElement('a');
+            link.download = `${sectionId}-${width}x${height}.jpg`;
+            link.href = dataUrl;
+            link.click();
+        };
+
+        downloadBtn.style.display = 'flex';
+    }
+
+    function resetPreset(sectionId) {
+        const fileInput = document.getElementById(`fileInput-${sectionId}`);
+        const canvas = document.getElementById(`canvas-${sectionId}`);
+        const previewContainer = document.getElementById(`preview-${sectionId}`);
+        const placeholder = previewContainer.querySelector('.preview-placeholder');
+        const downloadBtn = previewContainer.querySelector('.preset-download-btn');
+        const resizeBtn = document.getElementById(`resize-${sectionId}`);
+
+        // Reset state
+        presetStates[sectionId].file = null;
+        presetStates[sectionId].image = null;
+
+        // Reset UI
+        if (fileInput) fileInput.value = '';
+        if (canvas) {
+            canvas.style.display = 'none';
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        if (placeholder) placeholder.style.display = 'block';
+        if (downloadBtn) downloadBtn.style.display = 'none';
+        if (resizeBtn) resizeBtn.disabled = true;
+
+        // Reset DPI to default (if not readonly)
+        const dpiInput = document.getElementById(`dpi-${sectionId}`);
+        if (dpiInput && !dpiInput.hasAttribute('readonly')) {
+            dpiInput.value = presets[sectionId].dpi;
+            updateCalculation(sectionId);
+        }
+    }
+});
