@@ -15,8 +15,8 @@ localPort = 5000
 externalPort = 80
 
 [[ports]]
-localPort = 33479
-externalPort = 4200
+localPort = 39257
+externalPort = 3000
 
 [[ports]]
 localPort = 39767
@@ -58,5 +58,5 @@ outputType = "webview"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "php -S 0.0.0.0:5000 -t ."
+args = "php -S 0.0.0.0:5000"
 waitForPort = 5000
