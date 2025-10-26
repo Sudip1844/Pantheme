@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAN Card Image Resizer – Resize Photo & Signature for NSDL, UTI, Custom Size</title>
+    <meta name="description"
+        content="Easily resize PAN card photo and signature for NSDL and UTI formats. Free PAN image resizer tool with support for custom dimensions in cm and DPI.">
+    <meta name="keywords"
+        content="PAN card photo resize, PAN signature resizer, NSDL image resize, UTI PAN card image size, PAN card image resizer online, resize photo for PAN card, resize signature for PAN card, online seva kendra pan resize tool, PAN photo DPI">
+    <meta name="author" content="Online Seva Kendra">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://onlinesevakendra.co.in/pan-resize-image" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="PAN Card Image Resizer – NSDL, UTI Photo & Signature Resize">
+    <meta property="og:description"
+        content="Free PAN Card Photo & Signature Resize Tool – Resize for NSDL, UTI, and custom dimensions with DPI control. Instant and easy.">
+    <meta property="og:url" content="https://onlinesevakendra.co.in/pan-resize-image">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://onlinesevakendra.co.in/assets/pan-resizer-og-image.jpg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PAN Card Image Resizer – Resize for NSDL, UTI & Custom Sizes">
+    <meta name="twitter:description"
+        content="Resize PAN card photo and signature in seconds – NSDL & UTI ready with DPI control. Try it free at Online Seva Kendra.">
+    <meta name="twitter:image" content="https://onlinesevakendra.co.in/assets/pan-resizer-og-image.jpg">
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "PAN Card Image Resizer",
+            "url": "https://onlinesevakendra.co.in/pan-resize-image",
+            "applicationCategory": "Utility",
+            "operatingSystem": "All",
+            "offers": {
+                "@type": "Offer",
+                "price": "0.00",
+                "priceCurrency": "INR"
+            },
+            "description": "Resize PAN card photo and signature instantly for NSDL and UTI formats. Also supports custom image sizes in cm with DPI control. Free and easy to use."
+        }
+    </script>
+    
+    
+    <meta name="csrf-token" content="Gp0ixFLcvMVxU7hVNfrMcZPr6mfbd0wnOg6hwowB">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <meta name="google-adsense-account" content="ca-pub-5828136324171918">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5828136324171918"
+        crossorigin="anonymous"></script>
+
+    <style>
+        :root{--transition-speed: 0.3s;--border-radius: 0.5rem;--light-bg-start: #f6f8f9;--light-bg-end: #e5ebee;--dark-bg-start: #1a1b1e;--dark-bg-end: #2d2f35;--light-card: #ffffff;--dark-card: #1f2937;--primary-start: #4f46e5;--primary-end: #818cf8;--text-light: #f9fafb;--text-dark: #111827;}
+        html{scroll-behavior: smooth;scroll-padding-top: 5rem;}
+        body{min-height: 100vh;background-attachment: fixed;transition: background var(--transition-speed) ease, color var(--transition-speed) ease;}
+        body.light-mode{background: linear-gradient(135deg, var(--light-bg-start), var(--light-bg-end));color: var(--text-dark);}
+        body.dark-mode{background: linear-gradient(135deg, var(--dark-bg-start), var(--dark-bg-end));color: var(--text-light);}
+        .upload-area{border: 4px dashed;transition: border-color 0.3s ease, background-color 0.3s ease;}
+        .upload-animation{animation: pulse 2s infinite ease-in-out;}
+        .upload-animation:hover{border-color: var(--primary-start) !important;}
+        .drag-over{border-color: var(--primary-start) !important;background-color: rgba(79, 70, 229, 0.05);}
+        @keyframes pulse{0%, 100%{transform: scale(1);}50%{transform: scale(1.03);}}
+        .gradient-border{position: relative;border: 2px solid transparent;border-radius: var(--border-radius);}
+        body.light-mode .gradient-border{background: linear-gradient(var(--light-card), var(--light-card)) padding-box, linear-gradient(to right, var(--primary-start), var(--primary-end)) border-box;}
+        body.dark-mode .gradient-border{background: linear-gradient(var(--dark-card), var(--dark-card)) padding-box, linear-gradient(to right, var(--primary-start), var(--primary-end)) border-box;}
+        .hover-scale{transition: transform var(--transition-speed) ease-in-out;}
+        .hover-scale:hover{transform: scale(1.02);}
+        .theme-toggle{position: fixed;bottom: 2rem;left: 1rem;z-index: 50;}
+        .pattern{background-color: #f3f5f7;background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%236f73f1' fill-opacity='0.11'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") !important;}
+        .menu-toggle{transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);}
+        .menu-toggle.active span:nth-child(1){transform: rotate(45deg) translate(5px, 5px);}
+        .menu-toggle.active span:nth-child(2){opacity: 0;}
+        .menu-toggle.active span:nth-child(3){transform: rotate(-45deg) translate(7px, -6px);}
+        .nav-link{position: relative;overflow: hidden;}
+        .nav-link::before{content: '';position: absolute;bottom: 0;left: 0;width: 0;height: 2px;background: linear-gradient(to right, var(--primary-start), var(--primary-end));transition: width 0.3s ease;}
+        .nav-link:hover::before{width: 100%;}
+        input:read-only{background-color: #e9ecef;cursor: not-allowed;}
+        .dark-mode input:read-only{background-color: #374151;}
+    </style>
+</head>
+
+<body class="font-sans antialiased p-4 md:p-8 dark-mode">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 m-2 md:m-4">
+        <div class="bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-xl rounded-2xl border border-white/20 dark:border-gray-700/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16 md:h-18">
+                    <div class="flex-shrink-0"><a href="#" class="flex items-center space-x-2 group"><span class="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 group-hover:from-purple-600 group-hover:to-indigo-600 transition-all duration-300">PAN Resizer</span></a></div>
+                    <div class="hidden lg:flex lg:items-center lg:space-x-1"><a href="http://onlinesevakendra.co.in/resize-image" class="nav-link px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-200">Home</a><a href="#nsdl-photo" class="nav-link px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-200">NSDL Photo</a><a href="#nsdl-signature" class="nav-link px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-200">NSDL Sign</a><a href="#uti-photo" class="nav-link px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-200">UTI Photo</a><a href="#uti-signature" class="nav-link px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-200">UTI Sign</a><a href="#custom-resizer" class="nav-link px-4 py-2 text-sm font-bold text-white bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">Custom (cm)</a></div>
+                    <div class="lg:hidden"><button type="button" class="menu-toggle p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200" onclick="toggleMobileMenu()"><span class="sr-only">Open main menu</span><div class="w-6 h-6 flex flex-col justify-center items-center"><span class="block w-5 h-0.5 bg-current transform transition-all duration-300"></span><span class="block w-5 h-0.5 bg-current mt-1 transform transition-all duration-300"></span><span class="block w-5 h-0.5 bg-current mt-1 transform transition-all duration-300"></span></div></button></div>
+                </div>
+            </div>
+            <div id="mobile-menu" class="lg:hidden hidden animate-slide-down border-t border-gray-200 dark:border-gray-700/50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-b-2xl"><div class="px-4 py-6 space-y-2"><a href="http://onlinesevakendra.co.in/resize-image" class="block px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-200">Home</a><a href="#nsdl-photo" class="block px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-200">NSDL Photo</a><a href="#nsdl-signature" class="block px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-200">NSDL Sign</a><a href="#uti-photo" class="block px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-200">UTI Photo</a><a href="#uti-signature" class="block px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-200">UTI Sign</a><a href="#custom-resizer" class="block px-4 py-3 text-base font-bold text-white bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 rounded-xl transition-all duration-200 shadow-lg">Custom (cm)</a></div></div>
+        </div>
+    </nav>
+    <button id="themeToggle" aria-label="Toggle theme" class="theme-toggle bg-white dark:bg-gray-800 p-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"><svg id="sunIcon" class="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg><svg id="moonIcon" class="w-6 h-6 text-blue-500 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg></button>
+    <main class="container mx-auto max-w-7xl pt-16 pb-8">
+        <header class="text-center mb-12"><h1 class="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 mb-4 dark:from-indigo-400 dark:to-purple-400">PAN Card & Custom Photo Resizer</h1><p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">Use our presets for NSDL/UTI PAN cards or the custom tool to resize any image by Centimeters (cm), DPI, and file size. All processing is done in your browser.</p></header>
+        <div style="max-width: 728px; margin: 10px auto;text-align: center;">Advertisement<ins class="adsbygoogle" style="display:inline-block;width:100%;height:100px" data-full-width-responsive="true" data-ad-client="ca-pub-5828136324171918" data-ad-slot="9022991235"></ins></div>
+        <div id="resizerContainer" class="space-y-12"></div>
+        <section class="resizer-section gradient-border hover-scale p-4 md:p-8 bg-white dark:bg-gray-800 shadow-lg mt-12" id="custom-resizer" aria-labelledby="section-title-custom">
+            <div class="grid lg:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div>
+                        <h2 id="section-title-custom" class="text-2xl md:text-3xl font-bold text-teal-600 dark:text-teal-400 mb-2">Custom Centimeter Resizer</h2>
+                        <p class="text-gray-600 dark:text-gray-400">Enter your desired dimensions in centimeters (cm), set the DPI, and a max file size to resize any image.</p>
+                        <div class="mt-4 text-sm text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900/50 p-3 rounded-lg border border-gray-200 dark:border-gray-700 space-y-3">
+                            <p><strong class="text-gray-800 dark:text-gray-200">Understanding the Conversion:</strong> The tool uses your `cm` and `DPI` inputs to calculate the required pixels with the formula:<br> <code class="font-mono text-teal-600 dark:text-teal-400 text-xs">pixels = (cm / 2.54) * DPI</code>.</p>
+                            <p><strong class="text-gray-800 dark:text-gray-200">What is DPI?</strong> DPI, or Dots Per Inch, is a crucial metric that determines the level of detail and quality an image holds. A higher DPI signifies a greater number of dots (pixels) in every inch of the image, resulting in finer details and crisper visuals. A lower DPI might lead to pixelation and reduced image quality.</p>
+                        </div>
+                    </div>
+                    <form id="customForm" class="space-y-6" novalidate>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div><label for="widthCm" class="block text-sm font-medium text-gray-600 dark:text-gray-400">Width (cm)</label><input type="number" id="widthCm" value="2.5" step="0.1" required class="mt-1 block w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm text-gray-900 dark:text-gray-200"></div>
+                            <div><label for="heightCm" class="block text-sm font-medium text-gray-600 dark:text-gray-400">Height (cm)</label><input type="number" id="heightCm" value="3.5" step="0.1" required class="mt-1 block w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm text-gray-900 dark:text-gray-200"></div>
+                            <div><label for="dpi" class="block text-sm font-medium text-gray-600 dark:text-gray-400">Resolution (DPI)</label><input type="number" id="dpi" value="200" step="1" required class="mt-1 block w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm text-gray-900 dark:text-gray-200"></div>
+                            <div><label for="maxSize" class="block text-sm font-medium text-gray-600 dark:text-gray-400">Max Size (KB)</label><input type="number" id="maxSize" value="20" step="1" required class="mt-1 block w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm text-gray-900 dark:text-gray-200"></div>
+                        </div>
+                        <div>
+                            <label for="imageUpload-custom" class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Upload Image</label>
+                            <div class="upload-area border-teal-200 dark:border-teal-700 rounded-lg" data-index="custom">
+                                <label for="imageUpload-custom" class="flex flex-col w-full h-40 cursor-pointer upload-animation transition-all duration-300"><div class="flex flex-col items-center justify-center pt-7"><svg class="w-12 h-12 text-teal-400 dark:text-teal-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg><p class="pt-3 text-sm text-gray-500 dark:text-gray-400">Drop image here or <span class="text-teal-600 dark:text-teal-400 font-medium">browse</span></p></div><input type="file" id="imageUpload-custom" class="opacity-0" accept="image/jpeg, image/png, image/webp" required></label>
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-4"><button type="submit" class="flex-1 flex justify-center items-center bg-gradient-to-r from-teal-500 to-teal-600 text-white py-2.5 px-4 rounded-lg hover:from-teal-600 hover:to-teal-700 transition duration-300 font-medium disabled:opacity-60 disabled:cursor-not-allowed">Resize Image</button><button type="reset" class="flex-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 py-2.5 px-4 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-300 font-medium">Reset</button></div>
+                    </form>
+                </div>
+                <div class="space-y-6">
+                    <div class="pattern relative bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 min-h-[400px] flex items-center justify-center border-2 border-dashed border-gray-200 dark:border-gray-700">
+                        <div id="placeholderContainer-custom" class="text-center text-gray-400 dark:text-gray-500 p-4"
