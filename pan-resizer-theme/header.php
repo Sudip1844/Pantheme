@@ -27,7 +27,7 @@
             <i class="fas fa-bars"></i>
         </button>
         
-        <h1><?php bloginfo( 'name' ); ?></h1>
+        <h1>Online PAN Resizer</h1>
         
         <button id="shareButton" class="share-button" aria-label="Share website" title="Share this website">
             <i class="fas fa-share-alt"></i>

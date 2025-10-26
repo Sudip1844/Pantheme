@@ -6,6 +6,16 @@ PAN Card Resizer is a client-side web application designed to resize and compres
 
 ## Recent Changes (October 26, 2025)
 
+**LATEST: Sticky Header & Permanent Title (Today)**
+- **NEW: Sticky Header** - Header now remains fixed at the top of the page when scrolling
+- **CSS Changes** - Added position: fixed, z-index: 1000, and box-shadow to header for professional sticky effect
+- **Body Padding** - Added 60px padding-top to body to prevent content from hiding under fixed header
+- **Permanent Header Title** - Changed header title from dynamic WordPress bloginfo to permanent hardcoded "Online PAN Resizer"
+- **WordPress Theme Compatibility** - Header title will remain "Online PAN Resizer" even when activated as WordPress theme
+- **Files Modified:**
+  - `pan-resizer-theme/assets/css/main-style.css` - Added sticky header styles and body padding
+  - `pan-resizer-theme/header.php` - Changed from `<?php bloginfo('name'); ?>` to hardcoded "Online PAN Resizer"
+
 **LATEST: Custom Centimeter Resizer Section Added (Today)**
 - **NEW FEATURE: Custom Centimeter Resizer** - Added brand new section allowing users to input custom dimensions in centimeters
 - **Flexible Input Fields** - Width (cm), Height (cm), Resolution (DPI), and Max Size (KB) all customizable
