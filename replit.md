@@ -4,6 +4,26 @@
 
 PAN Card Resizer is a client-side web application designed to resize and compress PAN card photos, signatures, and documents according to NSDL/UTI requirements. The tool operates entirely in the browser, processing images locally without server uploads, ensuring user privacy and fast performance. The application is available both as a standalone HTML site and as a WordPress theme.
 
+## Recent Changes (October 26, 2025)
+
+**NEW: Preset Resizer Sections**
+- **ADDED: NSDL (Protean) Photograph Section** - Resize photos to 3.5cm x 2.5cm at 200 DPI, max 20 KB with adjustable DPI
+- **ADDED: NSDL (Protean) Signature Section** - Resize signatures to 2cm x 4.5cm at 200 DPI, max 10 KB with adjustable DPI
+- **ADDED: UTI/ITSL (UTI) Photograph Section** - Fixed 213x213 pixels at 300 DPI, max 30 KB
+- **ADDED: UTI/ITSL (UTI) Signature Section** - Fixed 400x200 pixels at 600 DPI, max 60 KB
+- **NEW: Template File** - Created preset-resizers.php with all 4 preset sections
+- **NEW: CSS Styling** - Added comprehensive styling for preset cards, upload areas, preview containers, and responsive design
+- **NEW: JavaScript Functionality** - Implemented drag & drop upload, DPI calculations, image resize with canvas, compression to target size, and download functionality
+- **UPDATED: Navigation** - Added anchor links to all preset sections in mobile menu and footer (NSDL Photo, NSDL Sign, UTI Photo, UTI Sign)
+- **INTEGRATED: Layout** - Preset sections placed between main editor and specifications section for better user flow
+- All preset sections feature independent upload, resize, and preview functionality
+
+**Files Modified:**
+- `pan-resizer-theme/template-parts/preset-resizers.php` - New template with 4 preset sections
+- `pan-resizer-theme/assets/css/main-style.css` - Added ~280 lines of preset styling
+- `pan-resizer-theme/assets/js/main-script.js` - Added ~290 lines of preset functionality
+- `index.php` - Integrated preset sections and updated navigation
+
 ## Recent Changes (October 18, 2025)
 
 **WordPress Theme Critical Fixes:**
