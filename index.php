@@ -84,6 +84,10 @@
         
         <div class="mobile-menu" id="mobileMenu">
             <a href="#" onclick="scrollToSection('top')">Home</a>
+            <a href="#nsdl-photo">NSDL Photo</a>
+            <a href="#nsdl-signature">NSDL Signature</a>
+            <a href="#uti-photo">UTI Photo</a>
+            <a href="#uti-signature">UTI Signature</a>
             <a href="#" onclick="scrollToSection('specifications')">Specifications</a>
             <a href="#" onclick="scrollToSection('features')">Key Features</a>
             <a href="#" onclick="scrollToSection('how-to-use')">How to Use</a>
@@ -112,6 +116,11 @@
     </div>
 </main>
 
+<!-- Preset Resizer Sections -->
+<div class="container">
+    <?php include 'pan-resizer-theme/template-parts/preset-resizers.php'; ?>
+</div>
+
 <?php include 'pan-resizer-theme/template-parts/specifications-section.php'; ?>
 
 <!-- Footer -->
@@ -120,11 +129,15 @@
         <div class="footer-content">
             <div class="quick-links">
                 <a href="#" onclick="scrollToSection('top')">Home</a>
+                <a href="#nsdl-photo">NSDL Photo</a>
+                <a href="#nsdl-signature">NSDL Sign</a>
+                <a href="#uti-photo">UTI Photo</a>
+                <a href="#uti-signature">UTI Sign</a>
                 <a href="#" onclick="scrollToSection('specifications')">Specifications</a>
-                <a href="#" onclick="scrollToSection('features')">Key Features</a>
+                <a href="#" onclick="scrollToSection('features')">Features</a>
                 <a href="#" onclick="scrollToSection('how-to-use')">How to Use</a>
                 <a href="#" onclick="scrollToSection('faq')">FAQ</a>
-                <a href="#" onclick="scrollToSection('privacy')">Privacy Policy</a>
+                <a href="#" onclick="scrollToSection('privacy')">Privacy</a>
             </div>
             <p class="copyright">
                 &copy; <?php echo date('Y'); ?> PAN Card Resizer. All rights reserved. | 
