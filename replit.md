@@ -6,15 +6,15 @@ PAN Card Resizer is a client-side web application designed to resize and compres
 
 ## Recent Changes (October 26, 2025)
 
-**LATEST: Dark Theme Applied to Preset Sections (Today)**
-- **FIXED: Preset Section Styling** - Applied beautiful dark theme to all preset resizer sections (NSDL Photo, NSDL Signature, UTI Photo, UTI Signature)
-- **Dark Gradient Background** - Cards now use linear gradient from #2d3748 to #1a202c with subtle border and shadows
-- **Enhanced Upload Areas** - Dashed blue/purple borders (#6366f1) with semi-transparent background for better visual appeal
-- **Dark Controls Panel** - DPI controls and calculated info now have dark semi-transparent background with light text
-- **Updated Preview Containers** - Dark theme with semi-transparent borders matching the overall dark aesthetic
-- **Color Adjustments** - Title colors (#818cf8 for NSDL, #a78bfa for UTI), light gray text (#a0aec0, #cbd5e0, #e2e8f0)
-- **Icon & Button Styling** - Upload icons in blue/purple tones, gradient buttons maintained for actions
-- Preset sections now match the original beautiful design with professional dark theme
+**LATEST: Light Theme Applied to Preset Sections (Today)**
+- **FIXED: Preset Section Styling** - Applied clean light theme to all preset resizer sections (NSDL Photo, NSDL Signature, UTI Photo, UTI Signature)
+- **White Card Background** - Cards now use clean white background (#ffffff) with light gray borders (#e5e7eb)
+- **Light Upload Areas** - Dashed gray borders (#d1d5db) with light background (#f9fafb) for clean appearance
+- **Light Controls Panel** - DPI controls and calculated info with light gray background (#f9fafb) for better readability
+- **Light Preview Containers** - Clean preview areas with dashed borders matching the overall light aesthetic
+- **Color Adjustments** - Title colors (#6366f1 for NSDL, #8b5cf6 for UTI), gray text colors for optimal readability
+- **Icon & Button Styling** - Upload icons in gray tones, purple gradient buttons maintained for actions
+- Preset sections now use professional light theme matching modern web design standards
 
 **NEW: Preset Resizer Sections**
 - **ADDED: NSDL (Protean) Photograph Section** - Resize photos to 3.5cm x 2.5cm at 200 DPI, max 20 KB with adjustable DPI
