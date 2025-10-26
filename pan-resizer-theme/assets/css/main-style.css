@@ -1877,6 +1877,7 @@ textarea:focus-visible,
   top: 0;
   left: 0;
   cursor: pointer;
+  z-index: 10;
 }
 
 .preset-controls {
@@ -2069,4 +2070,13 @@ textarea:focus-visible,
   .reset-btn-preset {
     width: 100%;
   }
+}
+
+/* Ensure upload box children don't block clicks */
+.preset-upload > * {
+  pointer-events: none;
+}
+
+.preset-upload input[type="file"] {
+  pointer-events: auto;
 }

@@ -2667,6 +2667,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+// Wait for DOM to be fully loaded for preset sections
+(function() {
+    function initPresetResizers() {
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", initPresetResizers);
+            return;
+        }
+        console.log("Initializing preset resizers...");
+
 // Preset Resizer Functionality
 document.addEventListener('DOMContentLoaded', function() {
     // Preset configurations
@@ -2956,3 +2965,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+    }
+    initPresetResizers();
+})();

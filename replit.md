@@ -19,10 +19,16 @@ PAN Card Resizer is a client-side web application designed to resize and compres
 - All preset sections feature independent upload, resize, and preview functionality
 
 **Files Modified:**
-- `pan-resizer-theme/template-parts/preset-resizers.php` - New template with 4 preset sections
-- `pan-resizer-theme/assets/css/main-style.css` - Added ~280 lines of preset styling
-- `pan-resizer-theme/assets/js/main-script.js` - Added ~290 lines of preset functionality
+- `pan-resizer-theme/template-parts/preset-resizers.php` - New template with 4 preset sections (FIXED: Image upload now working with proper label-for-input binding)
+- `pan-resizer-theme/assets/css/main-style.css` - Added ~280 lines of preset styling with pointer-events fixes
+- `pan-resizer-theme/assets/js/main-script.js` - Added ~290 lines of preset functionality with proper DOM ready handling
 - `index.php` - Integrated preset sections and updated navigation
+
+**Technical Implementation:**
+- Upload boxes now use `<label for="fileInput-...">` tags for reliable click handling
+- File inputs hidden with `display: none` to avoid z-index and pointer-events conflicts
+- JavaScript initialization wrapped with readiness check for deferred script loading
+- All resize buttons disabled by default until image is uploaded
 
 ## Recent Changes (October 18, 2025)
 

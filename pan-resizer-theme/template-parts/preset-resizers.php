@@ -16,14 +16,14 @@
         <div class="preset-grid">
             <div class="preset-left">
                 <div class="preset-upload-area" id="upload-nsdl-photo">
-                    <label class="upload-label">Upload Image</label>
-                    <div class="upload-box preset-upload" data-section="nsdl-photo">
+                    <p class="upload-label">Upload Image</p>
+                    <label for="fileInput-nsdl-photo" class="upload-box preset-upload" data-section="nsdl-photo">
                         <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
                         <p class="upload-hint">Drop image here or <span class="browse-text">browse</span></p>
-                        <input type="file" class="file-input" id="fileInput-nsdl-photo" accept="image/jpeg, image/png, image/webp">
-                    </div>
+                    </label>
+                    <input type="file" class="file-input" id="fileInput-nsdl-photo" accept="image/jpeg,image/png,image/webp" style="display: none;">
                 </div>
                 
                 <div class="preset-controls">
@@ -38,7 +38,7 @@
                 </div>
                 
                 <div class="preset-actions">
-                    <button class="resize-btn" id="resize-nsdl-photo">Resize Image</button>
+                    <button class="resize-btn" id="resize-nsdl-photo" disabled>Resize Image</button>
                     <button class="reset-btn-preset" id="reset-nsdl-photo">Reset</button>
                 </div>
             </div>
@@ -62,14 +62,14 @@
         <div class="preset-grid">
             <div class="preset-left">
                 <div class="preset-upload-area" id="upload-nsdl-signature">
-                    <label class="upload-label">Upload Image</label>
-                    <div class="upload-box preset-upload" data-section="nsdl-signature">
+                    <p class="upload-label">Upload Image</p>
+                    <label for="fileInput-nsdl-signature" class="upload-box preset-upload" data-section="nsdl-signature">
                         <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
                         <p class="upload-hint">Drop image here or <span class="browse-text">browse</span></p>
-                        <input type="file" class="file-input" id="fileInput-nsdl-signature" accept="image/jpeg, image/png, image/webp">
-                    </div>
+                    </label>
+                    <input type="file" class="file-input" id="fileInput-nsdl-signature" accept="image/jpeg,image/png,image/webp" style="display: none;">
                 </div>
                 
                 <div class="preset-controls">
@@ -84,7 +84,7 @@
                 </div>
                 
                 <div class="preset-actions">
-                    <button class="resize-btn" id="resize-nsdl-signature">Resize Image</button>
+                    <button class="resize-btn" id="resize-nsdl-signature" disabled>Resize Image</button>
                     <button class="reset-btn-preset" id="reset-nsdl-signature">Reset</button>
                 </div>
             </div>
@@ -108,14 +108,14 @@
         <div class="preset-grid">
             <div class="preset-left">
                 <div class="preset-upload-area" id="upload-uti-photo">
-                    <label class="upload-label">Upload Image</label>
-                    <div class="upload-box preset-upload" data-section="uti-photo">
+                    <p class="upload-label">Upload Image</p>
+                    <label for="fileInput-uti-photo" class="upload-box preset-upload" data-section="uti-photo">
                         <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
                         <p class="upload-hint">Drop image here or <span class="browse-text">browse</span></p>
-                        <input type="file" class="file-input" id="fileInput-uti-photo" accept="image/jpeg, image/png, image/webp">
-                    </div>
+                    </label>
+                    <input type="file" class="file-input" id="fileInput-uti-photo" accept="image/jpeg,image/png,image/webp" style="display: none;">
                 </div>
                 
                 <div class="preset-controls">
@@ -130,7 +130,7 @@
                 </div>
                 
                 <div class="preset-actions">
-                    <button class="resize-btn" id="resize-uti-photo">Resize Image</button>
+                    <button class="resize-btn" id="resize-uti-photo" disabled>Resize Image</button>
                     <button class="reset-btn-preset" id="reset-uti-photo">Reset</button>
                 </div>
             </div>
@@ -154,14 +154,14 @@
         <div class="preset-grid">
             <div class="preset-left">
                 <div class="preset-upload-area" id="upload-uti-signature">
-                    <label class="upload-label">Upload Image</label>
-                    <div class="upload-box preset-upload" data-section="uti-signature">
+                    <p class="upload-label">Upload Image</p>
+                    <label for="fileInput-uti-signature" class="upload-box preset-upload" data-section="uti-signature">
                         <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
                         <p class="upload-hint">Drop image here or <span class="browse-text">browse</span></p>
-                        <input type="file" class="file-input" id="fileInput-uti-signature" accept="image/jpeg, image/png, image/webp">
-                    </div>
+                    </label>
+                    <input type="file" class="file-input" id="fileInput-uti-signature" accept="image/jpeg,image/png,image/webp" style="display: none;">
                 </div>
                 
                 <div class="preset-controls">
@@ -176,7 +176,7 @@
                 </div>
                 
                 <div class="preset-actions">
-                    <button class="resize-btn" id="resize-uti-signature">Resize Image</button>
+                    <button class="resize-btn" id="resize-uti-signature" disabled>Resize Image</button>
                     <button class="reset-btn-preset" id="reset-uti-signature">Reset</button>
                 </div>
             </div>
