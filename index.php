@@ -88,6 +88,7 @@
             <a href="#nsdl-signature">NSDL Signature</a>
             <a href="#uti-photo">UTI Photo</a>
             <a href="#uti-signature">UTI Signature</a>
+            <a href="#custom-cm-resizer">Custom CM Resizer</a>
             <a href="#" onclick="scrollToSection('specifications')">Specifications</a>
             <a href="#" onclick="scrollToSection('features')">Key Features</a>
             <a href="#" onclick="scrollToSection('how-to-use')">How to Use</a>
@@ -133,6 +134,7 @@
                 <a href="#nsdl-signature">NSDL Sign</a>
                 <a href="#uti-photo">UTI Photo</a>
                 <a href="#uti-signature">UTI Sign</a>
+                <a href="#custom-cm-resizer">Custom CM</a>
                 <a href="#" onclick="scrollToSection('specifications')">Specifications</a>
                 <a href="#" onclick="scrollToSection('features')">Features</a>
                 <a href="#" onclick="scrollToSection('how-to-use')">How to Use</a>

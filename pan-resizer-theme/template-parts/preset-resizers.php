@@ -190,3 +190,66 @@
         </div>
     </div>
 </section>
+
+<!-- Custom Centimeter Resizer Section -->
+<section class="preset-resizer-section" id="custom-cm-resizer">
+    <div class="resizer-card preset-card">
+        <h2 class="preset-title custom-color">Custom Centimeter Resizer</h2>
+        <p class="preset-description">Enter your desired dimensions in centimeters (cm), set the DPI, and a max file size to resize any image.</p>
+        
+        <!-- Info Box -->
+        <div class="custom-info-box">
+            <p><strong>Understanding the Conversion:</strong> The tool uses your 'cm' and 'DPI' inputs to calculate the required pixels with the formula:</p>
+            <p class="formula-text">pixels = (cm / 2.54) * DPI.</p>
+            <p><strong>What is DPI?</strong> DPI, or Dots Per Inch, is a crucial metric that determines the level of detail and quality an image holds. A higher DPI signifies a greater number of dots (pixels) in every inch of the image, resulting in finer details and crisper visuals. A lower DPI might lead to pixelation and reduced image quality.</p>
+        </div>
+        
+        <!-- Input Grid -->
+        <div class="custom-input-grid">
+            <div class="custom-input-group">
+                <label for="custom-width">Width (cm)</label>
+                <input type="number" id="custom-width" value="2.5" min="0.1" step="0.1" class="custom-input">
+            </div>
+            <div class="custom-input-group">
+                <label for="custom-height">Height (cm)</label>
+                <input type="number" id="custom-height" value="3.5" min="0.1" step="0.1" class="custom-input">
+            </div>
+            <div class="custom-input-group">
+                <label for="custom-dpi">Resolution (DPI)</label>
+                <input type="number" id="custom-dpi" value="200" min="50" max="1200" class="custom-input">
+            </div>
+            <div class="custom-input-group">
+                <label for="custom-maxsize">Max Size (KB)</label>
+                <input type="number" id="custom-maxsize" value="20" min="1" max="500" class="custom-input">
+            </div>
+        </div>
+        
+        <!-- Upload and Preview Area -->
+        <div class="preset-grid">
+            <div class="preset-left">
+                <div class="preset-upload-area" id="upload-custom-cm">
+                    <p class="upload-label">Upload Image</p>
+                    <label for="fileInput-custom-cm" class="upload-box preset-upload custom-upload" data-section="custom-cm">
+                        <svg class="upload-icon custom-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <p class="upload-hint">Drop image here or <span class="browse-text custom-browse">browse</span></p>
+                    </label>
+                    <input type="file" class="file-input" id="fileInput-custom-cm" accept="image/jpeg,image/png,image/webp" style="display: none;">
+                </div>
+                
+                <div class="preset-actions">
+                    <button class="resize-btn custom-resize-btn" id="resize-custom-cm" disabled>Resize Image</button>
+                    <button class="reset-btn-preset" id="reset-custom-cm">Reset</button>
+                </div>
+            </div>
+            
+            <div class="preset-right">
+                <div class="preview-container" id="preview-custom-cm">
+                    <p class="preview-placeholder">Custom Preview<br><span>Your resized image will appear here</span></p>
+                    <canvas id="canvas-custom-cm" style="display:none;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

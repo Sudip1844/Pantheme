@@ -6,6 +6,17 @@ PAN Card Resizer is a client-side web application designed to resize and compres
 
 ## Recent Changes (October 26, 2025)
 
+**LATEST: Custom Centimeter Resizer Section Added (Today)**
+- **NEW FEATURE: Custom Centimeter Resizer** - Added brand new section allowing users to input custom dimensions in centimeters
+- **Flexible Input Fields** - Width (cm), Height (cm), Resolution (DPI), and Max Size (KB) all customizable
+- **Info Box** - Detailed explanation of cm-to-pixels conversion formula and DPI concept
+- **Formula Display** - Shows `pixels = (cm / 2.54) * DPI` in red monospace font
+- **Teal/Cyan Theme** - Custom section uses teal color (#14b8a6) to differentiate from other presets
+- **Full Functionality** - Drag & drop upload, automatic resize, compression to target size, and download
+- **Navigation Updated** - Added "Custom CM Resizer" links to mobile menu and footer
+- **Light Theme Design** - Clean white background with teal accents matching user preference
+- Section positioned after UTI Signature and before Specifications section
+
 **LATEST: Light Theme Applied to Preset Sections (Today)**
 - **FIXED: Preset Section Styling** - Applied clean light theme to all preset resizer sections (NSDL Photo, NSDL Signature, UTI Photo, UTI Signature)
 - **White Card Background** - Cards now use clean white background (#ffffff) with light gray borders (#e5e7eb)

@@ -2968,4 +2968,175 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
     initPresetResizers();
+    
+    // Custom Centimeter Resizer Functionality
+    function initCustomCmResizer() {
+        const widthInput = document.getElementById('custom-width');
+        const heightInput = document.getElementById('custom-height');
+        const dpiInput = document.getElementById('custom-dpi');
+        const maxSizeInput = document.getElementById('custom-maxsize');
+        const fileInput = document.getElementById('fileInput-custom-cm');
+        const uploadBox = document.querySelector('[data-section="custom-cm"]');
+        const resizeBtn = document.getElementById('resize-custom-cm');
+        const resetBtn = document.getElementById('reset-custom-cm');
+        const canvas = document.getElementById('canvas-custom-cm');
+        const previewContainer = document.getElementById('preview-custom-cm');
+        
+        if (!fileInput || !uploadBox) return;
+        
+        let customState = {
+            file: null,
+            image: null
+        };
+        
+        // File input change
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file && file.type.match('image.*')) {
+                handleCustomFileSelect(file);
+            }
+        });
+        
+        // Drag and drop
+        uploadBox.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadBox.classList.add('drag-over');
+        });
+        
+        uploadBox.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadBox.classList.remove('drag-over');
+        });
+        
+        uploadBox.addEventListener('drop', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadBox.classList.remove('drag-over');
+            
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.match('image.*')) {
+                handleCustomFileSelect(file);
+            }
+        });
+        
+        // Handle file selection
+        function handleCustomFileSelect(file) {
+            customState.file = file;
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    customState.image = img;
+                    resizeBtn.disabled = false;
+                };
+                img.src = e.target.result;
+            };
+            
+            reader.readAsDataURL(file);
+        }
+        
+        // Resize button click
+        resizeBtn.addEventListener('click', function() {
+            if (!customState.image) return;
+            
+            const widthCm = parseFloat(widthInput.value);
+            const heightCm = parseFloat(heightInput.value);
+            const dpi = parseInt(dpiInput.value);
+            const maxSizeKB = parseInt(maxSizeInput.value);
+            
+            // Calculate pixels from cm
+            const widthPx = Math.round((widthCm / 2.54) * dpi);
+            const heightPx = Math.round((heightCm / 2.54) * dpi);
+            
+            // Resize image
+            canvas.width = widthPx;
+            canvas.height = heightPx;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(customState.image, 0, 0, widthPx, heightPx);
+            
+            // Compress to target size
+            compressToSize(canvas, maxSizeKB, function(finalDataUrl) {
+                // Display result
+                const resultImg = new Image();
+                resultImg.onload = function() {
+                    canvas.style.display = 'block';
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(resultImg, 0, 0);
+                    
+                    const placeholder = previewContainer.querySelector('.preview-placeholder');
+                    if (placeholder) placeholder.style.display = 'none';
+                    
+                    // Add download button if not exists
+                    let downloadBtn = previewContainer.querySelector('.preset-download-btn');
+                    if (!downloadBtn) {
+                        downloadBtn = document.createElement('button');
+                        downloadBtn.className = 'preset-download-btn custom-resize-btn';
+                        downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download Image';
+                        downloadBtn.style.marginTop = '15px';
+                        previewContainer.appendChild(downloadBtn);
+                    }
+                    downloadBtn.style.display = 'flex';
+                    
+                    downloadBtn.onclick = function() {
+                        const link = document.createElement('a');
+                        link.download = `custom-resized-${widthCm}x${heightCm}cm-${dpi}dpi.jpg`;
+                        link.href = canvas.toDataURL('image/jpeg', 0.9);
+                        link.click();
+                    };
+                };
+                resultImg.src = finalDataUrl;
+            });
+        });
+        
+        // Reset button click
+        resetBtn.addEventListener('click', function() {
+            customState.file = null;
+            customState.image = null;
+            fileInput.value = '';
+            resizeBtn.disabled = true;
+            
+            canvas.style.display = 'none';
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const placeholder = previewContainer.querySelector('.preview-placeholder');
+            if (placeholder) placeholder.style.display = 'block';
+            
+            const downloadBtn = previewContainer.querySelector('.preset-download-btn');
+            if (downloadBtn) downloadBtn.style.display = 'none';
+            
+            // Reset inputs to default
+            widthInput.value = '2.5';
+            heightInput.value = '3.5';
+            dpiInput.value = '200';
+            maxSizeInput.value = '20';
+        });
+        
+        // Compress image to target size
+        function compressToSize(canvas, maxSizeKB, callback) {
+            let quality = 0.9;
+            let dataUrl = canvas.toDataURL('image/jpeg', quality);
+            
+            function checkSize() {
+                const sizeKB = Math.round((dataUrl.length * 3/4) / 1024);
+                if (sizeKB <= maxSizeKB || quality <= 0.1) {
+                    callback(dataUrl);
+                } else {
+                    quality -= 0.05;
+                    dataUrl = canvas.toDataURL('image/jpeg', quality);
+                    setTimeout(checkSize, 10);
+                }
+            }
+            
+            checkSize();
+        }
+    }
+    
+    // Initialize custom cm resizer
+    if (document.getElementById('custom-cm-resizer')) {
+        initCustomCmResizer();
+    }
 })();
