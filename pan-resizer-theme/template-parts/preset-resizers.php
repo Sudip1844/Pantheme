@@ -32,7 +32,7 @@
                         <input type="number" id="dpi-nsdl-photo" value="200" min="50" max="600" class="dpi-input">
                     </div>
                     <div class="calculated-info">
-                        <span>Calculated: <strong id="calc-nsdl-photo">197px (W) x 276px (H)</strong></span><br>
+                        <span>Calculated: <strong id="calc-nsdl-photo">197px (W) x 276px (H)</strong></span>
                         <span>Max Size: <strong>20 KB</strong></span>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                         <input type="number" id="dpi-nsdl-signature" value="200" min="50" max="600" class="dpi-input">
                     </div>
                     <div class="calculated-info">
-                        <span>Calculated: <strong id="calc-nsdl-signature">354px (W) x 157px (H)</strong></span><br>
+                        <span>Calculated: <strong id="calc-nsdl-signature">354px (W) x 157px (H)</strong></span>
                         <span>Max Size: <strong>10 KB</strong></span>
                     </div>
                 </div>
@@ -124,7 +124,7 @@
                         <input type="number" id="dpi-uti-photo" value="300" readonly class="dpi-input">
                     </div>
                     <div class="calculated-info">
-                        <span>Calculated: <strong id="calc-uti-photo">213px (W) x 213px (H)</strong></span><br>
+                        <span>Calculated: <strong id="calc-uti-photo">213px (W) x 213px (H)</strong></span>
                         <span>Max Size: <strong>30 KB</strong></span>
                     </div>
                 </div>
@@ -170,7 +170,7 @@
                         <input type="number" id="dpi-uti-signature" value="600" readonly class="dpi-input">
                     </div>
                     <div class="calculated-info">
-                        <span>Calculated: <strong id="calc-uti-signature">400px (W) x 200px (H)</strong></span><br>
+                        <span>Calculated: <strong id="calc-uti-signature">400px (W) x 200px (H)</strong></span>
                         <span>Max Size: <strong>60 KB</strong></span>
                     </div>
                 </div>
