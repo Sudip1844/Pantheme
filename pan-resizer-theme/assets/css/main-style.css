@@ -1909,14 +1909,15 @@ textarea:focus-visible,
 }
 
 .preset-controls {
-  background: #f9fafb;
-  border-radius: 12px;
-  padding: 20px;
-  border: 1px solid #e5e7eb;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
+  background: #f9fafb !important;
+  border-radius: 12px !important;
+  padding: 20px !important;
+  border: 1px solid #e5e7eb !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 20px !important;
 }
 
 .dpi-control {
@@ -1933,11 +1934,11 @@ textarea:focus-visible,
 }
 
 .dpi-input {
-  width: 100px;
-  padding: 8px 12px;
+  width: 120px;
+  padding: 10px 16px;
   border: 2px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 14px;
+  border-radius: 8px;
+  font-size: 16px;
   font-weight: 600;
   color: #1f2937;
   background: #fff;
@@ -1956,11 +1957,12 @@ textarea:focus-visible,
 }
 
 .calculated-info {
-  background: #ffffff;
-  padding: 15px 20px;
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
-  flex: 1;
+  background: #ffffff !important;
+  padding: 15px 20px !important;
+  border-radius: 8px !important;
+  border: 1px solid #e5e7eb !important;
+  flex: 1 !important;
+  min-width: 0 !important;
 }
 
 .calculated-info span {
