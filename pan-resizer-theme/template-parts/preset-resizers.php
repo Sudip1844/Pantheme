@@ -23,7 +23,7 @@
                         </svg>
                         <p class="upload-hint">Drop image here or <span class="browse-text">browse</span></p>
                     </div>
-                    <canvas id="canvas-nsdl-photo" class="preview-canvas" style="display:none;"></canvas>
+                    <canvas id="canvas-nsdl-photo" class="preview-canvas"></canvas>
                 </label>
                 <input type="file" class="file-input" id="fileInput-nsdl-photo" accept="image/jpeg,image/png,image/webp" style="display: none;">
             </div>
@@ -63,7 +63,7 @@
                         </svg>
                         <p class="upload-hint">Drop image here or <span class="browse-text">browse</span></p>
                     </div>
-                    <canvas id="canvas-nsdl-signature" class="preview-canvas" style="display:none;"></canvas>
+                    <canvas id="canvas-nsdl-signature" class="preview-canvas"></canvas>
                 </label>
                 <input type="file" class="file-input" id="fileInput-nsdl-signature" accept="image/jpeg,image/png,image/webp" style="display: none;">
             </div>
@@ -103,7 +103,7 @@
                         </svg>
                         <p class="upload-hint">Drop image here or <span class="browse-text">browse</span></p>
                     </div>
-                    <canvas id="canvas-uti-photo" class="preview-canvas" style="display:none;"></canvas>
+                    <canvas id="canvas-uti-photo" class="preview-canvas"></canvas>
                 </label>
                 <input type="file" class="file-input" id="fileInput-uti-photo" accept="image/jpeg,image/png,image/webp" style="display: none;">
             </div>
@@ -143,7 +143,7 @@
                         </svg>
                         <p class="upload-hint">Drop image here or <span class="browse-text">browse</span></p>
                     </div>
-                    <canvas id="canvas-uti-signature" class="preview-canvas" style="display:none;"></canvas>
+                    <canvas id="canvas-uti-signature" class="preview-canvas"></canvas>
                 </label>
                 <input type="file" class="file-input" id="fileInput-uti-signature" accept="image/jpeg,image/png,image/webp" style="display: none;">
             </div>
@@ -211,7 +211,7 @@
                         </svg>
                         <p class="upload-hint">Drop image here or <span class="browse-text custom-browse">browse</span></p>
                     </div>
-                    <canvas id="canvas-custom-cm" class="preview-canvas" style="display:none;"></canvas>
+                    <canvas id="canvas-custom-cm" class="preview-canvas"></canvas>
                 </label>
                 <input type="file" class="file-input" id="fileInput-custom-cm" accept="image/jpeg,image/png,image/webp" style="display: none;">
             </div>

@@ -1886,6 +1886,7 @@ textarea:focus-visible,
   border-radius: 8px;
   object-fit: contain;
   pointer-events: none;
+  display: none;
 }
 
 .preset-upload:hover {

@@ -2766,10 +2766,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Click to upload
-        uploadBox.addEventListener('click', function() {
-            fileInput.click();
-        });
+        // Label's "for" attribute handles file input click automatically
+        // No need for manual click handler to avoid double trigger
 
         // DPI change handler (for adjustable DPI sections)
         if (dpiInput && !dpiInput.hasAttribute('readonly')) {
@@ -2885,8 +2883,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Compress to target size
         compressCanvas(canvas, config.maxSize, function(compressedDataUrl) {
-            // Show canvas in upload box
+            // Show canvas in upload box - remove inline display:none
             canvas.style.display = 'block';
+            canvas.style.visibility = 'visible';
             
             // Ensure upload box has has-image class
             if (uploadBox) {
@@ -2962,6 +2961,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (fileInput) fileInput.value = '';
         if (canvas) {
             canvas.style.display = 'none';
+            canvas.style.visibility = 'hidden';
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
