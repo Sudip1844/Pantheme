@@ -2805,8 +2805,15 @@ document.addEventListener('DOMContentLoaded', function() {
             img.onload = function() {
                 presetStates[sectionId].image = img;
                 const resizeBtn = document.getElementById(`resize-${sectionId}`);
+                const uploadBox = document.querySelector(`[data-section="${sectionId}"]`);
+                
                 if (resizeBtn) {
                     resizeBtn.disabled = false;
+                }
+                
+                // Add has-image class to upload box
+                if (uploadBox) {
+                    uploadBox.classList.add('has-image');
                 }
             };
             img.src = e.target.result;
@@ -2844,8 +2851,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const config = state.config;
         const canvas = document.getElementById(`canvas-${sectionId}`);
         const ctx = canvas.getContext('2d');
-        const previewContainer = document.getElementById(`preview-${sectionId}`);
-        const placeholder = previewContainer.querySelector('.preview-placeholder');
+        const uploadBox = document.querySelector(`[data-section="${sectionId}"]`);
         const dpiInput = document.getElementById(`dpi-${sectionId}`);
 
         let targetWidth, targetHeight;
@@ -2879,9 +2885,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Compress to target size
         compressCanvas(canvas, config.maxSize, function(compressedDataUrl) {
-            // Show preview
-            if (placeholder) placeholder.style.display = 'none';
+            // Show canvas in upload box
             canvas.style.display = 'block';
+            
+            // Ensure upload box has has-image class
+            if (uploadBox) {
+                uploadBox.classList.add('has-image');
+            }
             
             // Add download button if not exists
             addDownloadButton(sectionId, compressedDataUrl, targetWidth, targetHeight);
@@ -2914,32 +2924,34 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function addDownloadButton(sectionId, dataUrl, width, height) {
-        const previewContainer = document.getElementById(`preview-${sectionId}`);
-        let downloadBtn = previewContainer.querySelector('.preset-download-btn');
+        const uploadArea = document.getElementById(`upload-${sectionId}`);
+        let downloadBtn = uploadArea ? uploadArea.querySelector('.preset-download-btn') : null;
         
-        if (!downloadBtn) {
+        if (!downloadBtn && uploadArea) {
             downloadBtn = document.createElement('button');
             downloadBtn.className = 'preset-download-btn';
             downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download Resized Image';
-            previewContainer.appendChild(downloadBtn);
+            uploadArea.appendChild(downloadBtn);
         }
 
-        downloadBtn.onclick = function() {
-            const link = document.createElement('a');
-            link.download = `${sectionId}-${width}x${height}.jpg`;
-            link.href = dataUrl;
-            link.click();
-        };
+        if (downloadBtn) {
+            downloadBtn.onclick = function() {
+                const link = document.createElement('a');
+                link.download = `${sectionId}-${width}x${height}.jpg`;
+                link.href = dataUrl;
+                link.click();
+            };
 
-        downloadBtn.style.display = 'flex';
+            downloadBtn.style.display = 'flex';
+        }
     }
 
     function resetPreset(sectionId) {
         const fileInput = document.getElementById(`fileInput-${sectionId}`);
         const canvas = document.getElementById(`canvas-${sectionId}`);
-        const previewContainer = document.getElementById(`preview-${sectionId}`);
-        const placeholder = previewContainer.querySelector('.preview-placeholder');
-        const downloadBtn = previewContainer.querySelector('.preset-download-btn');
+        const uploadBox = document.querySelector(`[data-section="${sectionId}"]`);
+        const uploadArea = document.getElementById(`upload-${sectionId}`);
+        const downloadBtn = uploadArea ? uploadArea.querySelector('.preset-download-btn') : null;
         const resizeBtn = document.getElementById(`resize-${sectionId}`);
 
         // Reset state
@@ -2953,7 +2965,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
-        if (placeholder) placeholder.style.display = 'block';
+        
+        // Remove has-image class from upload box
+        if (uploadBox) {
+            uploadBox.classList.remove('has-image');
+        }
+        
         if (downloadBtn) downloadBtn.style.display = 'none';
         if (resizeBtn) resizeBtn.disabled = true;
 
