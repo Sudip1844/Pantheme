@@ -2818,7 +2818,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Display preview on canvas
                 if (canvas) {
-                    // Calculate display size while maintaining aspect ratio
                     const maxDisplayWidth = 300;
                     const maxDisplayHeight = 300;
                     let displayWidth = img.width;
@@ -2837,35 +2836,24 @@ document.addEventListener('DOMContentLoaded', function() {
                     canvas.style.display = 'block';
                 }
                 
-                // Hide upload content and show image info
+                // Hide upload content
                 if (uploadContent) {
                     uploadContent.style.display = 'none';
                 }
                 
-                // Create or update image info overlay
-                let infoOverlay = uploadBox ? uploadBox.querySelector('.preset-image-info') : null;
-                if (!infoOverlay && uploadBox) {
-                    infoOverlay = document.createElement('div');
-                    infoOverlay.className = 'preset-image-info';
-                    uploadBox.appendChild(infoOverlay);
-                }
+                // Update info bar with dimensions and size
+                const infoBar = document.getElementById(`info-bar-${sectionId}`);
+                const dimensionText = document.getElementById(`dimension-${sectionId}`);
+                const sizeText = document.getElementById(`size-${sectionId}`);
                 
-                if (infoOverlay) {
+                if (infoBar && dimensionText && sizeText) {
                     const fileSizeKB = (file.size / 1024).toFixed(2);
                     const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
                     const displaySize = file.size >= 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
                     
-                    infoOverlay.innerHTML = `
-                        <div class="info-row">
-                            <span class="info-label">Original:</span>
-                            <span class="info-value">${img.width} x ${img.height} px</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Size:</span>
-                            <span class="info-value">${displaySize}</span>
-                        </div>
-                    `;
-                    infoOverlay.style.display = 'block';
+                    dimensionText.textContent = `${img.width} × ${img.height} px`;
+                    sizeText.textContent = displaySize;
+                    infoBar.classList.add('is-visible');
                 }
             };
             img.src = e.target.result;
@@ -2977,25 +2965,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function addDownloadButton(sectionId, dataUrl, width, height) {
-        const uploadArea = document.getElementById(`upload-${sectionId}`);
-        let downloadBtn = uploadArea ? uploadArea.querySelector('.preset-download-btn') : null;
+        const downloadBtn = document.getElementById(`download-${sectionId}`);
+        const filenameInput = document.getElementById(`filename-${sectionId}`);
         
-        if (!downloadBtn && uploadArea) {
-            downloadBtn = document.createElement('button');
-            downloadBtn.className = 'preset-download-btn';
-            downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download Resized Image';
-            uploadArea.appendChild(downloadBtn);
-        }
+        // Store dataUrl for download
+        presetStates[sectionId].resizedDataUrl = dataUrl;
+        presetStates[sectionId].resizedDimensions = { width, height };
 
         if (downloadBtn) {
             downloadBtn.onclick = function() {
                 const link = document.createElement('a');
-                link.download = `${sectionId}-${width}x${height}.jpg`;
+                let filename = '';
+                
+                // Check if custom filename is provided
+                if (filenameInput && filenameInput.value.trim()) {
+                    filename = filenameInput.value.trim();
+                    // Remove .jpg/.jpeg extension if user added it
+                    filename = filename.replace(/\.(jpg|jpeg)$/i, '');
+                    // Sanitize filename
+                    filename = filename.replace(/[^a-z0-9_-]/gi, '_');
+                } else {
+                    // Use auto-generated filename
+                    filename = `${sectionId}-${width}x${height}`;
+                }
+                
+                link.download = `${filename}.jpg`;
                 link.href = dataUrl;
                 link.click();
             };
 
-            downloadBtn.style.display = 'flex';
+            downloadBtn.style.display = 'inline-flex';
         }
     }
 
@@ -3003,15 +3002,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const fileInput = document.getElementById(`fileInput-${sectionId}`);
         const canvas = document.getElementById(`canvas-${sectionId}`);
         const uploadBox = document.querySelector(`[data-section="${sectionId}"]`);
-        const uploadArea = document.getElementById(`upload-${sectionId}`);
-        const downloadBtn = uploadArea ? uploadArea.querySelector('.preset-download-btn') : null;
         const resizeBtn = document.getElementById(`resize-${sectionId}`);
         const uploadContent = uploadBox ? uploadBox.querySelector('.upload-content') : null;
-        const imageInfo = uploadBox ? uploadBox.querySelector('.preset-image-info') : null;
+        const infoBar = document.getElementById(`info-bar-${sectionId}`);
+        const downloadBtn = document.getElementById(`download-${sectionId}`);
+        const filenameInput = document.getElementById(`filename-${sectionId}`);
 
         // Reset state
         presetStates[sectionId].file = null;
         presetStates[sectionId].image = null;
+        presetStates[sectionId].resizedDataUrl = null;
+        presetStates[sectionId].resizedDimensions = null;
 
         // Reset UI
         if (fileInput) fileInput.value = '';
@@ -3032,12 +3033,15 @@ document.addEventListener('DOMContentLoaded', function() {
             uploadContent.style.display = 'flex';
         }
         
-        // Hide/remove image info overlay
-        if (imageInfo) {
-            imageInfo.style.display = 'none';
+        // Hide info bar
+        if (infoBar) {
+            infoBar.classList.remove('is-visible');
         }
         
+        // Hide download button and clear filename input
         if (downloadBtn) downloadBtn.style.display = 'none';
+        if (filenameInput) filenameInput.value = '';
+        
         if (resizeBtn) resizeBtn.disabled = true;
 
         // Reset DPI to default (if not readonly)
@@ -3119,7 +3123,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Display preview on canvas
                     if (canvas) {
-                        // Calculate display size while maintaining aspect ratio
                         const maxDisplayWidth = 300;
                         const maxDisplayHeight = 300;
                         let displayWidth = img.width;
@@ -3138,7 +3141,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         canvas.style.display = 'block';
                     }
                     
-                    // Hide upload content and show image info
+                    // Hide upload content
                     if (uploadContent) {
                         uploadContent.style.display = 'none';
                     }
@@ -3148,30 +3151,19 @@ document.addEventListener('DOMContentLoaded', function() {
                         uploadBox.classList.add('has-image');
                     }
                     
-                    // Create or update image info overlay
-                    let infoOverlay = uploadBox ? uploadBox.querySelector('.preset-image-info') : null;
-                    if (!infoOverlay && uploadBox) {
-                        infoOverlay = document.createElement('div');
-                        infoOverlay.className = 'preset-image-info';
-                        uploadBox.appendChild(infoOverlay);
-                    }
+                    // Update info bar with dimensions and size
+                    const infoBar = document.getElementById('info-bar-custom-cm');
+                    const dimensionText = document.getElementById('dimension-custom-cm');
+                    const sizeText = document.getElementById('size-custom-cm');
                     
-                    if (infoOverlay) {
+                    if (infoBar && dimensionText && sizeText) {
                         const fileSizeKB = (file.size / 1024).toFixed(2);
                         const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
                         const displaySize = file.size >= 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
                         
-                        infoOverlay.innerHTML = `
-                            <div class="info-row">
-                                <span class="info-label">Original:</span>
-                                <span class="info-value">${img.width} x ${img.height} px</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-label">Size:</span>
-                                <span class="info-value">${displaySize}</span>
-                            </div>
-                        `;
-                        infoOverlay.style.display = 'block';
+                        dimensionText.textContent = `${img.width} × ${img.height} px`;
+                        sizeText.textContent = displaySize;
+                        infoBar.classList.add('is-visible');
                     }
                 };
                 img.src = e.target.result;
@@ -3208,26 +3200,34 @@ document.addEventListener('DOMContentLoaded', function() {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     ctx.drawImage(resultImg, 0, 0);
                     
-                    const placeholder = previewContainer.querySelector('.preview-placeholder');
-                    if (placeholder) placeholder.style.display = 'none';
+                    // Show download button in info bar
+                    const downloadBtn = document.getElementById('download-custom-cm');
+                    const filenameInput = document.getElementById('filename-custom-cm');
                     
-                    // Add download button if not exists
-                    let downloadBtn = previewContainer.querySelector('.preset-download-btn');
-                    if (!downloadBtn) {
-                        downloadBtn = document.createElement('button');
-                        downloadBtn.className = 'preset-download-btn custom-resize-btn';
-                        downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download Image';
-                        downloadBtn.style.marginTop = '15px';
-                        previewContainer.appendChild(downloadBtn);
+                    if (downloadBtn) {
+                        downloadBtn.onclick = function() {
+                            const link = document.createElement('a');
+                            let filename = '';
+                            
+                            // Check if custom filename is provided
+                            if (filenameInput && filenameInput.value.trim()) {
+                                filename = filenameInput.value.trim();
+                                // Remove .jpg/.jpeg extension if user added it
+                                filename = filename.replace(/\.(jpg|jpeg)$/i, '');
+                                // Sanitize filename
+                                filename = filename.replace(/[^a-z0-9_-]/gi, '_');
+                            } else {
+                                // Use auto-generated filename
+                                filename = `custom-resized-${widthCm}x${heightCm}cm-${dpi}dpi`;
+                            }
+                            
+                            link.download = `${filename}.jpg`;
+                            link.href = finalDataUrl;
+                            link.click();
+                        };
+                        
+                        downloadBtn.style.display = 'inline-flex';
                     }
-                    downloadBtn.style.display = 'flex';
-                    
-                    downloadBtn.onclick = function() {
-                        const link = document.createElement('a');
-                        link.download = `custom-resized-${widthCm}x${heightCm}cm-${dpi}dpi.jpg`;
-                        link.href = canvas.toDataURL('image/jpeg', 0.9);
-                        link.click();
-                    };
                 };
                 resultImg.src = finalDataUrl;
             });
@@ -3244,12 +3244,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            const placeholder = previewContainer.querySelector('.preview-placeholder');
-            if (placeholder) placeholder.style.display = 'block';
-            
-            const downloadBtn = previewContainer.querySelector('.preset-download-btn');
-            if (downloadBtn) downloadBtn.style.display = 'none';
-            
             // Show upload content again
             const uploadContent = uploadBox ? uploadBox.querySelector('.upload-content') : null;
             if (uploadContent) {
@@ -3261,11 +3255,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 uploadBox.classList.remove('has-image');
             }
             
-            // Hide/remove image info overlay
-            const imageInfo = uploadBox ? uploadBox.querySelector('.preset-image-info') : null;
-            if (imageInfo) {
-                imageInfo.style.display = 'none';
+            // Hide info bar
+            const infoBar = document.getElementById('info-bar-custom-cm');
+            if (infoBar) {
+                infoBar.classList.remove('is-visible');
             }
+            
+            // Hide download button and clear filename input
+            const downloadBtn = document.getElementById('download-custom-cm');
+            const filenameInput = document.getElementById('filename-custom-cm');
+            if (downloadBtn) downloadBtn.style.display = 'none';
+            if (filenameInput) filenameInput.value = '';
             
             // Reset inputs to default
             widthInput.value = '2.5';
