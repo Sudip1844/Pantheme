@@ -2804,6 +2804,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 presetStates[sectionId].image = img;
                 const resizeBtn = document.getElementById(`resize-${sectionId}`);
                 const uploadBox = document.querySelector(`[data-section="${sectionId}"]`);
+                const canvas = document.getElementById(`canvas-${sectionId}`);
+                const uploadContent = uploadBox ? uploadBox.querySelector('.upload-content') : null;
                 
                 if (resizeBtn) {
                     resizeBtn.disabled = false;
@@ -2812,6 +2814,58 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Add has-image class to upload box
                 if (uploadBox) {
                     uploadBox.classList.add('has-image');
+                }
+                
+                // Display preview on canvas
+                if (canvas) {
+                    // Calculate display size while maintaining aspect ratio
+                    const maxDisplayWidth = 300;
+                    const maxDisplayHeight = 300;
+                    let displayWidth = img.width;
+                    let displayHeight = img.height;
+                    
+                    if (displayWidth > maxDisplayWidth || displayHeight > maxDisplayHeight) {
+                        const ratio = Math.min(maxDisplayWidth / displayWidth, maxDisplayHeight / displayHeight);
+                        displayWidth = displayWidth * ratio;
+                        displayHeight = displayHeight * ratio;
+                    }
+                    
+                    canvas.width = displayWidth;
+                    canvas.height = displayHeight;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, displayWidth, displayHeight);
+                    canvas.style.display = 'block';
+                }
+                
+                // Hide upload content and show image info
+                if (uploadContent) {
+                    uploadContent.style.display = 'none';
+                }
+                
+                // Create or update image info overlay
+                let infoOverlay = uploadBox ? uploadBox.querySelector('.preset-image-info') : null;
+                if (!infoOverlay && uploadBox) {
+                    infoOverlay = document.createElement('div');
+                    infoOverlay.className = 'preset-image-info';
+                    uploadBox.appendChild(infoOverlay);
+                }
+                
+                if (infoOverlay) {
+                    const fileSizeKB = (file.size / 1024).toFixed(2);
+                    const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                    const displaySize = file.size >= 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
+                    
+                    infoOverlay.innerHTML = `
+                        <div class="info-row">
+                            <span class="info-label">Original:</span>
+                            <span class="info-value">${img.width} x ${img.height} px</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Size:</span>
+                            <span class="info-value">${displaySize}</span>
+                        </div>
+                    `;
+                    infoOverlay.style.display = 'block';
                 }
             };
             img.src = e.target.result;
@@ -2952,6 +3006,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const uploadArea = document.getElementById(`upload-${sectionId}`);
         const downloadBtn = uploadArea ? uploadArea.querySelector('.preset-download-btn') : null;
         const resizeBtn = document.getElementById(`resize-${sectionId}`);
+        const uploadContent = uploadBox ? uploadBox.querySelector('.upload-content') : null;
+        const imageInfo = uploadBox ? uploadBox.querySelector('.preset-image-info') : null;
 
         // Reset state
         presetStates[sectionId].file = null;
@@ -2969,6 +3025,16 @@ document.addEventListener('DOMContentLoaded', function() {
         // Remove has-image class from upload box
         if (uploadBox) {
             uploadBox.classList.remove('has-image');
+        }
+        
+        // Show upload content again
+        if (uploadContent) {
+            uploadContent.style.display = 'flex';
+        }
+        
+        // Hide/remove image info overlay
+        if (imageInfo) {
+            imageInfo.style.display = 'none';
         }
         
         if (downloadBtn) downloadBtn.style.display = 'none';
@@ -3048,6 +3114,65 @@ document.addEventListener('DOMContentLoaded', function() {
                 img.onload = function() {
                     customState.image = img;
                     resizeBtn.disabled = false;
+                    
+                    const uploadContent = uploadBox ? uploadBox.querySelector('.upload-content') : null;
+                    
+                    // Display preview on canvas
+                    if (canvas) {
+                        // Calculate display size while maintaining aspect ratio
+                        const maxDisplayWidth = 300;
+                        const maxDisplayHeight = 300;
+                        let displayWidth = img.width;
+                        let displayHeight = img.height;
+                        
+                        if (displayWidth > maxDisplayWidth || displayHeight > maxDisplayHeight) {
+                            const ratio = Math.min(maxDisplayWidth / displayWidth, maxDisplayHeight / displayHeight);
+                            displayWidth = displayWidth * ratio;
+                            displayHeight = displayHeight * ratio;
+                        }
+                        
+                        canvas.width = displayWidth;
+                        canvas.height = displayHeight;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, displayWidth, displayHeight);
+                        canvas.style.display = 'block';
+                    }
+                    
+                    // Hide upload content and show image info
+                    if (uploadContent) {
+                        uploadContent.style.display = 'none';
+                    }
+                    
+                    // Add has-image class to upload box
+                    if (uploadBox) {
+                        uploadBox.classList.add('has-image');
+                    }
+                    
+                    // Create or update image info overlay
+                    let infoOverlay = uploadBox ? uploadBox.querySelector('.preset-image-info') : null;
+                    if (!infoOverlay && uploadBox) {
+                        infoOverlay = document.createElement('div');
+                        infoOverlay.className = 'preset-image-info';
+                        uploadBox.appendChild(infoOverlay);
+                    }
+                    
+                    if (infoOverlay) {
+                        const fileSizeKB = (file.size / 1024).toFixed(2);
+                        const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                        const displaySize = file.size >= 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
+                        
+                        infoOverlay.innerHTML = `
+                            <div class="info-row">
+                                <span class="info-label">Original:</span>
+                                <span class="info-value">${img.width} x ${img.height} px</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Size:</span>
+                                <span class="info-value">${displaySize}</span>
+                            </div>
+                        `;
+                        infoOverlay.style.display = 'block';
+                    }
                 };
                 img.src = e.target.result;
             };
@@ -3124,6 +3249,23 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const downloadBtn = previewContainer.querySelector('.preset-download-btn');
             if (downloadBtn) downloadBtn.style.display = 'none';
+            
+            // Show upload content again
+            const uploadContent = uploadBox ? uploadBox.querySelector('.upload-content') : null;
+            if (uploadContent) {
+                uploadContent.style.display = 'flex';
+            }
+            
+            // Remove has-image class from upload box
+            if (uploadBox) {
+                uploadBox.classList.remove('has-image');
+            }
+            
+            // Hide/remove image info overlay
+            const imageInfo = uploadBox ? uploadBox.querySelector('.preset-image-info') : null;
+            if (imageInfo) {
+                imageInfo.style.display = 'none';
+            }
             
             // Reset inputs to default
             widthInput.value = '2.5';
