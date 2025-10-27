@@ -23,21 +23,11 @@
                         </svg>
                         <p class="upload-hint">Drop image here or <span class="browse-text">browse</span></p>
                     </div>
-                    <canvas id="canvas-nsdl-photo" class="preview-canvas"></canvas>
                 </label>
                 <input type="file" class="file-input" id="fileInput-nsdl-photo" accept="image/jpeg,image/png,image/webp" style="display: none;">
-            </div>
-            
-            <div class="preset-info-bar" id="info-bar-nsdl-photo">
-                <div class="info-display">
-                    <span class="dimension-text" id="dimension-nsdl-photo">-</span>
-                    <span class="size-text" id="size-nsdl-photo">-</span>
-                </div>
-                <div class="download-controls">
-                    <input type="text" class="filename-input" id="filename-nsdl-photo" placeholder="Enter filename (optional)">
-                    <button class="download-btn-preset" id="download-nsdl-photo" style="display: none;">
-                        <i class="fas fa-download"></i> Download
-                    </button>
+                
+                <div class="file-preview" id="preview-nsdl-photo" style="display: none;">
+                    <!-- Preview will be added here by JavaScript -->
                 </div>
             </div>
             
@@ -54,6 +44,9 @@
             
             <div class="preset-actions">
                 <button class="resize-btn" id="resize-nsdl-photo" disabled>Resize Image</button>
+                <button class="download-btn-preset" id="download-nsdl-photo" style="display: none;">
+                    <i class="fas fa-download"></i> Download
+                </button>
                 <button class="reset-btn-preset" id="reset-nsdl-photo">Reset</button>
             </div>
         </div>
@@ -76,21 +69,11 @@
                         </svg>
                         <p class="upload-hint">Drop image here or <span class="browse-text">browse</span></p>
                     </div>
-                    <canvas id="canvas-nsdl-signature" class="preview-canvas"></canvas>
                 </label>
                 <input type="file" class="file-input" id="fileInput-nsdl-signature" accept="image/jpeg,image/png,image/webp" style="display: none;">
-            </div>
-            
-            <div class="preset-info-bar" id="info-bar-nsdl-signature">
-                <div class="info-display">
-                    <span class="dimension-text" id="dimension-nsdl-signature">-</span>
-                    <span class="size-text" id="size-nsdl-signature">-</span>
-                </div>
-                <div class="download-controls">
-                    <input type="text" class="filename-input" id="filename-nsdl-signature" placeholder="Enter filename (optional)">
-                    <button class="download-btn-preset" id="download-nsdl-signature" style="display: none;">
-                        <i class="fas fa-download"></i> Download
-                    </button>
+                
+                <div class="file-preview" id="preview-nsdl-signature" style="display: none;">
+                    <!-- Preview will be added here by JavaScript -->
                 </div>
             </div>
             
@@ -107,6 +90,9 @@
             
             <div class="preset-actions">
                 <button class="resize-btn" id="resize-nsdl-signature" disabled>Resize Image</button>
+                <button class="download-btn-preset" id="download-nsdl-signature" style="display: none;">
+                    <i class="fas fa-download"></i> Download
+                </button>
                 <button class="reset-btn-preset" id="reset-nsdl-signature">Reset</button>
             </div>
         </div>
@@ -129,21 +115,11 @@
                         </svg>
                         <p class="upload-hint">Drop image here or <span class="browse-text">browse</span></p>
                     </div>
-                    <canvas id="canvas-uti-photo" class="preview-canvas"></canvas>
                 </label>
                 <input type="file" class="file-input" id="fileInput-uti-photo" accept="image/jpeg,image/png,image/webp" style="display: none;">
-            </div>
-            
-            <div class="preset-info-bar" id="info-bar-uti-photo">
-                <div class="info-display">
-                    <span class="dimension-text" id="dimension-uti-photo">-</span>
-                    <span class="size-text" id="size-uti-photo">-</span>
-                </div>
-                <div class="download-controls">
-                    <input type="text" class="filename-input" id="filename-uti-photo" placeholder="Enter filename (optional)">
-                    <button class="download-btn-preset" id="download-uti-photo" style="display: none;">
-                        <i class="fas fa-download"></i> Download
-                    </button>
+                
+                <div class="file-preview" id="preview-uti-photo" style="display: none;">
+                    <!-- Preview will be added here by JavaScript -->
                 </div>
             </div>
             
@@ -160,6 +136,9 @@
             
             <div class="preset-actions">
                 <button class="resize-btn" id="resize-uti-photo" disabled>Resize Image</button>
+                <button class="download-btn-preset" id="download-uti-photo" style="display: none;">
+                    <i class="fas fa-download"></i> Download
+                </button>
                 <button class="reset-btn-preset" id="reset-uti-photo">Reset</button>
             </div>
         </div>
@@ -182,21 +161,11 @@
                         </svg>
                         <p class="upload-hint">Drop image here or <span class="browse-text">browse</span></p>
                     </div>
-                    <canvas id="canvas-uti-signature" class="preview-canvas"></canvas>
                 </label>
                 <input type="file" class="file-input" id="fileInput-uti-signature" accept="image/jpeg,image/png,image/webp" style="display: none;">
-            </div>
-            
-            <div class="preset-info-bar" id="info-bar-uti-signature">
-                <div class="info-display">
-                    <span class="dimension-text" id="dimension-uti-signature">-</span>
-                    <span class="size-text" id="size-uti-signature">-</span>
-                </div>
-                <div class="download-controls">
-                    <input type="text" class="filename-input" id="filename-uti-signature" placeholder="Enter filename (optional)">
-                    <button class="download-btn-preset" id="download-uti-signature" style="display: none;">
-                        <i class="fas fa-download"></i> Download
-                    </button>
+                
+                <div class="file-preview" id="preview-uti-signature" style="display: none;">
+                    <!-- Preview will be added here by JavaScript -->
                 </div>
             </div>
             
@@ -213,6 +182,9 @@
             
             <div class="preset-actions">
                 <button class="resize-btn" id="resize-uti-signature" disabled>Resize Image</button>
+                <button class="download-btn-preset" id="download-uti-signature" style="display: none;">
+                    <i class="fas fa-download"></i> Download
+                </button>
                 <button class="reset-btn-preset" id="reset-uti-signature">Reset</button>
             </div>
         </div>
@@ -263,26 +235,19 @@
                         </svg>
                         <p class="upload-hint">Drop image here or <span class="browse-text custom-browse">browse</span></p>
                     </div>
-                    <canvas id="canvas-custom-cm" class="preview-canvas"></canvas>
                 </label>
                 <input type="file" class="file-input" id="fileInput-custom-cm" accept="image/jpeg,image/png,image/webp" style="display: none;">
-            </div>
-            
-            <div class="preset-info-bar" id="info-bar-custom-cm">
-                <div class="info-display">
-                    <span class="dimension-text" id="dimension-custom-cm">-</span>
-                    <span class="size-text" id="size-custom-cm">-</span>
-                </div>
-                <div class="download-controls">
-                    <input type="text" class="filename-input" id="filename-custom-cm" placeholder="Enter filename (optional)">
-                    <button class="download-btn-preset custom-resize-btn" id="download-custom-cm" style="display: none;">
-                        <i class="fas fa-download"></i> Download
-                    </button>
+                
+                <div class="file-preview" id="preview-custom-cm" style="display: none;">
+                    <!-- Preview will be added here by JavaScript -->
                 </div>
             </div>
             
             <div class="preset-actions">
                 <button class="resize-btn custom-resize-btn" id="resize-custom-cm" disabled>Resize Image</button>
+                <button class="download-btn-preset custom-resize-btn" id="download-custom-cm" style="display: none;">
+                    <i class="fas fa-download"></i> Download
+                </button>
                 <button class="reset-btn-preset" id="reset-custom-cm">Reset</button>
             </div>
         </div>

@@ -2804,56 +2804,64 @@ document.addEventListener('DOMContentLoaded', function() {
                 presetStates[sectionId].image = img;
                 const resizeBtn = document.getElementById(`resize-${sectionId}`);
                 const uploadBox = document.querySelector(`[data-section="${sectionId}"]`);
-                const canvas = document.getElementById(`canvas-${sectionId}`);
                 const uploadContent = uploadBox ? uploadBox.querySelector('.upload-content') : null;
+                const filePreview = document.getElementById(`preview-${sectionId}`);
                 
                 if (resizeBtn) {
                     resizeBtn.disabled = false;
                 }
                 
-                // Add has-image class to upload box
+                // Hide upload box
                 if (uploadBox) {
-                    uploadBox.classList.add('has-image');
+                    uploadBox.style.display = 'none';
                 }
                 
-                // Display preview on canvas
-                if (canvas) {
-                    const maxDisplayWidth = 300;
-                    const maxDisplayHeight = 300;
-                    let displayWidth = img.width;
-                    let displayHeight = img.height;
+                // Create file preview like home section
+                if (filePreview) {
+                    filePreview.innerHTML = '';
                     
-                    if (displayWidth > maxDisplayWidth || displayHeight > maxDisplayHeight) {
-                        const ratio = Math.min(maxDisplayWidth / displayWidth, maxDisplayHeight / displayHeight);
-                        displayWidth = displayWidth * ratio;
-                        displayHeight = displayHeight * ratio;
-                    }
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
                     
-                    canvas.width = displayWidth;
-                    canvas.height = displayHeight;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, displayWidth, displayHeight);
-                    canvas.style.display = 'block';
-                }
-                
-                // Hide upload content
-                if (uploadContent) {
-                    uploadContent.style.display = 'none';
-                }
-                
-                // Update info bar with dimensions and size
-                const infoBar = document.getElementById(`info-bar-${sectionId}`);
-                const dimensionText = document.getElementById(`dimension-${sectionId}`);
-                const sizeText = document.getElementById(`size-${sectionId}`);
-                
-                if (infoBar && dimensionText && sizeText) {
+                    const fileImage = document.createElement('img');
+                    fileImage.className = 'file-image';
+                    fileImage.src = e.target.result;
+                    
+                    const fileInfo = document.createElement('div');
+                    fileInfo.className = 'file-info';
+                    
+                    const fileDetails = document.createElement('div');
+                    fileDetails.className = 'file-details';
+                    
+                    const fileDimensions = document.createElement('div');
+                    fileDimensions.className = 'file-dimensions';
+                    fileDimensions.textContent = `${img.width} × ${img.height} px`;
+                    
+                    const fileSize = document.createElement('div');
+                    fileSize.className = 'file-size';
                     const fileSizeKB = (file.size / 1024).toFixed(2);
                     const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
-                    const displaySize = file.size >= 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
+                    fileSize.textContent = file.size >= 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
                     
-                    dimensionText.textContent = `${img.width} × ${img.height} px`;
-                    sizeText.textContent = displaySize;
-                    infoBar.classList.add('is-visible');
+                    fileDetails.appendChild(fileDimensions);
+                    fileDetails.appendChild(fileSize);
+                    
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'delete-btn';
+                    deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+                    deleteBtn.setAttribute('aria-label', 'Delete file');
+                    deleteBtn.onclick = function() {
+                        resetPreset(sectionId);
+                    };
+                    
+                    fileInfo.appendChild(fileDetails);
+                    fileInfo.appendChild(deleteBtn);
+                    
+                    fileItem.appendChild(fileImage);
+                    fileItem.appendChild(fileInfo);
+                    
+                    filePreview.appendChild(fileItem);
+                    filePreview.style.display = 'block';
                 }
             };
             img.src = e.target.result;
@@ -2966,7 +2974,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function addDownloadButton(sectionId, dataUrl, width, height) {
         const downloadBtn = document.getElementById(`download-${sectionId}`);
-        const filenameInput = document.getElementById(`filename-${sectionId}`);
         
         // Store dataUrl for download
         presetStates[sectionId].resizedDataUrl = dataUrl;
@@ -2975,19 +2982,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (downloadBtn) {
             downloadBtn.onclick = function() {
                 const link = document.createElement('a');
-                let filename = '';
-                
-                // Check if custom filename is provided
-                if (filenameInput && filenameInput.value.trim()) {
-                    filename = filenameInput.value.trim();
-                    // Remove .jpg/.jpeg extension if user added it
-                    filename = filename.replace(/\.(jpg|jpeg)$/i, '');
-                    // Sanitize filename
-                    filename = filename.replace(/[^a-z0-9_-]/gi, '_');
-                } else {
-                    // Use auto-generated filename
-                    filename = `${sectionId}-${width}x${height}`;
-                }
+                const filename = `${sectionId}-${width}x${height}`;
                 
                 link.download = `${filename}.jpg`;
                 link.href = dataUrl;
@@ -3000,13 +2995,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function resetPreset(sectionId) {
         const fileInput = document.getElementById(`fileInput-${sectionId}`);
-        const canvas = document.getElementById(`canvas-${sectionId}`);
         const uploadBox = document.querySelector(`[data-section="${sectionId}"]`);
         const resizeBtn = document.getElementById(`resize-${sectionId}`);
-        const uploadContent = uploadBox ? uploadBox.querySelector('.upload-content') : null;
-        const infoBar = document.getElementById(`info-bar-${sectionId}`);
+        const filePreview = document.getElementById(`preview-${sectionId}`);
         const downloadBtn = document.getElementById(`download-${sectionId}`);
-        const filenameInput = document.getElementById(`filename-${sectionId}`);
 
         // Reset state
         presetStates[sectionId].file = null;
@@ -3016,31 +3008,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Reset UI
         if (fileInput) fileInput.value = '';
-        if (canvas) {
-            canvas.style.display = 'none';
-            canvas.style.visibility = 'hidden';
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
         
-        // Remove has-image class from upload box
+        // Show upload box
         if (uploadBox) {
-            uploadBox.classList.remove('has-image');
+            uploadBox.style.display = 'block';
         }
         
-        // Show upload content again
-        if (uploadContent) {
-            uploadContent.style.display = 'flex';
+        // Hide file preview
+        if (filePreview) {
+            filePreview.style.display = 'none';
+            filePreview.innerHTML = '';
         }
         
-        // Hide info bar
-        if (infoBar) {
-            infoBar.classList.remove('is-visible');
-        }
-        
-        // Hide download button and clear filename input
+        // Hide download button
         if (downloadBtn) downloadBtn.style.display = 'none';
-        if (filenameInput) filenameInput.value = '';
         
         if (resizeBtn) resizeBtn.disabled = true;
 
