@@ -28,6 +28,19 @@
                 <input type="file" class="file-input" id="fileInput-nsdl-photo" accept="image/jpeg,image/png,image/webp" style="display: none;">
             </div>
             
+            <div class="preset-info-bar" id="info-bar-nsdl-photo">
+                <div class="info-display">
+                    <span class="dimension-text" id="dimension-nsdl-photo">-</span>
+                    <span class="size-text" id="size-nsdl-photo">-</span>
+                </div>
+                <div class="download-controls">
+                    <input type="text" class="filename-input" id="filename-nsdl-photo" placeholder="Enter filename (optional)">
+                    <button class="download-btn-preset" id="download-nsdl-photo" style="display: none;">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+            
             <div class="preset-controls">
                 <div class="dpi-control">
                     <label for="dpi-nsdl-photo">DPI</label>
@@ -66,6 +79,19 @@
                     <canvas id="canvas-nsdl-signature" class="preview-canvas"></canvas>
                 </label>
                 <input type="file" class="file-input" id="fileInput-nsdl-signature" accept="image/jpeg,image/png,image/webp" style="display: none;">
+            </div>
+            
+            <div class="preset-info-bar" id="info-bar-nsdl-signature">
+                <div class="info-display">
+                    <span class="dimension-text" id="dimension-nsdl-signature">-</span>
+                    <span class="size-text" id="size-nsdl-signature">-</span>
+                </div>
+                <div class="download-controls">
+                    <input type="text" class="filename-input" id="filename-nsdl-signature" placeholder="Enter filename (optional)">
+                    <button class="download-btn-preset" id="download-nsdl-signature" style="display: none;">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
             </div>
             
             <div class="preset-controls">
@@ -108,6 +134,19 @@
                 <input type="file" class="file-input" id="fileInput-uti-photo" accept="image/jpeg,image/png,image/webp" style="display: none;">
             </div>
             
+            <div class="preset-info-bar" id="info-bar-uti-photo">
+                <div class="info-display">
+                    <span class="dimension-text" id="dimension-uti-photo">-</span>
+                    <span class="size-text" id="size-uti-photo">-</span>
+                </div>
+                <div class="download-controls">
+                    <input type="text" class="filename-input" id="filename-uti-photo" placeholder="Enter filename (optional)">
+                    <button class="download-btn-preset" id="download-uti-photo" style="display: none;">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+            
             <div class="preset-controls">
                 <div class="dpi-control">
                     <label for="dpi-uti-photo">DPI</label>
@@ -146,6 +185,19 @@
                     <canvas id="canvas-uti-signature" class="preview-canvas"></canvas>
                 </label>
                 <input type="file" class="file-input" id="fileInput-uti-signature" accept="image/jpeg,image/png,image/webp" style="display: none;">
+            </div>
+            
+            <div class="preset-info-bar" id="info-bar-uti-signature">
+                <div class="info-display">
+                    <span class="dimension-text" id="dimension-uti-signature">-</span>
+                    <span class="size-text" id="size-uti-signature">-</span>
+                </div>
+                <div class="download-controls">
+                    <input type="text" class="filename-input" id="filename-uti-signature" placeholder="Enter filename (optional)">
+                    <button class="download-btn-preset" id="download-uti-signature" style="display: none;">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
             </div>
             
             <div class="preset-controls">
@@ -214,6 +266,19 @@
                     <canvas id="canvas-custom-cm" class="preview-canvas"></canvas>
                 </label>
                 <input type="file" class="file-input" id="fileInput-custom-cm" accept="image/jpeg,image/png,image/webp" style="display: none;">
+            </div>
+            
+            <div class="preset-info-bar" id="info-bar-custom-cm">
+                <div class="info-display">
+                    <span class="dimension-text" id="dimension-custom-cm">-</span>
+                    <span class="size-text" id="size-custom-cm">-</span>
+                </div>
+                <div class="download-controls">
+                    <input type="text" class="filename-input" id="filename-custom-cm" placeholder="Enter filename (optional)">
+                    <button class="download-btn-preset custom-resize-btn" id="download-custom-cm" style="display: none;">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
             </div>
             
             <div class="preset-actions">
