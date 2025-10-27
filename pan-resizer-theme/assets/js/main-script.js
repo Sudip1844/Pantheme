@@ -3045,16 +3045,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const maxSizeInput = document.getElementById('custom-maxsize');
         const fileInput = document.getElementById('fileInput-custom-cm');
         const uploadBox = document.querySelector('[data-section="custom-cm"]');
+        const uploadArea = document.getElementById('upload-custom-cm');
         const resizeBtn = document.getElementById('resize-custom-cm');
         const resetBtn = document.getElementById('reset-custom-cm');
-        const canvas = document.getElementById('canvas-custom-cm');
-        const previewContainer = document.getElementById('preview-custom-cm');
+        const filePreview = document.getElementById('preview-custom-cm');
+        const downloadBtn = document.getElementById('download-custom-cm');
         
         if (!fileInput || !uploadBox) return;
         
         let customState = {
             file: null,
-            image: null
+            image: null,
+            resizedDataUrl: null
         };
         
         // File input change
@@ -3100,51 +3102,37 @@ document.addEventListener('DOMContentLoaded', function() {
                     customState.image = img;
                     resizeBtn.disabled = false;
                     
-                    const uploadContent = uploadBox ? uploadBox.querySelector('.upload-content') : null;
+                    // Hide upload box
+                    uploadBox.style.display = 'none';
                     
-                    // Display preview on canvas
-                    if (canvas) {
-                        const maxDisplayWidth = 300;
-                        const maxDisplayHeight = 300;
-                        let displayWidth = img.width;
-                        let displayHeight = img.height;
+                    // Show preview container
+                    if (filePreview) {
+                        filePreview.style.display = 'block';
                         
-                        if (displayWidth > maxDisplayWidth || displayHeight > maxDisplayHeight) {
-                            const ratio = Math.min(maxDisplayWidth / displayWidth, maxDisplayHeight / displayHeight);
-                            displayWidth = displayWidth * ratio;
-                            displayHeight = displayHeight * ratio;
-                        }
-                        
-                        canvas.width = displayWidth;
-                        canvas.height = displayHeight;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, displayWidth, displayHeight);
-                        canvas.style.display = 'block';
-                    }
-                    
-                    // Hide upload content
-                    if (uploadContent) {
-                        uploadContent.style.display = 'none';
-                    }
-                    
-                    // Add has-image class to upload box
-                    if (uploadBox) {
-                        uploadBox.classList.add('has-image');
-                    }
-                    
-                    // Update info bar with dimensions and size
-                    const infoBar = document.getElementById('info-bar-custom-cm');
-                    const dimensionText = document.getElementById('dimension-custom-cm');
-                    const sizeText = document.getElementById('size-custom-cm');
-                    
-                    if (infoBar && dimensionText && sizeText) {
+                        // Calculate file size
                         const fileSizeKB = (file.size / 1024).toFixed(2);
                         const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
                         const displaySize = file.size >= 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
                         
-                        dimensionText.textContent = `${img.width} × ${img.height} px`;
-                        sizeText.textContent = displaySize;
-                        infoBar.classList.add('is-visible');
+                        // Create file item structure
+                        filePreview.innerHTML = `
+                            <div class="file-item">
+                                <img src="${e.target.result}" alt="Preview" class="file-image">
+                                <div class="file-info">
+                                    <span class="file-dimension">${img.width} × ${img.height} px</span>
+                                    <span class="file-size">${displaySize}</span>
+                                    <button class="delete-btn" type="button">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        
+                        // Add delete button functionality
+                        const deleteBtn = filePreview.querySelector('.delete-btn');
+                        if (deleteBtn) {
+                            deleteBtn.addEventListener('click', resetCustom);
+                        }
                     }
                 };
                 img.src = e.target.result;
@@ -3166,7 +3154,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const widthPx = Math.round((widthCm / 2.54) * dpi);
             const heightPx = Math.round((heightCm / 2.54) * dpi);
             
-            // Resize image
+            // Create canvas for resizing
+            const canvas = document.createElement('canvas');
             canvas.width = widthPx;
             canvas.height = heightPx;
             const ctx = canvas.getContext('2d');
@@ -3174,86 +3163,63 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Compress to target size
             compressToSize(canvas, maxSizeKB, function(finalDataUrl) {
-                // Display result
-                const resultImg = new Image();
-                resultImg.onload = function() {
-                    canvas.style.display = 'block';
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(resultImg, 0, 0);
-                    
-                    // Show download button in info bar
-                    const downloadBtn = document.getElementById('download-custom-cm');
-                    const filenameInput = document.getElementById('filename-custom-cm');
-                    
-                    if (downloadBtn) {
-                        downloadBtn.onclick = function() {
-                            const link = document.createElement('a');
-                            let filename = '';
-                            
-                            // Check if custom filename is provided
-                            if (filenameInput && filenameInput.value.trim()) {
-                                filename = filenameInput.value.trim();
-                                // Remove .jpg/.jpeg extension if user added it
-                                filename = filename.replace(/\.(jpg|jpeg)$/i, '');
-                                // Sanitize filename
-                                filename = filename.replace(/[^a-z0-9_-]/gi, '_');
-                            } else {
-                                // Use auto-generated filename
-                                filename = `custom-resized-${widthCm}x${heightCm}cm-${dpi}dpi`;
-                            }
-                            
-                            link.download = `${filename}.jpg`;
-                            link.href = finalDataUrl;
-                            link.click();
-                        };
-                        
-                        downloadBtn.style.display = 'inline-flex';
-                    }
-                };
-                resultImg.src = finalDataUrl;
+                customState.resizedDataUrl = finalDataUrl;
+                
+                // Update preview with resized image
+                const previewImg = filePreview.querySelector('.file-image');
+                if (previewImg) {
+                    previewImg.src = finalDataUrl;
+                }
+                
+                // Update file info with new dimensions
+                const dimensionSpan = filePreview.querySelector('.file-dimension');
+                if (dimensionSpan) {
+                    dimensionSpan.textContent = `${widthPx} × ${heightPx} px`;
+                }
+                
+                // Show download button
+                if (downloadBtn) {
+                    downloadBtn.onclick = function() {
+                        const link = document.createElement('a');
+                        const filename = `custom-resized-${widthCm}x${heightCm}cm-${dpi}dpi`;
+                        link.download = `${filename}.jpg`;
+                        link.href = finalDataUrl;
+                        link.click();
+                    };
+                    downloadBtn.style.display = 'inline-flex';
+                }
             });
         });
         
         // Reset button click
-        resetBtn.addEventListener('click', function() {
+        resetBtn.addEventListener('click', resetCustom);
+        
+        // Reset function
+        function resetCustom() {
             customState.file = null;
             customState.image = null;
+            customState.resizedDataUrl = null;
             fileInput.value = '';
             resizeBtn.disabled = true;
             
-            canvas.style.display = 'none';
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Show upload content again
-            const uploadContent = uploadBox ? uploadBox.querySelector('.upload-content') : null;
-            if (uploadContent) {
-                uploadContent.style.display = 'flex';
+            // Hide preview
+            if (filePreview) {
+                filePreview.style.display = 'none';
+                filePreview.innerHTML = '';
             }
             
-            // Remove has-image class from upload box
-            if (uploadBox) {
-                uploadBox.classList.remove('has-image');
-            }
+            // Show upload box
+            uploadBox.style.display = 'flex';
             
-            // Hide info bar
-            const infoBar = document.getElementById('info-bar-custom-cm');
-            if (infoBar) {
-                infoBar.classList.remove('is-visible');
-            }
-            
-            // Hide download button and clear filename input
-            const downloadBtn = document.getElementById('download-custom-cm');
-            const filenameInput = document.getElementById('filename-custom-cm');
+            // Hide download button
             if (downloadBtn) downloadBtn.style.display = 'none';
-            if (filenameInput) filenameInput.value = '';
             
             // Reset inputs to default
             widthInput.value = '2.5';
             heightInput.value = '3.5';
             dpiInput.value = '200';
             maxSizeInput.value = '20';
-        });
+        }
         
         // Compress image to target size
         function compressToSize(canvas, maxSizeKB, callback) {
