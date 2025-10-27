@@ -2114,15 +2114,6 @@ textarea:focus-visible,
   .preset-description {
     font-size: 14px;
   }
-  
-  .preset-actions {
-    flex-direction: column;
-  }
-  
-  .resize-btn,
-  .reset-btn-preset {
-    width: 100%;
-  }
 }
 
 /* Ensure upload box children don't block clicks */
