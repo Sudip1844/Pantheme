@@ -1863,7 +1863,7 @@ textarea:focus-visible,
 }
 
 .preset-upload.has-image {
-  min-height: 400px;
+  height: 400px;
   padding: 20px;
   cursor: default;
 }
