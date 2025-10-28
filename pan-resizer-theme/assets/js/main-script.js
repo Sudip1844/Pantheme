@@ -2974,6 +2974,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function addDownloadButton(sectionId, dataUrl, width, height) {
         const downloadBtn = document.getElementById(`download-${sectionId}`);
+        const resizeBtn = document.getElementById(`resize-${sectionId}`);
         
         // Store dataUrl for download
         presetStates[sectionId].resizedDataUrl = dataUrl;
@@ -2990,6 +2991,11 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             downloadBtn.style.display = 'inline-flex';
+        }
+        
+        // Hide resize button after resizing is complete
+        if (resizeBtn) {
+            resizeBtn.style.display = 'none';
         }
     }
 
@@ -3023,7 +3029,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Hide download button
         if (downloadBtn) downloadBtn.style.display = 'none';
         
-        if (resizeBtn) resizeBtn.disabled = true;
+        // Show resize button again and disable it
+        if (resizeBtn) {
+            resizeBtn.style.display = '';
+            resizeBtn.disabled = true;
+        }
 
         // Reset DPI to default (if not readonly)
         const dpiInput = document.getElementById(`dpi-${sectionId}`);
@@ -3177,7 +3187,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     dimensionSpan.textContent = `${widthPx} × ${heightPx} px`;
                 }
                 
-                // Show download button
+                // Show download button and hide resize button
                 if (downloadBtn) {
                     downloadBtn.onclick = function() {
                         const link = document.createElement('a');
@@ -3188,6 +3198,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     };
                     downloadBtn.style.display = 'inline-flex';
                 }
+                
+                // Hide resize button after resizing is complete
+                resizeBtn.style.display = 'none';
             });
         });
         
@@ -3213,6 +3226,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Hide download button
             if (downloadBtn) downloadBtn.style.display = 'none';
+            
+            // Show resize button again
+            resizeBtn.style.display = '';
             
             // Reset inputs to default
             widthInput.value = '2.5';

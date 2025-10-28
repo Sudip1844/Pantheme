@@ -3,6 +3,13 @@
 ## Overview
 PAN Card Resizer is a client-side web application designed to resize and compress PAN card photos, signatures, and documents to meet NSDL/UTI requirements. It operates entirely in the browser, ensuring user privacy and fast performance by processing images locally without server uploads. The application offers a comprehensive suite of tools for image manipulation, including custom centimeter resizing, and is available as both a standalone HTML site and a WordPress theme. Its primary purpose is to simplify compliance with official document submission standards for PAN cards, catering to a broad user base with an intuitive and efficient online tool. The project aims to be the go-to solution for PAN card image resizing, providing a secure, fast, and user-friendly experience.
 
+## Recent Changes (October 28, 2025)
+- **Button Flow Update**: Modified the preset resizer sections (NSDL Photo, NSDL Signature, UTI Photo, UTI Signature, and Custom CM Resizer) to improve UX by showing only 2 buttons at a time instead of 3.
+  - Initially shows: "Resize Image" + "Reset" buttons
+  - After clicking "Resize Image": Hides "Resize Image" and shows "Download" button (only "Download" + "Reset" visible)
+  - After clicking "Reset": Shows "Resize Image" again and hides "Download" button
+  - This creates a cleaner, less cluttered interface with better visual flow
+
 ## User Preferences
 Preferred communication style: Simple, everyday language (Bengali/Bangla and English).
 
