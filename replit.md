@@ -23,6 +23,8 @@ PAN Card Resizer is a client-side web application designed to resize and compres
   - Added `.resized-meta` placeholder div in preset-resizers.php for all 4 sections
   - Modified resizeImage() to populate the green container instead of modifying preview
   - Added comprehensive CSS styling with green color scheme (#1b5e20, #2e7d32, #4caf50)
+  - Container is initially hidden (`display: none !important`) and only shows after resize
+  - Reset button clears and hides the container
 
 ### Previous Updates - Image Preview & Download Enhancements
 - **Fixed Canvas Rendering Bug**: Added hidden canvas elements to all 5 preset sections to resolve "Cannot read properties of null (reading 'getContext')" error
