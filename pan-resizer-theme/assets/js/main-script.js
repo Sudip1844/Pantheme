@@ -2933,21 +2933,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Compress to target size
         compressCanvas(canvas, config.maxSize, function(compressedDataUrl) {
-            // Replace existing preview image with resized image
-            const previewContainer = uploadBox.querySelector('.image-preview-container');
-            const previewImg = previewContainer ? previewContainer.querySelector('img') : null;
+            const filePreview = document.getElementById(`preview-${sectionId}`);
             
-            if (previewImg) {
-                // Update the existing preview image with resized data
-                previewImg.src = compressedDataUrl;
+            // Replace existing preview image with resized image
+            const fileImage = filePreview ? filePreview.querySelector('.file-image') : null;
+            if (fileImage) {
+                fileImage.src = compressedDataUrl;
             }
             
-            // Replace image details with filename input
-            const detailsContainer = uploadBox.querySelector('.image-details');
-            if (detailsContainer) {
-                detailsContainer.innerHTML = `
-                    <div class="filename-input-wrapper">
-                        <label for="filename-${sectionId}" style="display: block; margin-bottom: 8px; color: #6b7280; font-size: 14px;">
+            // Replace file details and delete button with filename input
+            const fileInfo = filePreview ? filePreview.querySelector('.file-info') : null;
+            if (fileInfo) {
+                fileInfo.innerHTML = `
+                    <div class="filename-input-wrapper" style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
+                        <label for="filename-${sectionId}" style="display: block; color: #6b7280; font-size: 13px; font-weight: 500;">
                             <i class="fas fa-file-signature"></i> File name (optional):
                         </label>
                         <input 
@@ -2955,7 +2954,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             id="filename-${sectionId}" 
                             class="filename-input" 
                             placeholder="Enter custom filename..."
-                            style="width: 100%; padding: 10px 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; transition: border-color 0.3s ease;"
+                            style="width: 100%; padding: 10px 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; transition: border-color 0.3s ease; outline: none;"
+                            onfocus="this.style.borderColor='#6366f1';"
+                            onblur="this.style.borderColor='#e5e7eb';"
                         />
                     </div>
                 `;

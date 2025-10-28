@@ -11,9 +11,11 @@ PAN Card Resizer is a client-side web application designed to resize and compres
   - Resized image now appears in the SAME container where the original upload preview was shown
   - Eliminates visual clutter and maintains consistent layout
 - **Custom Filename Support**: Added optional filename input field after resizing
-  - Replaces the original image details display with a "File name (optional)" input box
-  - Users can enter custom filename before downloading
+  - Replaces the file details (dimensions, size) and delete button with a "File name (optional)" input box
+  - Input box appears in the `.file-info` container (where the red delete button was previously shown)
+  - Users can enter custom filename before downloading (optional)
   - If no custom name is provided, uses default format: `{sectionId}-{width}x{height}.jpg`
+  - Input field has focus/blur border color transition for better UX
 - **Button Sizing Consistency**: Fixed download button styling to match resize button dimensions
   - Applied shared CSS rules (flex: 1, same padding, border-radius) to both `.resize-btn` and `.download-btn-preset`
   - Download button now maintains the exact same size as the Resize button for visual consistency
