@@ -5,7 +5,18 @@ PAN Card Resizer is a client-side web application designed to resize and compres
 
 ## Recent Changes (October 28, 2025)
 
-### Latest Updates - Image Preview & Download Enhancements
+### Latest Updates - UI Text & Post-Resize Display Improvements
+- **Changed Label Text**: Updated "Calculated:" to "Output:" in all 4 preset sections (NSDL Photo, NSDL Signature, UTI Photo, UTI Signature) for better clarity
+  - The 5th section (Custom CM Resizer) was not modified as it doesn't have this label
+- **Persistent Dimension & Size Display**: Modified resizeImage() function to preserve image information after resizing
+  - Previously: After clicking "Resize Image", file dimensions and size were hidden and replaced with only a filename input
+  - Now: After resizing, dimensions and file size remain visible (e.g., "400 × 200 px" and "45.67 KB")
+  - File size is accurately calculated from the compressed data URL using atob()
+  - Filename input field is added alongside the dimension/size info (not replacing it)
+  - Delete button is removed after resize (Reset button provides same functionality)
+  - This provides better transparency about the actual output file being downloaded
+
+### Previous Updates - Image Preview & Download Enhancements
 - **Fixed Canvas Rendering Bug**: Added hidden canvas elements to all 5 preset sections to resolve "Cannot read properties of null (reading 'getContext')" error
 - **Improved Image Preview Flow**: Modified resizeImage() function to replace the uploaded preview image in-place instead of creating a new container
   - Resized image now appears in the SAME container where the original upload preview was shown

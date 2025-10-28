@@ -2941,25 +2941,58 @@ document.addEventListener('DOMContentLoaded', function() {
                 fileImage.src = compressedDataUrl;
             }
             
-            // Replace file details and delete button with filename input
+            // Calculate file size from dataUrl
+            const base64 = compressedDataUrl.split(',')[1];
+            const bytes = atob(base64).length;
+            const fileSizeKB = (bytes / 1024).toFixed(2);
+            const fileSizeMB = (bytes / (1024 * 1024)).toFixed(2);
+            const displaySize = bytes >= 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
+            
+            // Update file details with resized dimensions and size
             const fileInfo = filePreview ? filePreview.querySelector('.file-info') : null;
             if (fileInfo) {
-                fileInfo.innerHTML = `
-                    <div class="filename-input-wrapper" style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
-                        <label for="filename-${sectionId}" style="display: block; color: #6b7280; font-size: 13px; font-weight: 500;">
-                            <i class="fas fa-file-signature"></i> File name (optional):
-                        </label>
-                        <input 
-                            type="text" 
-                            id="filename-${sectionId}" 
-                            class="filename-input" 
-                            placeholder="Enter custom filename..."
-                            style="width: 100%; padding: 10px 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; transition: border-color 0.3s ease; outline: none;"
-                            onfocus="this.style.borderColor='#6366f1';"
-                            onblur="this.style.borderColor='#e5e7eb';"
-                        />
-                    </div>
-                `;
+                const fileDetails = fileInfo.querySelector('.file-details');
+                if (fileDetails) {
+                    // Update existing file-details
+                    const fileDimensions = fileDetails.querySelector('.file-dimensions');
+                    const fileSize = fileDetails.querySelector('.file-size');
+                    
+                    if (fileDimensions) {
+                        fileDimensions.textContent = `${targetWidth} × ${targetHeight} px`;
+                    }
+                    if (fileSize) {
+                        fileSize.textContent = displaySize;
+                    }
+                    
+                    // Remove delete button if it exists
+                    const deleteBtn = fileInfo.querySelector('.delete-btn');
+                    if (deleteBtn) {
+                        deleteBtn.remove();
+                    }
+                    
+                    // Add filename input after file-details if it doesn't exist
+                    let filenameWrapper = fileInfo.querySelector('.filename-input-wrapper');
+                    if (!filenameWrapper) {
+                        filenameWrapper = document.createElement('div');
+                        filenameWrapper.className = 'filename-input-wrapper';
+                        filenameWrapper.style.cssText = 'flex: 1; display: flex; flex-direction: column; gap: 8px; margin-left: 12px;';
+                        filenameWrapper.innerHTML = `
+                            <label for="filename-${sectionId}" style="display: block; color: #6b7280; font-size: 13px; font-weight: 500;">
+                                <i class="fas fa-file-signature"></i> File name (optional):
+                            </label>
+                            <input 
+                                type="text" 
+                                id="filename-${sectionId}" 
+                                class="filename-input" 
+                                placeholder="Enter custom filename..."
+                                style="width: 100%; padding: 10px 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; transition: border-color 0.3s ease; outline: none;"
+                                onfocus="this.style.borderColor='#6366f1';"
+                                onblur="this.style.borderColor='#e5e7eb';"
+                            />
+                        `;
+                        fileInfo.appendChild(filenameWrapper);
+                    }
+                }
             }
             
             // Add download button
