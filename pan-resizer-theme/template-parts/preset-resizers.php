@@ -49,6 +49,9 @@
                 </button>
                 <button class="reset-btn-preset" id="reset-nsdl-photo">Reset</button>
             </div>
+            
+            <!-- Hidden canvas for image processing -->
+            <canvas id="canvas-nsdl-photo" style="display: none;"></canvas>
         </div>
     </div>
 </section>
@@ -95,6 +98,9 @@
                 </button>
                 <button class="reset-btn-preset" id="reset-nsdl-signature">Reset</button>
             </div>
+            
+            <!-- Hidden canvas for image processing -->
+            <canvas id="canvas-nsdl-signature" style="display: none;"></canvas>
         </div>
     </div>
 </section>
@@ -141,6 +147,9 @@
                 </button>
                 <button class="reset-btn-preset" id="reset-uti-photo">Reset</button>
             </div>
+            
+            <!-- Hidden canvas for image processing -->
+            <canvas id="canvas-uti-photo" style="display: none;"></canvas>
         </div>
     </div>
 </section>
@@ -187,6 +196,9 @@
                 </button>
                 <button class="reset-btn-preset" id="reset-uti-signature">Reset</button>
             </div>
+            
+            <!-- Hidden canvas for image processing -->
+            <canvas id="canvas-uti-signature" style="display: none;"></canvas>
         </div>
     </div>
 </section>
@@ -250,6 +262,9 @@
                 </button>
                 <button class="reset-btn-preset" id="reset-custom-cm">Reset</button>
             </div>
+            
+            <!-- Hidden canvas for image processing -->
+            <canvas id="canvas-custom-cm" style="display: none;"></canvas>
         </div>
     </div>
 </section>
