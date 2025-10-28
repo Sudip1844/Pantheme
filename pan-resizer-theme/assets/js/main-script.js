@@ -2933,16 +2933,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Compress to target size
         compressCanvas(canvas, config.maxSize, function(compressedDataUrl) {
-            // Show canvas in upload box - remove inline display:none
-            canvas.style.display = 'block';
-            canvas.style.visibility = 'visible';
+            // Replace existing preview image with resized image
+            const previewContainer = uploadBox.querySelector('.image-preview-container');
+            const previewImg = previewContainer ? previewContainer.querySelector('img') : null;
             
-            // Ensure upload box has has-image class
-            if (uploadBox) {
-                uploadBox.classList.add('has-image');
+            if (previewImg) {
+                // Update the existing preview image with resized data
+                previewImg.src = compressedDataUrl;
             }
             
-            // Add download button if not exists
+            // Replace image details with filename input
+            const detailsContainer = uploadBox.querySelector('.image-details');
+            if (detailsContainer) {
+                detailsContainer.innerHTML = `
+                    <div class="filename-input-wrapper">
+                        <label for="filename-${sectionId}" style="display: block; margin-bottom: 8px; color: #6b7280; font-size: 14px;">
+                            <i class="fas fa-file-signature"></i> File name (optional):
+                        </label>
+                        <input 
+                            type="text" 
+                            id="filename-${sectionId}" 
+                            class="filename-input" 
+                            placeholder="Enter custom filename..."
+                            style="width: 100%; padding: 10px 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; transition: border-color 0.3s ease;"
+                        />
+                    </div>
+                `;
+            }
+            
+            // Add download button
             addDownloadButton(sectionId, compressedDataUrl, targetWidth, targetHeight);
         });
     }
@@ -2983,9 +3002,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (downloadBtn) {
             downloadBtn.onclick = function() {
                 const link = document.createElement('a');
-                const filename = `${sectionId}-${width}x${height}`;
+                const filenameInput = document.getElementById(`filename-${sectionId}`);
+                const customName = filenameInput && filenameInput.value.trim() 
+                    ? filenameInput.value.trim() 
+                    : `${sectionId}-${width}x${height}`;
                 
-                link.download = `${filename}.jpg`;
+                link.download = `${customName}.jpg`;
                 link.href = dataUrl;
                 link.click();
             };

@@ -4,7 +4,22 @@
 PAN Card Resizer is a client-side web application designed to resize and compress PAN card photos, signatures, and documents to meet NSDL/UTI requirements. It operates entirely in the browser, ensuring user privacy and fast performance by processing images locally without server uploads. The application offers a comprehensive suite of tools for image manipulation, including custom centimeter resizing, and is available as both a standalone HTML site and a WordPress theme. Its primary purpose is to simplify compliance with official document submission standards for PAN cards, catering to a broad user base with an intuitive and efficient online tool. The project aims to be the go-to solution for PAN card image resizing, providing a secure, fast, and user-friendly experience.
 
 ## Recent Changes (October 28, 2025)
-- **Button Flow Update**: Modified the preset resizer sections (NSDL Photo, NSDL Signature, UTI Photo, UTI Signature, and Custom CM Resizer) to improve UX by showing only 2 buttons at a time instead of 3.
+
+### Latest Updates - Image Preview & Download Enhancements
+- **Fixed Canvas Rendering Bug**: Added hidden canvas elements to all 5 preset sections to resolve "Cannot read properties of null (reading 'getContext')" error
+- **Improved Image Preview Flow**: Modified resizeImage() function to replace the uploaded preview image in-place instead of creating a new container
+  - Resized image now appears in the SAME container where the original upload preview was shown
+  - Eliminates visual clutter and maintains consistent layout
+- **Custom Filename Support**: Added optional filename input field after resizing
+  - Replaces the original image details display with a "File name (optional)" input box
+  - Users can enter custom filename before downloading
+  - If no custom name is provided, uses default format: `{sectionId}-{width}x{height}.jpg`
+- **Button Sizing Consistency**: Fixed download button styling to match resize button dimensions
+  - Applied shared CSS rules (flex: 1, same padding, border-radius) to both `.resize-btn` and `.download-btn-preset`
+  - Download button now maintains the exact same size as the Resize button for visual consistency
+
+### Previous Button Flow Update
+- Modified the preset resizer sections (NSDL Photo, NSDL Signature, UTI Photo, UTI Signature, and Custom CM Resizer) to improve UX by showing only 2 buttons at a time instead of 3.
   - Initially shows: "Resize Image" + "Reset" buttons
   - After clicking "Resize Image": Hides "Resize Image" and shows "Download" button (only "Download" + "Reset" visible)
   - After clicking "Reset": Shows "Resize Image" again and hides "Download" button

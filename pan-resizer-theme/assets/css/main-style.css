@@ -2137,7 +2137,8 @@ textarea:focus-visible,
   gap: 12px;
 }
 
-.resize-btn {
+.resize-btn,
+.download-btn-preset {
   flex: 1;
   background: linear-gradient(135deg, #6366f1, #8b5cf6);
   color: #fff;
@@ -2150,7 +2151,8 @@ textarea:focus-visible,
   transition: all 0.3s ease;
 }
 
-.resize-btn:hover {
+.resize-btn:hover,
+.download-btn-preset:hover {
   background: linear-gradient(135deg, #4f46e5, #7c3aed);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
