@@ -5,16 +5,24 @@ PAN Card Resizer is a client-side web application designed to resize and compres
 
 ## Recent Changes (October 28, 2025)
 
-### Latest Updates - UI Text & Post-Resize Display Improvements
+### Latest Updates - Dedicated Resized Info Container with Green Styling
 - **Changed Label Text**: Updated "Calculated:" to "Output:" in all 4 preset sections (NSDL Photo, NSDL Signature, UTI Photo, UTI Signature) for better clarity
   - The 5th section (Custom CM Resizer) was not modified as it doesn't have this label
-- **Persistent Dimension & Size Display**: Modified resizeImage() function to preserve image information after resizing
-  - Previously: After clicking "Resize Image", file dimensions and size were hidden and replaced with only a filename input
-  - Now: After resizing, dimensions and file size remain visible (e.g., "400 × 200 px" and "45.67 KB")
-  - File size is accurately calculated from the compressed data URL using atob()
-  - Filename input field is added alongside the dimension/size info (not replacing it)
-  - Delete button is removed after resize (Reset button provides same functionality)
-  - This provides better transparency about the actual output file being downloaded
+- **New Dedicated Resized Info Container**: Complete redesign of how resized image information is displayed
+  - **Location**: New container appears between the preview area and DPI/Output controls
+  - **Visual Design**: Light green background (#e8f5e9) with green border for clear visual distinction
+  - **Layout**: 
+    - Left side: Resized image dimensions and file size (e.g., "197 × 276 px" and "12.31 KB")
+    - Right side: Optional filename input field
+  - **Clean Preview**: Image preview container remains clean - no dimension/size clutter
+  - **Responsive**: Container stacks vertically on mobile devices
+  - **File Size Calculation**: Accurately calculated from compressed data URL using atob()
+  - **Filename Preservation**: Custom filename is preserved if user resizes the same image multiple times
+  - **Reset Behavior**: Container is hidden and cleared when Reset button is clicked
+- **Implementation Details**:
+  - Added `.resized-meta` placeholder div in preset-resizers.php for all 4 sections
+  - Modified resizeImage() to populate the green container instead of modifying preview
+  - Added comprehensive CSS styling with green color scheme (#1b5e20, #2e7d32, #4caf50)
 
 ### Previous Updates - Image Preview & Download Enhancements
 - **Fixed Canvas Rendering Bug**: Added hidden canvas elements to all 5 preset sections to resolve "Cannot read properties of null (reading 'getContext')" error

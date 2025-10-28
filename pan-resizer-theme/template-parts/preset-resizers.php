@@ -31,6 +31,11 @@
                 </div>
             </div>
             
+            <!-- Resized Image Info (shown after resize) -->
+            <div class="resized-meta" id="resized-info-nsdl-photo" style="display: none;">
+                <!-- Will be populated by JavaScript -->
+            </div>
+            
             <div class="preset-controls">
                 <div class="dpi-control">
                     <label for="dpi-nsdl-photo">DPI</label>
@@ -78,6 +83,11 @@
                 <div class="file-preview" id="preview-nsdl-signature" style="display: none;">
                     <!-- Preview will be added here by JavaScript -->
                 </div>
+            </div>
+            
+            <!-- Resized Image Info (shown after resize) -->
+            <div class="resized-meta" id="resized-info-nsdl-signature" style="display: none;">
+                <!-- Will be populated by JavaScript -->
             </div>
             
             <div class="preset-controls">
@@ -129,6 +139,11 @@
                 </div>
             </div>
             
+            <!-- Resized Image Info (shown after resize) -->
+            <div class="resized-meta" id="resized-info-uti-photo" style="display: none;">
+                <!-- Will be populated by JavaScript -->
+            </div>
+            
             <div class="preset-controls">
                 <div class="dpi-control">
                     <label for="dpi-uti-photo">DPI</label>
@@ -176,6 +191,11 @@
                 <div class="file-preview" id="preview-uti-signature" style="display: none;">
                     <!-- Preview will be added here by JavaScript -->
                 </div>
+            </div>
+            
+            <!-- Resized Image Info (shown after resize) -->
+            <div class="resized-meta" id="resized-info-uti-signature" style="display: none;">
+                <!-- Will be populated by JavaScript -->
             </div>
             
             <div class="preset-controls">

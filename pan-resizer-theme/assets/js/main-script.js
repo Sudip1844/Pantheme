@@ -2948,51 +2948,32 @@ document.addEventListener('DOMContentLoaded', function() {
             const fileSizeMB = (bytes / (1024 * 1024)).toFixed(2);
             const displaySize = bytes >= 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
             
-            // Update file details with resized dimensions and size
-            const fileInfo = filePreview ? filePreview.querySelector('.file-info') : null;
-            if (fileInfo) {
-                const fileDetails = fileInfo.querySelector('.file-details');
-                if (fileDetails) {
-                    // Update existing file-details
-                    const fileDimensions = fileDetails.querySelector('.file-dimensions');
-                    const fileSize = fileDetails.querySelector('.file-size');
-                    
-                    if (fileDimensions) {
-                        fileDimensions.textContent = `${targetWidth} × ${targetHeight} px`;
-                    }
-                    if (fileSize) {
-                        fileSize.textContent = displaySize;
-                    }
-                    
-                    // Remove delete button if it exists
-                    const deleteBtn = fileInfo.querySelector('.delete-btn');
-                    if (deleteBtn) {
-                        deleteBtn.remove();
-                    }
-                    
-                    // Add filename input after file-details if it doesn't exist
-                    let filenameWrapper = fileInfo.querySelector('.filename-input-wrapper');
-                    if (!filenameWrapper) {
-                        filenameWrapper = document.createElement('div');
-                        filenameWrapper.className = 'filename-input-wrapper';
-                        filenameWrapper.style.cssText = 'flex: 1; display: flex; flex-direction: column; gap: 8px; margin-left: 12px;';
-                        filenameWrapper.innerHTML = `
-                            <label for="filename-${sectionId}" style="display: block; color: #6b7280; font-size: 13px; font-weight: 500;">
-                                <i class="fas fa-file-signature"></i> File name (optional):
-                            </label>
-                            <input 
-                                type="text" 
-                                id="filename-${sectionId}" 
-                                class="filename-input" 
-                                placeholder="Enter custom filename..."
-                                style="width: 100%; padding: 10px 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; transition: border-color 0.3s ease; outline: none;"
-                                onfocus="this.style.borderColor='#6366f1';"
-                                onblur="this.style.borderColor='#e5e7eb';"
-                            />
-                        `;
-                        fileInfo.appendChild(filenameWrapper);
-                    }
-                }
+            // Show resized info in the new green container
+            const resizedMeta = document.getElementById(`resized-info-${sectionId}`);
+            if (resizedMeta) {
+                // Preserve existing filename if present
+                const existingFilenameInput = document.getElementById(`filename-${sectionId}`);
+                const existingFilename = existingFilenameInput ? existingFilenameInput.value : '';
+                
+                resizedMeta.style.display = 'flex';
+                resizedMeta.innerHTML = `
+                    <div class="resized-meta-left">
+                        <div class="dimension-text">${targetWidth} × ${targetHeight} px</div>
+                        <div class="size-text">${displaySize}</div>
+                    </div>
+                    <div class="resized-meta-right">
+                        <label for="filename-${sectionId}">
+                            <i class="fas fa-file-signature"></i> File name (optional):
+                        </label>
+                        <input 
+                            type="text" 
+                            id="filename-${sectionId}" 
+                            class="filename-input" 
+                            placeholder="Enter custom filename..."
+                            value="${existingFilename}"
+                        />
+                    </div>
+                `;
             }
             
             // Add download button
@@ -3084,6 +3065,13 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Hide download button
         if (downloadBtn) downloadBtn.style.display = 'none';
+        
+        // Hide and clear resized-meta container
+        const resizedMeta = document.getElementById(`resized-info-${sectionId}`);
+        if (resizedMeta) {
+            resizedMeta.style.display = 'none';
+            resizedMeta.innerHTML = '';
+        }
         
         // Show resize button again and disable it
         if (resizeBtn) {
