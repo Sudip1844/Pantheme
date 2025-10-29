@@ -5,7 +5,27 @@ PAN Card Resizer is a client-side web application designed to resize and compres
 
 ## Recent Changes (October 29, 2025)
 
-### Latest Updates - October 29, 2025
+### Latest Updates - October 29, 2025 (Image Quality Preservation Feature)
+
+#### Original Image Preservation Across Multiple Resizes
+- **Problem Solved**: Previously, when users changed DPI and resized multiple times, the image quality degraded because each resize operated on the previously resized image
+- **Solution Implemented**: Added `originalDataUrl` storage system
+  - When a file is uploaded, the original data URL is stored separately in state (both preset and Custom CM sections)
+  - On every resize operation, a fresh Image object is created from the stored `originalDataUrl`
+  - Canvas drawing always uses this pristine original image, never the resized preview
+  - Result: Users can change DPI or other parameters and resize multiple times without any quality loss
+- **User Experience Enhancement**: When DPI or parameters change
+  - The resized preview image is automatically replaced with the original image
+  - Download button switches back to Resize button
+  - Green filename container is hidden
+  - This visual feedback clearly shows that a new resize operation is needed
+
+#### Custom Filename Support for Custom CM Resizer
+- **Feature Added**: Custom CM Resizer section now has custom filename input (matching the 4 preset sections)
+- **Implementation**: Green container with filename input field appears after resizing
+- **Behavior**: Optional filename input; if empty, uses default format `custom-resized-{width}x{height}cm-{dpi}dpi.jpg`
+
+### Previous Updates - October 29, 2025
 
 #### Preview Container Shows Resized Image Details
 - **Preview Container Update**: Modified to display resized image dimensions and file size instead of original
