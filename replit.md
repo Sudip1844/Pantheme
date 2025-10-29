@@ -3,9 +3,38 @@
 ## Overview
 PAN Card Resizer is a client-side web application designed to resize and compress PAN card photos, signatures, and documents to meet NSDL/UTI requirements. It operates entirely in the browser, ensuring user privacy and fast performance by processing images locally without server uploads. The application offers a comprehensive suite of tools for image manipulation, including custom centimeter resizing, and is available as both a standalone HTML site and a WordPress theme. Its primary purpose is to simplify compliance with official document submission standards for PAN cards, catering to a broad user base with an intuitive and efficient online tool. The project aims to be the go-to solution for PAN card image resizing, providing a secure, fast, and user-friendly experience.
 
-## Recent Changes (October 28, 2025)
+## Recent Changes (October 29, 2025)
 
-### Latest Updates - Dedicated Resized Info Container with Green Styling
+### Latest Updates - October 29, 2025
+
+#### Preview Container Shows Resized Image Details
+- **Preview Container Update**: Modified to display resized image dimensions and file size instead of original
+  - After resizing, preview container updates to show: `197 × 276 px` and `17.93 KB` (resized values)
+  - Previously showed original dimensions (e.g., 4608 × 3456 px) which was incorrect
+  - JavaScript automatically updates `.file-dimensions` and `.file-size` spans with resized metadata
+  
+#### Green Container Simplified to Filename Input Only
+- **Green Container Redesign**: Removed dimension/size display, keeping only filename input
+  - Previous: Showed resized dimensions + file size + filename input
+  - Current: Only shows filename input with placeholder "File name (optional): Enter custom filename..."
+  - Cleaner, less cluttered interface focusing on the single action users need
+  - CSS updated to support simplified block-level structure
+  
+#### DPI Change Auto-Reset Functionality
+- **Smart UI Reset on Parameter Change**: Download button automatically reverts to Resize button when parameters change
+  - **Preset Sections (NSDL Photo, NSDL Signature)**: When DPI value is adjusted
+    - Hides Download button and shows Resize button
+    - Clears and hides the green filename container
+    - Updates output pixel calculation display
+  - **Custom CM Section**: When any input changes (Width, Height, DPI, or Max Size)
+    - Resets Download button to Resize button
+    - Ensures users must re-resize after changing parameters
+  - Prevents download of outdated resized images with wrong dimensions
+  - Provides clear visual feedback that resize operation needs to be performed again
+
+### Previous Updates - October 28, 2025
+
+#### Dedicated Resized Info Container with Green Styling
 - **Changed Label Text**: Updated "Calculated:" to "Output:" in all 4 preset sections (NSDL Photo, NSDL Signature, UTI Photo, UTI Signature) for better clarity
   - The 5th section (Custom CM Resizer) was not modified as it doesn't have this label
 - **New Dedicated Resized Info Container**: Complete redesign of how resized image information is displayed
