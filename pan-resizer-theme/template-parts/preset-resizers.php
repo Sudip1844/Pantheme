@@ -275,6 +275,11 @@
                 </div>
             </div>
             
+            <!-- Resized image metadata container (green box for custom filename) -->
+            <div class="resized-meta" id="resized-info-custom-cm" style="display: none !important;">
+                <!-- Will be populated by JavaScript after resizing -->
+            </div>
+            
             <div class="preset-actions">
                 <button class="resize-btn custom-resize-btn" id="resize-custom-cm" disabled>Resize Image</button>
                 <button class="download-btn-preset custom-resize-btn" id="download-custom-cm" style="display: none;">

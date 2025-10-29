@@ -2730,6 +2730,7 @@ document.addEventListener('DOMContentLoaded', function() {
         presetStates[sectionId] = {
             file: null,
             image: null,
+            originalDataUrl: null,  // Store original image data to preserve quality
             config: config
         };
 
@@ -2778,6 +2779,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 const downloadBtn = document.getElementById(`download-${sectionId}`);
                 const resizeBtn = document.getElementById(`resize-${sectionId}`);
                 const resizedMeta = document.getElementById(`resized-info-${sectionId}`);
+                const filePreview = document.getElementById(`preview-${sectionId}`);
+                
+                // Restore original image to preview when parameters change
+                if (presetStates[sectionId].originalDataUrl && filePreview) {
+                    const fileImage = filePreview.querySelector('.file-image');
+                    if (fileImage) {
+                        fileImage.src = presetStates[sectionId].originalDataUrl;
+                    }
+                    
+                    // Restore original dimensions and size
+                    const fileDimensions = filePreview.querySelector('.file-dimensions');
+                    const fileSize = filePreview.querySelector('.file-size');
+                    if (presetStates[sectionId].image && fileDimensions) {
+                        fileDimensions.textContent = `${presetStates[sectionId].image.width} × ${presetStates[sectionId].image.height} px`;
+                    }
+                    if (presetStates[sectionId].file && fileSize) {
+                        const fileSizeKB = (presetStates[sectionId].file.size / 1024).toFixed(2);
+                        const fileSizeMB = (presetStates[sectionId].file.size / (1024 * 1024)).toFixed(2);
+                        fileSize.textContent = presetStates[sectionId].file.size >= 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
+                    }
+                }
                 
                 // Hide download button and show resize button
                 if (downloadBtn) {
@@ -2818,6 +2840,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const reader = new FileReader();
         reader.onload = function(e) {
+            // Store original data URL to preserve quality across multiple resizes
+            presetStates[sectionId].originalDataUrl = e.target.result;
+            
             const img = new Image();
             img.onload = function() {
                 presetStates[sectionId].image = img;
@@ -2913,7 +2938,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function resizeImage(sectionId) {
         const state = presetStates[sectionId];
-        if (!state.image) return;
+        if (!state.originalDataUrl) return;
 
         const config = state.config;
         const canvas = document.getElementById(`canvas-${sectionId}`);
@@ -2932,26 +2957,29 @@ document.addEventListener('DOMContentLoaded', function() {
             targetHeight = config.height;
         }
 
-        // Set canvas size
-        canvas.width = targetWidth;
-        canvas.height = targetHeight;
+        // Create a fresh Image object from the original data URL to ensure quality preservation
+        const originalImg = new Image();
+        originalImg.onload = function() {
+            // Set canvas size
+            canvas.width = targetWidth;
+            canvas.height = targetHeight;
 
-        // Draw white background
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(0, 0, targetWidth, targetHeight);
+            // Draw white background
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, targetWidth, targetHeight);
 
-        // Calculate scaling to fit image
-        const scale = Math.max(targetWidth / state.image.width, targetHeight / state.image.height);
-        const scaledWidth = state.image.width * scale;
-        const scaledHeight = state.image.height * scale;
-        const x = (targetWidth - scaledWidth) / 2;
-        const y = (targetHeight - scaledHeight) / 2;
+            // Calculate scaling to fit image
+            const scale = Math.max(targetWidth / originalImg.width, targetHeight / originalImg.height);
+            const scaledWidth = originalImg.width * scale;
+            const scaledHeight = originalImg.height * scale;
+            const x = (targetWidth - scaledWidth) / 2;
+            const y = (targetHeight - scaledHeight) / 2;
 
-        // Draw image
-        ctx.drawImage(state.image, x, y, scaledWidth, scaledHeight);
+            // Draw image from original source
+            ctx.drawImage(originalImg, x, y, scaledWidth, scaledHeight);
 
-        // Compress to target size
-        compressCanvas(canvas, config.maxSize, function(compressedDataUrl) {
+            // Compress to target size
+            compressCanvas(canvas, config.maxSize, function(compressedDataUrl) {
             const filePreview = document.getElementById(`preview-${sectionId}`);
             
             // Replace existing preview image with resized image
@@ -3004,6 +3032,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add download button
             addDownloadButton(sectionId, compressedDataUrl, targetWidth, targetHeight);
         });
+        };
+        
+        // Load the original image to trigger the onload event
+        originalImg.src = state.originalDataUrl;
     }
 
     function compressCanvas(canvas, maxSizeKB, callback) {
@@ -3071,6 +3103,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Reset state
         presetStates[sectionId].file = null;
         presetStates[sectionId].image = null;
+        presetStates[sectionId].originalDataUrl = null;  // Clear original data
         presetStates[sectionId].resizedDataUrl = null;
         presetStates[sectionId].resizedDimensions = null;
 
@@ -3135,6 +3168,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let customState = {
             file: null,
             image: null,
+            originalDataUrl: null,  // Store original image data to preserve quality
             resizedDataUrl: null
         };
         
@@ -3176,6 +3210,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const reader = new FileReader();
             
             reader.onload = function(e) {
+                // Store original data URL to preserve quality across multiple resizes
+                customState.originalDataUrl = e.target.result;
+                
                 const img = new Image();
                 img.onload = function() {
                     customState.image = img;
@@ -3222,10 +3259,38 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Add input change handlers to reset download button when values change
         function handleInputChange() {
+            // Restore original image to preview when parameters change
+            if (customState.originalDataUrl && filePreview) {
+                const previewImg = filePreview.querySelector('.file-image');
+                if (previewImg) {
+                    previewImg.src = customState.originalDataUrl;
+                }
+                
+                // Restore original dimensions and size
+                const dimensionSpan = filePreview.querySelector('.file-dimension');
+                const fileSizeSpan = filePreview.querySelector('.file-size');
+                if (customState.image && dimensionSpan) {
+                    dimensionSpan.textContent = `${customState.image.width} × ${customState.image.height} px`;
+                }
+                if (customState.file && fileSizeSpan) {
+                    const fileSizeKB = (customState.file.size / 1024).toFixed(2);
+                    const fileSizeMB = (customState.file.size / (1024 * 1024)).toFixed(2);
+                    const displaySize = customState.file.size >= 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
+                    fileSizeSpan.textContent = displaySize;
+                }
+            }
+            
             // If image is resized (download button is visible), reset to resize state
             if (downloadBtn && downloadBtn.style.display !== 'none') {
                 downloadBtn.style.display = 'none';
                 resizeBtn.style.display = '';
+            }
+            
+            // Hide and clear green container if exists
+            const resizedMeta = document.getElementById('resized-info-custom-cm');
+            if (resizedMeta) {
+                resizedMeta.style.display = 'none';
+                resizedMeta.innerHTML = '';
             }
         }
         
@@ -3237,7 +3302,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Resize button click
         resizeBtn.addEventListener('click', function() {
-            if (!customState.image) return;
+            if (!customState.originalDataUrl) return;
             
             const widthCm = parseFloat(widthInput.value);
             const heightCm = parseFloat(heightInput.value);
@@ -3248,15 +3313,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const widthPx = Math.round((widthCm / 2.54) * dpi);
             const heightPx = Math.round((heightCm / 2.54) * dpi);
             
-            // Create canvas for resizing
-            const canvas = document.createElement('canvas');
-            canvas.width = widthPx;
-            canvas.height = heightPx;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(customState.image, 0, 0, widthPx, heightPx);
-            
-            // Compress to target size
-            compressToSize(canvas, maxSizeKB, function(finalDataUrl) {
+            // Create a fresh Image object from the original data URL to ensure quality preservation
+            const originalImg = new Image();
+            originalImg.onload = function() {
+                // Create canvas for resizing
+                const canvas = document.createElement('canvas');
+                canvas.width = widthPx;
+                canvas.height = heightPx;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(originalImg, 0, 0, widthPx, heightPx);
+                
+                // Compress to target size
+                compressToSize(canvas, maxSizeKB, function(finalDataUrl) {
                 customState.resizedDataUrl = finalDataUrl;
                 
                 // Update preview with resized image
@@ -3281,12 +3349,37 @@ document.addEventListener('DOMContentLoaded', function() {
                     fileSizeSpan.textContent = displaySize;
                 }
                 
+                // Show custom filename input in green container (like preset sections)
+                const resizedMeta = document.getElementById('resized-info-custom-cm');
+                if (resizedMeta) {
+                    // Preserve existing filename if present
+                    const existingFilenameInput = document.getElementById('filename-custom-cm');
+                    const existingFilename = existingFilenameInput ? existingFilenameInput.value : '';
+                    
+                    resizedMeta.style.display = 'block';
+                    resizedMeta.innerHTML = `
+                        <div class="resized-meta-content">
+                            <input 
+                                type="text" 
+                                id="filename-custom-cm" 
+                                class="filename-input" 
+                                placeholder="File name (optional): Enter custom filename..."
+                                value="${existingFilename}"
+                            />
+                        </div>
+                    `;
+                }
+                
                 // Show download button and hide resize button
                 if (downloadBtn) {
                     downloadBtn.onclick = function() {
                         const link = document.createElement('a');
-                        const filename = `custom-resized-${widthCm}x${heightCm}cm-${dpi}dpi`;
-                        link.download = `${filename}.jpg`;
+                        const filenameInput = document.getElementById('filename-custom-cm');
+                        const customName = filenameInput && filenameInput.value.trim() 
+                            ? filenameInput.value.trim() 
+                            : `custom-resized-${widthCm}x${heightCm}cm-${dpi}dpi`;
+                        
+                        link.download = `${customName}.jpg`;
                         link.href = finalDataUrl;
                         link.click();
                     };
@@ -3296,6 +3389,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Hide resize button after resizing is complete
                 resizeBtn.style.display = 'none';
             });
+            };
+            
+            // Load the original image to trigger the onload event
+            originalImg.src = customState.originalDataUrl;
         });
         
         // Reset button click
@@ -3305,6 +3402,7 @@ document.addEventListener('DOMContentLoaded', function() {
         function resetCustom() {
             customState.file = null;
             customState.image = null;
+            customState.originalDataUrl = null;  // Clear original data
             customState.resizedDataUrl = null;
             fileInput.value = '';
             resizeBtn.disabled = true;
@@ -3320,6 +3418,13 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Hide download button
             if (downloadBtn) downloadBtn.style.display = 'none';
+            
+            // Hide and clear green container
+            const resizedMeta = document.getElementById('resized-info-custom-cm');
+            if (resizedMeta) {
+                resizedMeta.style.display = 'none';
+                resizedMeta.innerHTML = '';
+            }
             
             // Show resize button again
             resizeBtn.style.display = '';
