@@ -2132,7 +2132,7 @@ textarea:focus-visible,
   }
 }
 
-/* Resized Image Info Container */
+/* Resized Image Info Container - Simplified for filename input only */
 .resized-meta {
   display: none !important;
   background: #e8f5e9 !important;
@@ -2140,76 +2140,36 @@ textarea:focus-visible,
   border-radius: 12px !important;
   padding: 16px !important;
   margin: 16px 0 !important;
-  flex-direction: row !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  gap: 16px !important;
 }
 
-.resized-meta[style*="display: flex"] {
-  display: flex !important;
+.resized-meta[style*="display: block"] {
+  display: block !important;
 }
 
-.resized-meta-left {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex: 0 0 auto;
-}
-
-.resized-meta-left .dimension-text {
-  font-size: 16px;
-  font-weight: 600;
-  color: #1b5e20;
-}
-
-.resized-meta-left .size-text {
-  font-size: 14px;
-  color: #2e7d32;
-  font-weight: 500;
-}
-
-.resized-meta-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  max-width: 400px;
-}
-
-.resized-meta-right label {
-  display: block;
-  color: #2e7d32;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.resized-meta-right input {
+.resized-meta-content {
   width: 100%;
-  padding: 10px 12px;
+}
+
+.resized-meta .filename-input {
+  width: 100%;
+  padding: 12px 14px;
   border: 2px solid #a5d6a7;
   border-radius: 8px;
   font-size: 14px;
   transition: border-color 0.3s ease;
   outline: none;
   background: #ffffff;
+  color: #2e7d32;
 }
 
-.resized-meta-right input:focus {
+.resized-meta .filename-input::placeholder {
+  color: #81c784;
+  font-weight: 500;
+}
+
+.resized-meta .filename-input:focus {
   border-color: #4caf50;
   box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-}
-
-@media (max-width: 768px) {
-  .resized-meta {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-  }
-  
-  .resized-meta-right {
-    max-width: 100%;
-    width: 100%;
-  }
 }
 
 .preset-actions {
