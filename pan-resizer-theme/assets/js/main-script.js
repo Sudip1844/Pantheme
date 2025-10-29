@@ -2948,28 +2948,34 @@ document.addEventListener('DOMContentLoaded', function() {
             const fileSizeMB = (bytes / (1024 * 1024)).toFixed(2);
             const displaySize = bytes >= 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
             
-            // Show resized info in the new green container
+            // Update preview container to show resized dimensions instead of original
+            if (filePreview) {
+                const fileDimensions = filePreview.querySelector('.file-dimensions');
+                const fileSize = filePreview.querySelector('.file-size');
+                
+                if (fileDimensions) {
+                    fileDimensions.textContent = `${targetWidth} × ${targetHeight} px`;
+                }
+                if (fileSize) {
+                    fileSize.textContent = displaySize;
+                }
+            }
+            
+            // Show filename input only in the green container (no dimensions/size)
             const resizedMeta = document.getElementById(`resized-info-${sectionId}`);
             if (resizedMeta) {
                 // Preserve existing filename if present
                 const existingFilenameInput = document.getElementById(`filename-${sectionId}`);
                 const existingFilename = existingFilenameInput ? existingFilenameInput.value : '';
                 
-                resizedMeta.style.display = 'flex';
+                resizedMeta.style.display = 'block';
                 resizedMeta.innerHTML = `
-                    <div class="resized-meta-left">
-                        <div class="dimension-text">${targetWidth} × ${targetHeight} px</div>
-                        <div class="size-text">${displaySize}</div>
-                    </div>
-                    <div class="resized-meta-right">
-                        <label for="filename-${sectionId}">
-                            <i class="fas fa-file-signature"></i> File name (optional):
-                        </label>
+                    <div class="resized-meta-content">
                         <input 
                             type="text" 
                             id="filename-${sectionId}" 
                             class="filename-input" 
-                            placeholder="Enter custom filename..."
+                            placeholder="File name (optional): Enter custom filename..."
                             value="${existingFilename}"
                         />
                     </div>
@@ -3225,10 +3231,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     previewImg.src = finalDataUrl;
                 }
                 
-                // Update file info with new dimensions
+                // Update file info with new dimensions and size
                 const dimensionSpan = filePreview.querySelector('.file-dimension');
                 if (dimensionSpan) {
                     dimensionSpan.textContent = `${widthPx} × ${heightPx} px`;
+                }
+                
+                const fileSizeSpan = filePreview.querySelector('.file-size');
+                if (fileSizeSpan) {
+                    const base64 = finalDataUrl.split(',')[1];
+                    const bytes = atob(base64).length;
+                    const fileSizeKB = (bytes / 1024).toFixed(2);
+                    const fileSizeMB = (bytes / (1024 * 1024)).toFixed(2);
+                    const displaySize = bytes >= 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
+                    fileSizeSpan.textContent = displaySize;
                 }
                 
                 // Show download button and hide resize button
