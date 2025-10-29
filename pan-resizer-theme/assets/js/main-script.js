@@ -2773,6 +2773,25 @@ document.addEventListener('DOMContentLoaded', function() {
         if (dpiInput && !dpiInput.hasAttribute('readonly')) {
             dpiInput.addEventListener('input', function() {
                 updateCalculation(sectionId);
+                
+                // Reset download button back to resize button when DPI changes
+                const downloadBtn = document.getElementById(`download-${sectionId}`);
+                const resizeBtn = document.getElementById(`resize-${sectionId}`);
+                const resizedMeta = document.getElementById(`resized-info-${sectionId}`);
+                
+                // Hide download button and show resize button
+                if (downloadBtn) {
+                    downloadBtn.style.display = 'none';
+                }
+                if (resizeBtn && presetStates[sectionId].image) {
+                    resizeBtn.style.display = '';
+                }
+                
+                // Hide and clear green container
+                if (resizedMeta) {
+                    resizedMeta.style.display = 'none';
+                    resizedMeta.innerHTML = '';
+                }
             });
         }
 
@@ -3200,6 +3219,21 @@ document.addEventListener('DOMContentLoaded', function() {
             
             reader.readAsDataURL(file);
         }
+        
+        // Add input change handlers to reset download button when values change
+        function handleInputChange() {
+            // If image is resized (download button is visible), reset to resize state
+            if (downloadBtn && downloadBtn.style.display !== 'none') {
+                downloadBtn.style.display = 'none';
+                resizeBtn.style.display = '';
+            }
+        }
+        
+        // Add change listeners to all input fields
+        if (widthInput) widthInput.addEventListener('input', handleInputChange);
+        if (heightInput) heightInput.addEventListener('input', handleInputChange);
+        if (dpiInput) dpiInput.addEventListener('input', handleInputChange);
+        if (maxSizeInput) maxSizeInput.addEventListener('input', handleInputChange);
         
         // Resize button click
         resizeBtn.addEventListener('click', function() {
