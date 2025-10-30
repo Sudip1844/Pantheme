@@ -2823,6 +2823,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function handleFileSelect(sectionId, file) {
+        // Check file size (10 MB limit)
+        const maxSizeBytes = 10 * 1024 * 1024; // 10 MB
+        if (file.size > maxSizeBytes) {
+            const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+            alert(`File size (${fileSizeMB} MB) exceeds the maximum limit of 10 MB. Please choose a smaller file.`);
+            return;
+        }
+        
         presetStates[sectionId].file = file;
         
         const reader = new FileReader();
@@ -3219,6 +3227,14 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Handle file selection
         function handleCustomFileSelect(file) {
+            // Check file size (10 MB limit)
+            const maxSizeBytes = 10 * 1024 * 1024; // 10 MB
+            if (file.size > maxSizeBytes) {
+                const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                alert(`File size (${fileSizeMB} MB) exceeds the maximum limit of 10 MB. Please choose a smaller file.`);
+                return;
+            }
+            
             customState.file = file;
             const reader = new FileReader();
             

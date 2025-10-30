@@ -1365,8 +1365,9 @@ img {
   padding: 15px 20px;
   border-bottom: 1px solid #e0e0e0;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .preview-header h3 {
@@ -1382,6 +1383,10 @@ img {
   cursor: pointer;
   color: #6c757d;
   transition: color 0.2s ease;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .preview-close-btn:hover {
@@ -2036,6 +2041,14 @@ textarea:focus-visible,
 .upload-hint {
   color: #6b7280;
   font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.upload-file-info {
+  color: #9ca3af;
+  font-size: 12px;
+  margin-top: 6px;
+  font-weight: 500;
 }
 
 .browse-text {
