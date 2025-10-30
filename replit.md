@@ -10,13 +10,14 @@ PAN Card Resizer is a client-side web application designed to resize and compres
 #### UI Improvements - Container and Label Optimization
 
 **1. Single Container for Filename Input (Space Optimization)**
-- **Problem Fixed**: Filename input area used nested double containers (outer green + inner white) which consumed excessive space
-- **Solution**: Removed `.resized-meta-content` wrapper div from JavaScript code
-  - Modified main-script.js at two locations (preset sections and custom CM section)
-  - Input field now sits directly inside `.resized-meta` container
-  - Updated CSS by removing `.resized-meta-content` selector
-- **Impact**: Reduced vertical space usage, cleaner and more compact UI
-- **Technical**: Single container layout with green background and white input field
+- **Problem Fixed**: Filename input area used nested double containers (outer green container + inner white input) which consumed excessive space
+- **Solution**: 
+  - **JavaScript**: Removed `.resized-meta-content` wrapper div from main-script.js (both preset and custom CM sections)
+  - **HTML**: Input field now sits directly inside `.resized-meta` container
+  - **CSS**: Made `.resized-meta` completely transparent (removed background and border)
+  - All styling moved to `.filename-input` itself (light green background #e8f5e9, green border #a5d6a7)
+- **Impact**: Single unified input field, significantly reduced vertical space, cleaner UI
+- **Result**: No more double container - only one visible input box with green styling
 
 **2. Custom CM Resizer - Labels Inside Input Boxes**
 - **Enhancement**: Moved input labels from outside/above input boxes to inside on the right side

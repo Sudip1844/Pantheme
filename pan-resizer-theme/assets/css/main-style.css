@@ -2132,13 +2132,9 @@ textarea:focus-visible,
   }
 }
 
-/* Resized Image Info Container - Simplified for filename input only */
+/* Resized Image Info Container - Single container, no double nesting */
 .resized-meta {
   display: none !important;
-  background: #e8f5e9 !important;
-  border: 1px solid #c8e6c9 !important;
-  border-radius: 12px !important;
-  padding: 16px !important;
   margin: 16px 0 !important;
 }
 
@@ -2148,24 +2144,25 @@ textarea:focus-visible,
 
 .resized-meta .filename-input {
   width: 100%;
-  padding: 12px 14px;
+  padding: 14px 16px;
   border: 2px solid #a5d6a7;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 14px;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
   outline: none;
-  background: #ffffff;
+  background: #e8f5e9;
   color: #2e7d32;
 }
 
 .resized-meta .filename-input::placeholder {
-  color: #81c784;
+  color: #66bb6a;
   font-weight: 500;
 }
 
 .resized-meta .filename-input:focus {
   border-color: #4caf50;
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+  background: #f1f8e9;
+  box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15);
 }
 
 .preset-actions {
