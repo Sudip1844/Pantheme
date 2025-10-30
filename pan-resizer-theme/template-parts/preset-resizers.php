@@ -147,7 +147,7 @@
             <div class="preset-controls">
                 <div class="dpi-control">
                     <label for="dpi-uti-photo">DPI</label>
-                    <input type="number" id="dpi-uti-photo" value="300" readonly class="dpi-input">
+                    <input type="number" id="dpi-uti-photo" value="300" min="50" max="600" class="dpi-input">
                 </div>
                 <div class="calculated-info">
                     <span>Output: <strong id="calc-uti-photo">213px (W) x 213px (H)</strong></span>
@@ -201,7 +201,7 @@
             <div class="preset-controls">
                 <div class="dpi-control">
                     <label for="dpi-uti-signature">DPI</label>
-                    <input type="number" id="dpi-uti-signature" value="600" readonly class="dpi-input">
+                    <input type="number" id="dpi-uti-signature" value="600" min="50" max="1200" class="dpi-input">
                 </div>
                 <div class="calculated-info">
                     <span>Output: <strong id="calc-uti-signature">400px (W) x 200px (H)</strong></span>

@@ -3,9 +3,20 @@
 ## Overview
 PAN Card Resizer is a client-side web application designed to resize and compress PAN card photos, signatures, and documents to meet NSDL/UTI requirements. It operates entirely in the browser, ensuring user privacy and fast performance by processing images locally without server uploads. The application offers a comprehensive suite of tools for image manipulation, including custom centimeter resizing, and is available as both a standalone HTML site and a WordPress theme. Its primary purpose is to simplify compliance with official document submission standards for PAN cards, catering to a broad user base with an intuitive and efficient online tool. The project aims to be the go-to solution for PAN card image resizing, providing a secure, fast, and user-friendly experience.
 
-## Recent Changes (October 29, 2025)
+## Recent Changes
 
-### Latest Updates - October 29, 2025 (Image Quality Preservation Feature)
+### Latest Updates - October 30, 2025 (UTI DPI Change Fix)
+
+#### UTI Photograph & UTI Signature DPI Edit Enabled
+- **Problem Fixed**: UTI photograph and UTI signature sections had `readonly` attribute on DPI input fields, preventing users from changing DPI values
+- **Solution Implemented**: 
+  - Removed `readonly` attribute from both UTI DPI input fields (lines 150 and 204 in preset-resizers.php)
+  - Added min/max constraints for better UX: `min="50" max="600"` for UTI Photo, `min="50" max="1200"` for UTI Signature
+  - Now users can adjust DPI in UTI sections just like NSDL sections
+- **Impact**: All 5 preset sections now have fully functional DPI adjustment capability
+- **Technical Details**: DPI change listeners in main-script.js now properly fire for UTI sections since readonly attribute no longer blocks input events
+
+### Previous Updates - October 29, 2025 (Image Quality Preservation Feature)
 
 #### Original Image Preservation Across Multiple Resizes
 - **Problem Solved**: Previously, when users changed DPI and resized multiple times, the image quality degraded because each resize operated on the previously resized image
