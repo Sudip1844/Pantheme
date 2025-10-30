@@ -3022,7 +3022,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             type="text" 
                             id="filename-${sectionId}" 
                             class="filename-input" 
-                            placeholder="File name (optional): Enter custom filename..."
+                            placeholder="File name (optional)"
                             value="${existingFilename}"
                         />
                     </div>
@@ -3363,7 +3363,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 type="text" 
                                 id="filename-custom-cm" 
                                 class="filename-input" 
-                                placeholder="File name (optional): Enter custom filename..."
+                                placeholder="File name (optional)"
                                 value="${existingFilename}"
                             />
                         </div>

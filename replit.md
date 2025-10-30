@@ -5,7 +5,15 @@ PAN Card Resizer is a client-side web application designed to resize and compres
 
 ## Recent Changes
 
-### Latest Updates - October 30, 2025 (UTI DPI Change Fix)
+### Latest Updates - October 30, 2025
+
+#### Filename Input Placeholder Simplified
+- **UI Enhancement**: Simplified filename input placeholder text for better clarity
+- **Changes**: Changed placeholder from "File name (optional): Enter custom filename..." to just "File name (optional)"
+- **Affected Areas**: 
+  - All 4 preset sections (NSDL Photo, NSDL Signature, UTI Photo, UTI Signature)
+  - Custom CM Resizer section
+- **Impact**: Cleaner, less cluttered interface with concise placeholder text
 
 #### UTI Photograph & UTI Signature DPI Edit Enabled
 - **Problem Fixed**: UTI photograph and UTI signature sections had `readonly` attribute on DPI input fields, preventing users from changing DPI values
