@@ -239,20 +239,28 @@
         <!-- Input Grid -->
         <div class="custom-input-grid">
             <div class="custom-input-group">
-                <label for="custom-width">Width (cm)</label>
-                <input type="number" id="custom-width" value="2.5" min="0.1" step="0.1" class="custom-input">
+                <div class="input-with-label">
+                    <input type="number" id="custom-width" value="2.5" min="0.1" step="0.1" class="custom-input" placeholder="2.5">
+                    <span class="input-label-inside">Width (cm)</span>
+                </div>
             </div>
             <div class="custom-input-group">
-                <label for="custom-height">Height (cm)</label>
-                <input type="number" id="custom-height" value="3.5" min="0.1" step="0.1" class="custom-input">
+                <div class="input-with-label">
+                    <input type="number" id="custom-height" value="3.5" min="0.1" step="0.1" class="custom-input" placeholder="3.5">
+                    <span class="input-label-inside">Height (cm)</span>
+                </div>
             </div>
             <div class="custom-input-group">
-                <label for="custom-dpi">Resolution (DPI)</label>
-                <input type="number" id="custom-dpi" value="200" min="50" max="1200" class="custom-input">
+                <div class="input-with-label">
+                    <input type="number" id="custom-dpi" value="200" min="50" max="1200" class="custom-input" placeholder="200">
+                    <span class="input-label-inside">Resolution (DPI)</span>
+                </div>
             </div>
             <div class="custom-input-group">
-                <label for="custom-maxsize">Max Size (KB)</label>
-                <input type="number" id="custom-maxsize" value="20" min="1" max="500" class="custom-input">
+                <div class="input-with-label">
+                    <input type="number" id="custom-maxsize" value="20" min="1" max="500" class="custom-input" placeholder="20">
+                    <span class="input-label-inside">Max Size (KB)</span>
+                </div>
             </div>
         </div>
         

@@ -3017,15 +3017,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 resizedMeta.style.display = 'block';
                 resizedMeta.innerHTML = `
-                    <div class="resized-meta-content">
-                        <input 
-                            type="text" 
-                            id="filename-${sectionId}" 
-                            class="filename-input" 
-                            placeholder="File name (optional)"
-                            value="${existingFilename}"
-                        />
-                    </div>
+                    <input 
+                        type="text" 
+                        id="filename-${sectionId}" 
+                        class="filename-input" 
+                        placeholder="File name (optional)"
+                        value="${existingFilename}"
+                    />
                 `;
             }
             
@@ -3358,15 +3356,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     resizedMeta.style.display = 'block';
                     resizedMeta.innerHTML = `
-                        <div class="resized-meta-content">
-                            <input 
-                                type="text" 
-                                id="filename-custom-cm" 
-                                class="filename-input" 
-                                placeholder="File name (optional)"
-                                value="${existingFilename}"
-                            />
-                        </div>
+                        <input 
+                            type="text" 
+                            id="filename-custom-cm" 
+                            class="filename-input" 
+                            placeholder="File name (optional)"
+                            value="${existingFilename}"
+                        />
                     `;
                 }
                 

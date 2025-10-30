@@ -7,6 +7,30 @@ PAN Card Resizer is a client-side web application designed to resize and compres
 
 ### Latest Updates - October 30, 2025
 
+#### UI Improvements - Container and Label Optimization
+
+**1. Single Container for Filename Input (Space Optimization)**
+- **Problem Fixed**: Filename input area used nested double containers (outer green + inner white) which consumed excessive space
+- **Solution**: Removed `.resized-meta-content` wrapper div from JavaScript code
+  - Modified main-script.js at two locations (preset sections and custom CM section)
+  - Input field now sits directly inside `.resized-meta` container
+  - Updated CSS by removing `.resized-meta-content` selector
+- **Impact**: Reduced vertical space usage, cleaner and more compact UI
+- **Technical**: Single container layout with green background and white input field
+
+**2. Custom CM Resizer - Labels Inside Input Boxes**
+- **Enhancement**: Moved input labels from outside/above input boxes to inside on the right side
+- **Changes**: 
+  - Restructured HTML in preset-resizers.php with `.input-with-label` wrapper
+  - Added `.input-label-inside` span elements positioned absolutely on the right
+  - Labels now display as: `Width (cm)`, `Height (cm)`, `Resolution (DPI)`, `Max Size (KB)` inside the input boxes
+  - Input fields have right padding (140px) to prevent text overlap with labels
+- **CSS Implementation**: 
+  - Position: absolute with right: 14px alignment
+  - Labels are non-interactive (pointer-events: none) and non-selectable
+  - Color: #9ca3af for subtle visibility
+- **Impact**: Cleaner vertical layout, reduced visual clutter, modern input design pattern
+
 #### Filename Input Placeholder Simplified
 - **UI Enhancement**: Simplified filename input placeholder text for better clarity
 - **Changes**: Changed placeholder from "File name (optional): Enter custom filename..." to just "File name (optional)"

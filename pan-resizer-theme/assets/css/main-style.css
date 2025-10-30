@@ -2146,10 +2146,6 @@ textarea:focus-visible,
   display: block !important;
 }
 
-.resized-meta-content {
-  width: 100%;
-}
-
 .resized-meta .filename-input {
   width: 100%;
   padding: 12px 14px;
@@ -2361,17 +2357,17 @@ textarea:focus-visible,
 .custom-input-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 
-.custom-input-group label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #6b7280;
+.input-with-label {
+  position: relative;
+  width: 100%;
 }
 
 .custom-input {
+  width: 100%;
   padding: 10px 14px;
+  padding-right: 140px;
   border: 2px solid #d1d5db;
   border-radius: 8px;
   font-size: 15px;
@@ -2385,6 +2381,18 @@ textarea:focus-visible,
   outline: none;
   border-color: #14b8a6;
   box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+}
+
+.input-label-inside {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  font-weight: 600;
+  color: #9ca3af;
+  pointer-events: none;
+  user-select: none;
 }
 
 .custom-upload {
