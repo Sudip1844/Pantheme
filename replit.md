@@ -31,12 +31,20 @@ PAN Card Resizer is a client-side web application designed to resize and compres
 **Impact:**
 - Output file sizes now consistently reach 95-100% of target size
 - Better image quality while staying within limits
-- Applies to all 5 preset sections and custom CM resizer
+- Applies to all 5 preset sections, custom CM resizer, AND home section editor
 - More predictable and optimal compression results
 
 **Example Results:**
-- Before: 20 KB limit → 11 KB output (55%)
-- After: 20 KB limit → 19-20 KB output (95-100%)
+- Preset Sections: 20 KB limit → 19-20 KB output (95-100%)
+- Home Section Photo/Signature: 50 KB limit → 47-50 KB output (95-100%)
+- Home Section Document: 300 KB limit → 285-300 KB output (95-100%)
+
+**Home Section Specific Optimization:**
+- Modified `compressToTargetSize()` function to target 95-100% range
+- Photo/Signature: maxSizeKB = 50 KB, targetMin = 47 KB (95%)
+- Document (PDF): maxSizeKB = 300 KB, targetMin = 285 KB (95%)
+- Simplified binary search logic for faster convergence
+- Accepts immediately when size is in 95-100% range
 
 #### UI Improvements - Container and Label Optimization
 

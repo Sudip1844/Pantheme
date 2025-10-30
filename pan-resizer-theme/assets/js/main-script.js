@@ -2105,29 +2105,29 @@ document.addEventListener('DOMContentLoaded', function() {
       return canvas.toDataURL(`image/${format}`, 1.0);
     }
 
-    // Set strict limits based on format
-    const maxSizeKB = format === 'pdf' ? 299 : 49;
-    const actualMinSizeKB = format === 'pdf' ? 150 : 20;
+    // Set strict limits based on format - aim for 95-100% of max size
+    const maxSizeKB = format === 'pdf' ? 300 : 50;
+    const targetMin = format === 'pdf' ? 285 : 47; // 95% of max
+    const actualMinSizeKB = format === 'pdf' ? 200 : 40;
     
-    // Ensure target size is within allowed limits
-    targetSizeKB = Math.min(targetSizeKB, maxSizeKB);
-    minSizeKB = Math.max(minSizeKB, actualMinSizeKB);
+    // Ensure target size is within allowed limits - aim for high end
+    targetSizeKB = Math.min(targetSizeKB || maxSizeKB, maxSizeKB);
+    minSizeKB = Math.max(minSizeKB, targetMin); // Aim for 95-100% range
 
-    // For download, compress iteratively with more precise control
-    let quality = 0.95; // Start slightly below perfect quality for faster convergence
+    // Binary search for optimal quality to get 95-100% of max size
     let dataURL;
     let sizeKB;
     let attempts = 0;
-    const maxAttempts = 50; // Increased attempts for better precision
+    const maxAttempts = 25; // Sufficient for binary search
     
-    // Variables to track closest solutions so far
+    // Variables to track best solution
     let bestQuality = null;
-    let bestSizeKB = null;
+    let bestSizeKB = 0;
     let bestDataURL = null;
     
-    // Binary search approach for faster convergence
-    let minQuality = 0.05;
-    let maxQuality = 1.0;
+    // Binary search range
+    let minQuality = 0.5;
+    let maxQuality = 0.95;
     
     do {
       if (format === 'pdf') {
@@ -2153,44 +2153,31 @@ document.addEventListener('DOMContentLoaded', function() {
       sizeKB = Math.round((dataURL.length * 3) / 4 / 1024);
       attempts++;
 
-      // Check if this is a valid solution within our range
-      if (sizeKB <= maxSizeKB && sizeKB >= actualMinSizeKB) {
-        // If we're within range, store this as a potential best solution
-        if (bestQuality === null || 
-            (sizeKB >= minSizeKB && sizeKB <= targetSizeKB && Math.abs(sizeKB - targetSizeKB) < Math.abs(bestSizeKB - targetSizeKB))) {
-          bestQuality = quality;
-          bestSizeKB = sizeKB;
-          bestDataURL = dataURL;
-        }
-        
-        // If we're very close to target, we can finish early
-        if (Math.abs(sizeKB - targetSizeKB) < 2) {
-          break;
-        }
+      // If within target range (95-100% of max), accept immediately
+      if (sizeKB >= targetMin && sizeKB <= maxSizeKB) {
+        return dataURL;
       }
       
-      // Binary search approach
-      if (sizeKB > targetSizeKB) {
-        // Too big, decrease quality
-        maxQuality = quality;
-        quality = (minQuality + quality) / 2;
-      } else if (sizeKB < minSizeKB) {
-        // Too small, increase quality
-        minQuality = quality;
-        quality = (quality + maxQuality) / 2;
+      // Track best valid result
+      if (sizeKB <= maxSizeKB && sizeKB > bestSizeKB) {
+        bestQuality = quality;
+        bestSizeKB = sizeKB;
+        bestDataURL = dataURL;
+      }
+      
+      // Binary search adjustment
+      if (sizeKB > maxSizeKB) {
+        maxQuality = quality; // Too large, reduce quality
       } else {
-        // We're in range but trying to get closer to target
-        if (sizeKB < targetSizeKB) {
-          minQuality = quality;
-          quality = (quality + maxQuality) / 2;
-        } else {
-          maxQuality = quality;
-          quality = (minQuality + quality) / 2;
-        }
+        minQuality = quality; // Too small, increase quality
       }
       
-      // Ensure we don't go outside valid quality range
-      quality = Math.max(0.05, Math.min(0.95, quality));
+      quality = (minQuality + maxQuality) / 2;
+      
+      // Stop if range is too narrow
+      if (maxQuality - minQuality < 0.01) {
+        break;
+      }
       
     } while (attempts < maxAttempts);
 
