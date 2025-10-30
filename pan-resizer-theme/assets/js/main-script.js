@@ -3037,28 +3037,56 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function compressCanvas(canvas, maxSizeKB, callback) {
-        let quality = 0.9;
-        let dataUrl = canvas.toDataURL('image/jpeg', quality);
-
         function getFileSizeKB(dataUrl) {
             const base64 = dataUrl.split(',')[1];
             const bytes = atob(base64).length;
             return bytes / 1024;
         }
 
-        function compress() {
-            dataUrl = canvas.toDataURL('image/jpeg', quality);
-            const sizeKB = getFileSizeKB(dataUrl);
-
-            if (sizeKB <= maxSizeKB || quality <= 0.1) {
-                callback(dataUrl);
-            } else {
-                quality -= 0.05;
-                setTimeout(compress, 10);
+        // Binary search for optimal quality to get close to target size (95-100%)
+        let minQuality = 0.5;
+        let maxQuality = 0.95;
+        let bestDataUrl = null;
+        let bestSize = 0;
+        let iterations = 0;
+        const maxIterations = 20;
+        const targetMin = maxSizeKB * 0.95; // Aim for 95-100% of max size
+        
+        function binarySearchCompress() {
+            if (iterations >= maxIterations || (maxQuality - minQuality) < 0.01) {
+                // Return the best result we found
+                callback(bestDataUrl || canvas.toDataURL('image/jpeg', maxQuality));
+                return;
             }
+            
+            iterations++;
+            const quality = (minQuality + maxQuality) / 2;
+            const dataUrl = canvas.toDataURL('image/jpeg', quality);
+            const sizeKB = getFileSizeKB(dataUrl);
+            
+            // If size is within our target range (95-100% of max), use it
+            if (sizeKB >= targetMin && sizeKB <= maxSizeKB) {
+                callback(dataUrl);
+                return;
+            }
+            
+            // Keep track of best valid result (under max size)
+            if (sizeKB <= maxSizeKB && sizeKB > bestSize) {
+                bestDataUrl = dataUrl;
+                bestSize = sizeKB;
+            }
+            
+            // Adjust quality range
+            if (sizeKB > maxSizeKB) {
+                maxQuality = quality; // Too large, reduce quality
+            } else {
+                minQuality = quality; // Too small, increase quality
+            }
+            
+            setTimeout(binarySearchCompress, 10);
         }
-
-        compress();
+        
+        binarySearchCompress();
     }
 
     function addDownloadButton(sectionId, dataUrl, width, height) {

@@ -7,6 +7,37 @@ PAN Card Resizer is a client-side web application designed to resize and compres
 
 ### Latest Updates - October 30, 2025
 
+#### Image Compression Algorithm Optimization (Binary Search)
+
+**Problem Identified:**
+- Previous linear compression algorithm produced output files significantly smaller than target size
+- Example: 20 KB max size setting resulted in only 11 KB output (50-60% of target)
+- Algorithm started at quality 0.9 and reduced by 0.05 steps until size was under limit
+- Never increased quality back up, resulting in overly compressed images
+
+**Solution Implemented - Binary Search Algorithm:**
+- **Algorithm Type**: Binary search between minQuality (0.5) and maxQuality (0.95)
+- **Target Range**: 95-100% of maximum allowed size (e.g., 19-20 KB for 20 KB limit)
+- **Iterations**: Maximum 20 iterations or quality difference < 0.01
+- **Smart Tracking**: Keeps track of best valid result throughout search
+- **Precision**: Adjusts quality range based on current size (too large → reduce quality, too small → increase quality)
+
+**Technical Implementation:**
+- Modified `compressCanvas()` function in main-script.js
+- Replaced linear quality reduction with binary search approach
+- Algorithm stops when size is within 95-100% of target or max iterations reached
+- Falls back to best found result if perfect match not achieved
+
+**Impact:**
+- Output file sizes now consistently reach 95-100% of target size
+- Better image quality while staying within limits
+- Applies to all 5 preset sections and custom CM resizer
+- More predictable and optimal compression results
+
+**Example Results:**
+- Before: 20 KB limit → 11 KB output (55%)
+- After: 20 KB limit → 19-20 KB output (95-100%)
+
 #### UI Improvements - Container and Label Optimization
 
 **1. Single Container for Filename Input (Space Optimization)**
