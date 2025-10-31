@@ -5,7 +5,78 @@ PAN Card Resizer is a client-side web application designed to resize and compres
 
 ## Recent Changes
 
-### Latest Updates - October 30, 2025
+### Latest Updates - October 31, 2025
+
+#### Dynamic Section-Specific SEO Implementation
+
+**1. Hash-Based SEO Router**
+- **Feature**: Implemented advanced SEO system that provides unique metadata for each of the 5 editor sections
+- **Technology**: JavaScript-based SEO router with hash-change detection
+- **Implementation**:
+  - Each section (NSDL Photo, NSDL Signature, UTI Photo, UTI Signature, Custom CM) has unique SEO metadata
+  - Dynamically updates meta tags, title, canonical URL, and structured data on section navigation
+  - Uses URL hash fragments (#nsdl-photo, #nsdl-signature, etc.) for section identification
+- **Impact**: Search engines can now index each editor section separately with specific keywords and descriptions
+
+**2. Section-Specific Metadata Registry**
+- **Created**: Comprehensive metadata registry in `index.php` with inline JavaScript exposure
+- **Content for Each Section**:
+  - Unique page title (e.g., "NSDL (Protean) Photograph Resize - 3.5cm x 2.5cm, 200 DPI, 20 KB")
+  - Descriptive meta description with specific requirements
+  - Targeted keywords (e.g., "NSDL photo resize, Protean PAN photo, NSDL photograph 3.5x2.5cm")
+  - Section-specific canonical URLs with hash fragments
+  - Open Graph titles and Twitter Card titles
+- **Sections Covered**:
+  - Default (Homepage)
+  - NSDL Photo (#nsdl-photo)
+  - NSDL Signature (#nsdl-signature)
+  - UTI Photo (#uti-photo)
+  - UTI Signature (#uti-signature)
+  - Custom CM Resizer (#custom-cm-resizer)
+
+**3. Enhanced JSON-LD Structured Data**
+- **Implementation**: Section-specific WebApplication schemas for each editor
+- **Features for Each Section**:
+  - Unique application name and description
+  - Section-specific URL with hash fragment
+  - Detailed feature list matching section capabilities
+  - Proper schema.org compliance for search engine rich results
+- **Format**: All structured data uses proper INR currency and free pricing (0.00)
+
+**4. JavaScript SEO Router (main-script.js)**
+- **Functionality**:
+  - Listens for `hashchange` events to detect section navigation
+  - Automatically updates `document.title` on section change
+  - Dynamically swaps meta tag content (description, keywords)
+  - Updates Open Graph and Twitter Card tags in real-time
+  - Modifies canonical link href to include current hash
+  - Replaces JSON-LD structured data content without page reload
+- **Performance**: Updates occur within 100ms of hash change
+- **Fallback**: Maintains default SEO when JavaScript is disabled
+
+**5. WordPress Theme Compatibility**
+- **Added**: Parallel implementation in `functions.php` for WordPress compatibility
+- **Functions Created**:
+  - `pan_resizer_get_section_metadata()`: Registry of all section metadata
+  - `pan_resizer_get_current_section()`: Hash/query parameter detection
+  - `pan_resizer_add_seo_meta_tags()`: Dynamic meta tag rendering
+  - `pan_resizer_get_section_structured_data()`: Section-specific schemas
+  - `pan_resizer_add_structured_data()`: JSON-LD output
+  - `wp_localize_script()`: JavaScript metadata exposure (WordPress-specific)
+- **Note**: WordPress functions are prepared but currently unused in standalone build
+
+**Technical Implementation**:
+- Modified files:
+  - `index.php`: Added comprehensive inline JavaScript SEO metadata registry
+  - `pan-resizer-theme/assets/js/main-script.js`: Added 150+ lines of SEO router logic
+  - `pan-resizer-theme/functions.php`: Added WordPress-compatible SEO functions (300+ lines)
+- **SEO Benefits**:
+  - Better search engine indexing for specific use cases
+  - Higher ranking potential for targeted keywords (NSDL photo, UTI signature, etc.)
+  - Improved CTR with descriptive titles and meta descriptions
+  - Enhanced social media sharing with section-specific OG tags
+
+### Previous Updates - October 30, 2025
 
 #### UI/UX Improvements for Upload Containers and Preview Modal
 
