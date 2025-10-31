@@ -41,7 +41,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json">
+    <script type="application/ld+json" id="schema-webapp">
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
@@ -63,6 +63,138 @@
             "Client-side processing for privacy"
         ]
     }
+    </script>
+    
+    <!-- SEO Metadata for JavaScript Router -->
+    <script>
+    <?php
+    $base_url = 'https://' . $_SERVER['HTTP_HOST'];
+    $metadata = array(
+        'default' => array(
+            'title' => 'PAN Card Photo, Signature & Document Resizer - Free Online Tool',
+            'description' => 'Free online tool to resize PAN card photos, signatures and documents. Compress images to required size for NSDL/UTI PAN applications without losing quality. Quick, secure and completely free - no software installation needed.',
+            'keywords' => 'PAN card photo resizer, resize PAN card photo, compress PAN photo, PAN signature resizer, NSDL photo resize, UTI photo size, free photo resizer, online image compressor, PAN document converter, custom size resizer',
+            'canonical' => $base_url . '/',
+            'og_title' => 'PAN Card Photo Resizer - Free Online Tool',
+            'twitter_title' => 'PAN Card Photo Resizer - Free Tool'
+        ),
+        'nsdl-photo' => array(
+            'title' => 'NSDL (Protean) Photograph Resize - 3.5cm x 2.5cm, 200 DPI, 20 KB',
+            'description' => 'Resize PAN card photograph for NSDL (Protean) requirements. Automatically resize to 3.5cm x 2.5cm at 200 DPI, compress under 20 KB. Free online tool with white background support.',
+            'keywords' => 'NSDL photo resize, Protean PAN photo, NSDL photograph 3.5x2.5cm, PAN card photo 200 DPI, NSDL photo 20KB, resize photo for NSDL PAN, Protean photo resize',
+            'canonical' => $base_url . '/#nsdl-photo',
+            'og_title' => 'NSDL (Protean) Photograph Resize - 3.5cm x 2.5cm',
+            'twitter_title' => 'NSDL Photo Resize Tool'
+        ),
+        'nsdl-signature' => array(
+            'title' => 'NSDL (Protean) Signature Resize - 2cm x 4.5cm, 200 DPI, 10 KB',
+            'description' => 'Resize signature for NSDL (Protean) PAN card. Automatically resize to 2cm x 4.5cm at 200 DPI, compress under 10 KB. Free tool for perfect NSDL signature requirements.',
+            'keywords' => 'NSDL signature resize, Protean PAN signature, NSDL signature 2x4.5cm, PAN card signature 200 DPI, NSDL signature 10KB, resize signature for NSDL',
+            'canonical' => $base_url . '/#nsdl-signature',
+            'og_title' => 'NSDL (Protean) Signature Resize - 2cm x 4.5cm',
+            'twitter_title' => 'NSDL Signature Resize Tool'
+        ),
+        'uti-photo' => array(
+            'title' => 'UTI/ITSL Photograph Resize - 213x213 pixels, 300 DPI, 30 KB',
+            'description' => 'Resize PAN card photograph for UTI/ITSL requirements. Automatically resize to 213x213 pixels at 300 DPI, compress under 30 KB. Free online UTI photo resizer tool.',
+            'keywords' => 'UTI photo resize, ITSL PAN photo, UTI photograph 213x213, PAN card photo 300 DPI, UTI photo 30KB, resize photo for UTI PAN, ITSL photo resize',
+            'canonical' => $base_url . '/#uti-photo',
+            'og_title' => 'UTI/ITSL Photograph Resize - 213x213 pixels',
+            'twitter_title' => 'UTI Photo Resize Tool'
+        ),
+        'uti-signature' => array(
+            'title' => 'UTI/ITSL Signature Resize - 400x200 pixels, 600 DPI, 60 KB',
+            'description' => 'Resize signature for UTI/ITSL PAN card. Automatically resize to 400x200 pixels at 600 DPI, compress under 60 KB. Free tool for perfect UTI signature requirements.',
+            'keywords' => 'UTI signature resize, ITSL PAN signature, UTI signature 400x200, PAN card signature 600 DPI, UTI signature 60KB, resize signature for UTI',
+            'canonical' => $base_url . '/#uti-signature',
+            'og_title' => 'UTI/ITSL Signature Resize - 400x200 pixels',
+            'twitter_title' => 'UTI Signature Resize Tool'
+        ),
+        'custom-cm-resizer' => array(
+            'title' => 'Custom CM Resizer - Resize Images by Centimeters, DPI & File Size',
+            'description' => 'Custom image resizer with precise control. Set dimensions in centimeters (cm), adjust DPI (50-1200), and specify max file size. Perfect for any document or photo resize requirements.',
+            'keywords' => 'custom image resizer, resize by centimeters, cm to pixels converter, DPI resizer, custom size photo resize, precise image dimensions, resize by cm and DPI',
+            'canonical' => $base_url . '/#custom-cm-resizer',
+            'og_title' => 'Custom CM Resizer - Resize by Centimeters & DPI',
+            'twitter_title' => 'Custom CM Image Resizer'
+        )
+    );
+    
+    $structured_data = array(
+        'default' => array(
+            '@context' => 'https://schema.org',
+            '@type' => 'WebApplication',
+            'name' => 'PAN Card Image Resizer',
+            'url' => $base_url . '/',
+            'applicationCategory' => 'Utility',
+            'operatingSystem' => 'All',
+            'offers' => array('@type' => 'Offer', 'price' => '0.00', 'priceCurrency' => 'INR'),
+            'description' => 'Resize PAN card photo and signature instantly for NSDL and UTI formats. Also supports custom image sizes in cm with DPI control. Free and easy to use.',
+            'featureList' => array('NSDL Photo Resize - 3.5cm x 2.5cm, 20KB', 'NSDL Signature Resize - 2cm x 4.5cm, 10KB', 'UTI Photo Resize - 213x213px, 30KB', 'UTI Signature Resize - 400x200px, 60KB', 'Custom CM Resizer with DPI control')
+        ),
+        'nsdl-photo' => array(
+            '@context' => 'https://schema.org',
+            '@type' => 'WebApplication',
+            'name' => 'NSDL (Protean) Photograph Resizer',
+            'url' => $base_url . '/#nsdl-photo',
+            'applicationCategory' => 'Utility',
+            'operatingSystem' => 'All',
+            'offers' => array('@type' => 'Offer', 'price' => '0.00', 'priceCurrency' => 'INR'),
+            'description' => 'Resize PAN card photograph for NSDL (Protean) requirements. Automatically resize to 3.5cm x 2.5cm at 200 DPI, compress under 20 KB.',
+            'featureList' => array('Automatic resize to 3.5cm x 2.5cm', 'Adjustable DPI (50-600)', 'Compress under 20 KB', 'White background support', 'Client-side processing')
+        ),
+        'nsdl-signature' => array(
+            '@context' => 'https://schema.org',
+            '@type' => 'WebApplication',
+            'name' => 'NSDL (Protean) Signature Resizer',
+            'url' => $base_url . '/#nsdl-signature',
+            'applicationCategory' => 'Utility',
+            'operatingSystem' => 'All',
+            'offers' => array('@type' => 'Offer', 'price' => '0.00', 'priceCurrency' => 'INR'),
+            'description' => 'Resize signature for NSDL (Protean) PAN card. Automatically resize to 2cm x 4.5cm at 200 DPI, compress under 10 KB.',
+            'featureList' => array('Automatic resize to 2cm x 4.5cm', 'Adjustable DPI (50-600)', 'Compress under 10 KB', 'Black ink on white paper optimization', 'Instant processing')
+        ),
+        'uti-photo' => array(
+            '@context' => 'https://schema.org',
+            '@type' => 'WebApplication',
+            'name' => 'UTI/ITSL Photograph Resizer',
+            'url' => $base_url . '/#uti-photo',
+            'applicationCategory' => 'Utility',
+            'operatingSystem' => 'All',
+            'offers' => array('@type' => 'Offer', 'price' => '0.00', 'priceCurrency' => 'INR'),
+            'description' => 'Resize PAN card photograph for UTI/ITSL requirements. Fixed resize to 213x213 pixels at 300 DPI, compress under 30 KB.',
+            'featureList' => array('Fixed resize to 213x213 pixels', 'Adjustable DPI (50-600)', 'Compress under 30 KB', 'White background support', 'Free and instant')
+        ),
+        'uti-signature' => array(
+            '@context' => 'https://schema.org',
+            '@type' => 'WebApplication',
+            'name' => 'UTI/ITSL Signature Resizer',
+            'url' => $base_url . '/#uti-signature',
+            'applicationCategory' => 'Utility',
+            'operatingSystem' => 'All',
+            'offers' => array('@type' => 'Offer', 'price' => '0.00', 'priceCurrency' => 'INR'),
+            'description' => 'Resize signature for UTI/ITSL PAN card. Fixed resize to 400x200 pixels at 600 DPI, compress under 60 KB.',
+            'featureList' => array('Fixed resize to 400x200 pixels', 'Adjustable DPI (50-1200)', 'Compress under 60 KB', 'Black ink on white paper optimization', 'High quality output')
+        ),
+        'custom-cm-resizer' => array(
+            '@context' => 'https://schema.org',
+            '@type' => 'WebApplication',
+            'name' => 'Custom Centimeter Image Resizer',
+            'url' => $base_url . '/#custom-cm-resizer',
+            'applicationCategory' => 'Utility',
+            'operatingSystem' => 'All',
+            'offers' => array('@type' => 'Offer', 'price' => '0.00', 'priceCurrency' => 'INR'),
+            'description' => 'Custom image resizer with precise control. Set dimensions in centimeters (cm), adjust DPI (50-1200), and specify max file size.',
+            'featureList' => array('Custom dimensions in centimeters', 'Adjustable DPI (50-1200)', 'Custom max file size (1-500 KB)', 'Precise cm to pixels conversion', 'Suitable for any document')
+        )
+    );
+    
+    echo 'var panResizerSEO = ' . json_encode(array(
+        'metadata' => $metadata,
+        'structuredData' => $structured_data,
+        'siteUrl' => $base_url . '/'
+    ), JSON_UNESCAPED_SLASHES) . ';';
+    ?>
     </script>
 </head>
 

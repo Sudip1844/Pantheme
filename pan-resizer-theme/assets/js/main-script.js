@@ -3487,4 +3487,124 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('custom-cm-resizer')) {
         initCustomCmResizer();
     }
+    
+    /**
+     * Dynamic SEO Router
+     * Updates meta tags, title, canonical URL, and structured data when hash changes
+     */
+    function initSEORouter() {
+        if (typeof panResizerSEO === 'undefined') {
+            console.warn('PAN Resizer SEO metadata not loaded');
+            return;
+        }
+        
+        // Helper function to get or create meta tag
+        function getOrCreateMetaTag(selector, attribute, attributeValue) {
+            let tag = document.querySelector(selector);
+            if (!tag) {
+                tag = document.createElement('meta');
+                tag.setAttribute(attribute, attributeValue);
+                document.head.appendChild(tag);
+            }
+            return tag;
+        }
+        
+        // Helper function to update meta tag content
+        function updateMetaTag(name, content, isProperty = false) {
+            const attribute = isProperty ? 'property' : 'name';
+            const selector = `meta[${attribute}="${name}"]`;
+            const tag = getOrCreateMetaTag(selector, attribute, name);
+            tag.setAttribute('content', content);
+        }
+        
+        // Helper function to update canonical URL
+        function updateCanonical(url) {
+            let canonical = document.querySelector('link[rel="canonical"]');
+            if (!canonical) {
+                canonical = document.createElement('link');
+                canonical.setAttribute('rel', 'canonical');
+                document.head.appendChild(canonical);
+            }
+            canonical.setAttribute('href', url);
+        }
+        
+        // Helper function to update structured data
+        function updateStructuredData(section) {
+            if (!panResizerSEO.structuredData || !panResizerSEO.structuredData[section]) {
+                return;
+            }
+            
+            // Update WebApplication schema
+            let webappSchema = document.getElementById('schema-webapp');
+            if (webappSchema) {
+                webappSchema.textContent = JSON.stringify(panResizerSEO.structuredData[section], null, 2);
+            }
+        }
+        
+        // Main function to update all SEO elements
+        function updateSEOForSection(section) {
+            if (!panResizerSEO.metadata || !panResizerSEO.metadata[section]) {
+                section = 'default';
+            }
+            
+            const metadata = panResizerSEO.metadata[section];
+            
+            // Update page title
+            document.title = metadata.title;
+            
+            // Update meta tags
+            updateMetaTag('description', metadata.description);
+            updateMetaTag('keywords', metadata.keywords);
+            
+            // Update Open Graph tags
+            updateMetaTag('og:title', metadata.og_title, true);
+            updateMetaTag('og:description', metadata.description, true);
+            updateMetaTag('og:url', metadata.canonical, true);
+            
+            // Update Twitter Card tags
+            updateMetaTag('twitter:title', metadata.twitter_title);
+            updateMetaTag('twitter:description', metadata.description);
+            
+            // Update canonical URL
+            updateCanonical(metadata.canonical);
+            
+            // Update structured data
+            updateStructuredData(section);
+            
+            // Log for debugging
+            console.log('SEO updated for section:', section);
+        }
+        
+        // Get section from hash
+        function getSectionFromHash() {
+            const hash = window.location.hash.substring(1);
+            const validSections = ['nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer'];
+            return validSections.includes(hash) ? hash : 'default';
+        }
+        
+        // Update SEO on hash change
+        function handleHashChange() {
+            const section = getSectionFromHash();
+            updateSEOForSection(section);
+        }
+        
+        // Listen for hash changes
+        window.addEventListener('hashchange', handleHashChange);
+        
+        // Update SEO on initial load if there's a hash
+        if (window.location.hash) {
+            setTimeout(function() {
+                handleHashChange();
+            }, 100);
+        }
+        
+        console.log('SEO Router initialized');
+    }
+    
+    // Initialize SEO router on DOM ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSEORouter);
+    } else {
+        initSEORouter();
+    }
 })();
