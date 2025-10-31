@@ -1,174 +1,7 @@
 # PAN Card Resizer - Online Image Tool
 
 ## Overview
-PAN Card Resizer is a client-side web application designed to resize and compress PAN card photos, signatures, and documents to meet NSDL/UTI requirements. It operates entirely in the browser, ensuring user privacy and fast performance by processing images locally without server uploads. The application offers a comprehensive suite of tools for image manipulation, including custom centimeter resizing, and is available as both a standalone HTML site and a WordPress theme. Its primary purpose is to simplify compliance with official document submission standards for PAN cards, catering to a broad user base with an intuitive and efficient online tool. The project aims to be the go-to solution for PAN card image resizing, providing a secure, fast, and user-friendly experience.
-
-## Recent Changes
-
-### Latest Updates - October 31, 2025
-
-#### Home Editor SEO Implementation & Complete Open Graph Support
-
-**1. Added Home Editor Section (#home-editor)**
-- **Feature**: New dedicated SEO section for the main combo editor (All-in-One PAN Card Editor)
-- **Purpose**: Enables separate search engine indexing for the multi-purpose editor that handles photos, signatures, and PDFs
-- **Implementation**:
-  - Added "All-in-One Editor" link to mobile navigation menu
-  - Created unique metadata: title, description, keywords, canonical URL with hash fragment
-  - Integrated with JavaScript SEO router for dynamic updates
-  - Added to WordPress functions.php for theme compatibility
-- **SEO Metadata**: 
-  - Title: "All-in-One PAN Card Editor - Photo, Signature & PDF Resizer"
-  - Keywords: "PAN card editor, all in one photo editor, PAN signature editor, PDF resize tool"
-  - Canonical: `https://example.com/#home-editor`
-
-**2. Complete Open Graph and Twitter Card Support**
-- **Enhanced**: All 7 sections now have complete social media metadata
-- **Added Fields**:
-  - `og:url` - Unique URL for each section with hash fragment
-  - `og:image` - Preview image for social media sharing (og-image.jpg)
-  - `twitter:image` - Twitter card image support
-- **Implementation**:
-  - Updated JavaScript SEO router to dynamically swap og:url, og:image, and twitter:image tags
-  - Modified `index.php` to include og:url and og:image in all section metadata
-  - Enhanced WordPress `functions.php` with og_url and og_image fields for all 7 sections
-  - Added safe fallbacks with isset() checks in wp_head hook
-- **Impact**: Perfect social media previews when sharing individual editor sections
-
-**3. WordPress Theme SEO Parity**
-- **Achievement**: WordPress theme now has 100% SEO parity with standalone build
-- **WordPress Enhancements**:
-  - Updated `pan_resizer_get_section_metadata()` with og_url and og_image for all sections
-  - Modified `pan_resizer_add_seo_meta_tags()` to output og:image and twitter:image tags
-  - Fixed all image paths to use `get_template_directory_uri()` for WordPress compatibility
-  - Added home-editor to structured data map and valid sections arrays
-- **Verified**: Architect confirmed all 7 sections have complete metadata with no broken URLs
-
-**4. All 7 Editor Sections Now SEO-Optimized**
-- **Sections with Complete SEO**:
-  1. Default (Homepage) - General PAN card resizer
-  2. Home Editor (#home-editor) - All-in-One combo editor
-  3. NSDL Photo (#nsdl-photo) - 3.5cm x 2.5cm, 200 DPI, 20 KB
-  4. NSDL Signature (#nsdl-signature) - 2cm x 4.5cm, 200 DPI, 10 KB
-  5. UTI Photo (#uti-photo) - 213x213 pixels, 300 DPI, 30 KB
-  6. UTI Signature (#uti-signature) - 400x200 pixels, 600 DPI, 60 KB
-  7. Custom CM Resizer (#custom-cm-resizer) - Custom dimensions
-- **Each Section Includes**:
-  - Unique title, description, keywords
-  - Canonical URL with hash fragment
-  - Open Graph tags (title, description, url, image)
-  - Twitter Card tags (title, description, image)
-  - JSON-LD structured data (WebApplication schema)
-
-#### Dynamic Section-Specific SEO Implementation (Previous)
-
-**1. Hash-Based SEO Router**
-- **Feature**: Implemented advanced SEO system that provides unique metadata for editor sections
-- **Technology**: JavaScript-based SEO router with hash-change detection
-- **Implementation**:
-  - Dynamically updates meta tags, title, canonical URL, and structured data on section navigation
-  - Uses URL hash fragments (#home-editor, #nsdl-photo, #nsdl-signature, etc.) for section identification
-- **Impact**: Search engines can now index each editor section separately with specific keywords and descriptions
-
-**2. Section-Specific Metadata Registry**
-- **Created**: Comprehensive metadata registry in `index.php` with inline JavaScript exposure
-- **Content for Each Section**:
-  - Unique page title (e.g., "NSDL (Protean) Photograph Resize - 3.5cm x 2.5cm, 200 DPI, 20 KB")
-  - Descriptive meta description with specific requirements
-  - Targeted keywords (e.g., "NSDL photo resize, Protean PAN photo, NSDL photograph 3.5x2.5cm")
-  - Section-specific canonical URLs with hash fragments
-  - Complete Open Graph and Twitter Card metadata
-
-**3. Enhanced JSON-LD Structured Data**
-- **Implementation**: Section-specific WebApplication schemas for each editor
-- **Features for Each Section**:
-  - Unique application name and description
-  - Section-specific URL with hash fragment
-  - Detailed feature list matching section capabilities
-  - Proper schema.org compliance for search engine rich results
-- **Format**: All structured data uses proper INR currency and free pricing (0.00)
-
-**4. JavaScript SEO Router (main-script.js)**
-- **Functionality**:
-  - Listens for `hashchange` events to detect section navigation
-  - Automatically updates `document.title` on section change
-  - Dynamically swaps meta tag content (description, keywords)
-  - Updates Open Graph and Twitter Card tags in real-time
-  - Modifies canonical link href to include current hash
-  - Replaces JSON-LD structured data content without page reload
-- **Performance**: Updates occur within 100ms of hash change
-- **Fallback**: Maintains default SEO when JavaScript is disabled
-
-**5. WordPress Theme Compatibility**
-- **Added**: Parallel implementation in `functions.php` for WordPress compatibility
-- **Functions Created**:
-  - `pan_resizer_get_section_metadata()`: Registry of all section metadata
-  - `pan_resizer_get_current_section()`: Hash/query parameter detection
-  - `pan_resizer_add_seo_meta_tags()`: Dynamic meta tag rendering
-  - `pan_resizer_get_section_structured_data()`: Section-specific schemas
-  - `pan_resizer_add_structured_data()`: JSON-LD output
-  - `wp_localize_script()`: JavaScript metadata exposure (WordPress-specific)
-- **Note**: WordPress functions are prepared but currently unused in standalone build
-
-**Technical Implementation**:
-- Modified files:
-  - `index.php`: Added comprehensive inline JavaScript SEO metadata registry
-  - `pan-resizer-theme/assets/js/main-script.js`: Added 150+ lines of SEO router logic
-  - `pan-resizer-theme/functions.php`: Added WordPress-compatible SEO functions (300+ lines)
-- **SEO Benefits**:
-  - Better search engine indexing for specific use cases
-  - Higher ranking potential for targeted keywords (NSDL photo, UTI signature, etc.)
-  - Improved CTR with descriptive titles and meta descriptions
-  - Enhanced social media sharing with section-specific OG tags
-
-### Previous Updates - October 30, 2025
-
-#### UI/UX Improvements for Upload Containers and Preview Modal
-
-**1. Preview Modal Close Button Repositioning**
-- **Problem Fixed**: Close (X) button was centered in the preview modal header
-- **Solution**: 
-  - Updated `.preview-header` to use centered flexbox with `position: relative`
-  - Positioned `.preview-close-btn` absolutely to the far right corner using `position: absolute; right: 20px`
-  - Button remains vertically centered with `transform: translateY(-50%)`
-- **Impact**: Cleaner, more standard modal layout with close button in the expected top-right corner position
-
-**2. Upload Container Information Enhancement**
-- **Added Information**: All 5 preset sections now display file upload guidelines
-  - New text: "JPG, PNG, WEBP • Maximum 10 MB"
-  - Styled with `.upload-file-info` class (subtle gray color, 12px font)
-- **Affected Sections**: 
-  - NSDL (Protean) Photograph
-  - NSDL (Protean) Signature
-  - UTI/ITSL Photograph
-  - UTI/ITSL Signature
-  - Custom Centimeter Resizer
-- **Impact**: Users now have clear visibility of supported file types and size limits before uploading
-
-**3. File Size Validation Implementation**
-- **Feature**: 10 MB file size limit enforcement
-- **Implementation**: 
-  - Added validation in both `handleFileSelect()` (preset sections) and `handleCustomFileSelect()` (custom CM) functions
-  - Checks `file.size > 10 * 1024 * 1024` before processing
-  - Displays user-friendly alert message showing actual file size and limit
-  - Returns early to prevent upload if file exceeds limit
-- **User Experience**: Clear feedback when attempting to upload oversized files with specific size information
-
-**4. Upload Button Text Refinement**
-- **Changed**: Replaced "browse" text with "upload" across all upload containers
-- **Affected Elements**: `.browse-text` span in all 5 preset sections
-- **Rationale**: More action-oriented and clearer terminology for users
-
-**5. Upload Label Cleanup**
-- **Removed**: Redundant "Upload Image" label (`<p class="upload-label">`) from all upload containers
-- **Impact**: Cleaner, less cluttered upload interface with streamlined visual hierarchy
-- **Result**: Upload containers now show only icon, hint text, and file type/size information
-
-**Technical Implementation**:
-- Modified files:
-  - `pan-resizer-theme/assets/css/main-style.css`: Preview modal positioning and upload file info styling
-  - `pan-resizer-theme/template-parts/preset-resizers.php`: Updated all 5 upload container HTML structures
-  - `pan-resizer-theme/assets/js/main-script.js`: Added file size validation logic
+PAN Card Resizer is a client-side web application for resizing and compressing PAN card photos, signatures, and documents to meet NSDL/UTI requirements. It processes images locally in the browser, ensuring user privacy and fast performance. The application offers tools like custom centimeter resizing and comprehensive image manipulation, aiming to simplify compliance with official PAN card submission standards. It is available as both a standalone HTML site and a WordPress theme, striving to be a secure, fast, and user-friendly solution for PAN card image resizing.
 
 ## User Preferences
 Preferred communication style: Simple, everyday language (Bengali/Bangla and English).
@@ -176,19 +9,19 @@ Preferred communication style: Simple, everyday language (Bengali/Bangla and Eng
 ## System Architecture
 
 ### Frontend Architecture
-The application is built as a Single-Page Application (SPA) using vanilla JavaScript, focusing on client-side processing without external frameworks. It employs a mobile-first responsive design with breakpoint-based media queries and touch-optimized interactions. Performance is a key consideration, with optimizations such as critical rendering path optimization, lazy loading of non-critical resources, DNS prefetching, preconnect hints, and LCP element marking for Core Web Vitals.
+The application is a Single-Page Application (SPA) built with vanilla JavaScript, focusing on client-side processing. It features a mobile-first, responsive design with breakpoint-based media queries and touch-optimized interactions. Performance optimizations include critical rendering path optimization, lazy loading, DNS prefetching, preconnect hints, and LCP element marking for Core Web Vitals.
 
 ### Image Processing Architecture
-All image manipulation, including resizing, compression, rotation, zoom, brightness, contrast adjustments, and white background generation, occurs client-side using the HTML Canvas API. The tool supports various input formats and specific output requirements (e.g., 200x200px, 3.5x2.5cm, specific KB limits). PDF processing capabilities are integrated using `pdf-lib` and `jspdf` for document manipulation and PDF to JPG conversion. The compression algorithm utilizes a binary search approach to ensure output file sizes consistently reach 95-100% of the target size, improving image quality while staying within limits.
+All image manipulation, such as resizing, compression, rotation, zoom, brightness, contrast adjustments, and white background generation, is performed client-side using the HTML Canvas API. It supports various input formats and specific output requirements (e.g., 200x200px, 3.5x2.5cm, specific KB limits). PDF processing, including document manipulation and PDF to JPG conversion, is integrated. The compression algorithm uses a binary search to achieve 95-100% of target file sizes while maintaining image quality.
 
 ### WordPress Theme Architecture
-The application is structured as a custom WordPress theme, converting the standalone HTML/CSS/JS into a WordPress-compatible template-based architecture. It adheres to WordPress theme standards, organizing assets in dedicated directories and utilizing modular template parts for reusability. The theme maintains all original functionality while integrating seamlessly into the WordPress ecosystem, including WordPress-specific SEO optimizations.
+The application is structured as a custom WordPress theme, converting the standalone HTML/CSS/JS into a WordPress-compatible, template-based architecture. It adheres to WordPress theme standards, utilizing modular template parts and integrating seamlessly into the WordPress ecosystem, including WordPress-specific SEO optimizations.
 
 ### UI Component Design
-The interface includes an accordion-style FAQ component with ARIA-compliant accessibility attributes and keyboard navigation. The overall design emphasizes a clean, modern light theme with professional styling, including floating card headers, rounded corners, and consistent spacing. Dedicated preset sections for NSDL and UTI photographs and signatures, along with a custom centimeter resizer, provide tailored user experiences. UI improvements include optimized filename input containers, labels placed inside input boxes for custom CM resizer, and simplified filename input placeholders. The system also preserves original image quality across multiple resize operations by always drawing from the initial upload.
+The interface features an accordion-style FAQ component with ARIA-compliant accessibility. The design emphasizes a clean, modern light theme with professional styling, including floating card headers and rounded corners. Dedicated preset sections for NSDL and UTI photographs and signatures, plus a custom centimeter resizer, provide tailored user experiences. UI improvements include optimized filename input containers and simplified filename input placeholders. The system preserves original image quality across multiple resize operations.
 
 ### SEO and Performance Optimization
-The system incorporates advanced SEO features, including context-aware canonical URLs, comprehensive meta tags (description, keywords, author, robots), Open Graph and Twitter Card tags for social sharing, and JSON-LD structured data (WebApplication, FAQPage schemas). Performance optimizations include browser caching strategies, deferred script loading, critical CSS and JS preloading, asynchronous loading of non-critical resources, and DNS prefetching/preconnect for CDN resources.
+The system incorporates advanced SEO features, including context-aware canonical URLs, comprehensive meta tags (description, keywords, author, robots), Open Graph and Twitter Card tags for social sharing, and JSON-LD structured data (WebApplication, FAQPage schemas). Performance optimizations include browser caching strategies, deferred script loading, critical CSS and JS preloading, asynchronous resource loading, and DNS prefetching/preconnect for CDN resources.
 
 ## External Dependencies
 
@@ -202,7 +35,7 @@ The system incorporates advanced SEO features, including context-aware canonical
 -   `regenerator-runtime`: Provides runtime support for async/await.
 
 ### CDN Resources
--   **Font Awesome 6.4.0**: Icon library loaded asynchronously from `cdnjs.cloudflare.com`.
+-   **Font Awesome 6.4.0**: Icon library loaded asynchronously.
 
 ### External Services
--   **cdnjs.cloudflare.com**: Serves as the primary CDN for third-party libraries.
+-   **cdnjs.cloudflare.com**: Primary CDN for third-party libraries.
