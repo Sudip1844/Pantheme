@@ -139,6 +139,56 @@
             'og_url' => $base_url . '/#custom-cm-resizer',
             'og_image' => $base_url . '/pan-resizer-theme/assets/images/og-image.jpg',
             'twitter_title' => 'Custom CM Image Resizer'
+        ),
+        'specifications' => array(
+            'title' => 'PAN Card Photo Resize Specifications - NSDL, UTI & Custom Requirements',
+            'description' => 'Complete specifications for PAN card photo and signature resizing. Detailed requirements for NSDL (Protean), UTI/ITSL formats, and custom centimeter resizing with DPI and file size guidelines.',
+            'keywords' => 'PAN card specifications, NSDL photo requirements, UTI photo size, PAN signature specifications, photo resize requirements, NSDL UTI specifications',
+            'canonical' => $base_url . '/#specifications',
+            'og_title' => 'PAN Card Photo Resize Specifications',
+            'og_url' => $base_url . '/#specifications',
+            'og_image' => $base_url . '/pan-resizer-theme/assets/images/og-image.jpg',
+            'twitter_title' => 'PAN Card Resize Specifications'
+        ),
+        'features' => array(
+            'title' => 'Key Features - Free Online PAN Card Photo Resizer Tool',
+            'description' => 'Discover powerful features of our PAN card resizer: instant resizing, multiple format support, client-side processing for privacy, white background support, and no registration required. Fast, secure, and completely free.',
+            'keywords' => 'PAN resizer features, free photo resizer, online image compressor, instant resize, client-side processing, privacy-focused tool, no registration required',
+            'canonical' => $base_url . '/#features',
+            'og_title' => 'PAN Card Resizer - Key Features',
+            'og_url' => $base_url . '/#features',
+            'og_image' => $base_url . '/pan-resizer-theme/assets/images/og-image.jpg',
+            'twitter_title' => 'PAN Resizer Features'
+        ),
+        'how-to-use' => array(
+            'title' => 'How to Use PAN Card Photo Resizer - Step by Step Guide',
+            'description' => 'Learn how to resize PAN card photos and signatures in 3 easy steps: upload your image, adjust settings, and download the resized file. Simple step-by-step guide for NSDL and UTI applications.',
+            'keywords' => 'how to resize PAN photo, PAN card photo guide, resize signature tutorial, NSDL photo upload, UTI photo resize guide, step by step resize',
+            'canonical' => $base_url . '/#how-to-use',
+            'og_title' => 'How to Use PAN Card Photo Resizer',
+            'og_url' => $base_url . '/#how-to-use',
+            'og_image' => $base_url . '/pan-resizer-theme/assets/images/og-image.jpg',
+            'twitter_title' => 'How to Resize PAN Photo'
+        ),
+        'faq' => array(
+            'title' => 'FAQ - Common Questions About PAN Card Photo Resizing',
+            'description' => 'Frequently asked questions about PAN card photo resizing, signature compression, file size limits, and NSDL/UTI requirements. Get answers to all your questions about our free online resizer tool.',
+            'keywords' => 'PAN card FAQ, photo resize questions, NSDL photo FAQ, UTI signature questions, image resizing help, PAN card requirements FAQ',
+            'canonical' => $base_url . '/#faq',
+            'og_title' => 'PAN Card Photo Resizer - FAQ',
+            'og_url' => $base_url . '/#faq',
+            'og_image' => $base_url . '/pan-resizer-theme/assets/images/og-image.jpg',
+            'twitter_title' => 'PAN Resizer FAQ'
+        ),
+        'privacy' => array(
+            'title' => 'Privacy Policy - Your Data is Safe with Client-Side Processing',
+            'description' => 'Our PAN card resizer processes all images locally in your browser. No uploads to servers, complete privacy guaranteed. Your photos and documents never leave your device.',
+            'keywords' => 'privacy policy, client-side processing, secure photo resize, no upload required, data privacy, image processing privacy, local processing',
+            'canonical' => $base_url . '/#privacy',
+            'og_title' => 'Privacy Policy - Client-Side Processing',
+            'og_url' => $base_url . '/#privacy',
+            'og_image' => $base_url . '/pan-resizer-theme/assets/images/og-image.jpg',
+            'twitter_title' => 'Privacy & Security'
         )
     );
     
@@ -219,6 +269,64 @@
             'offers' => array('@type' => 'Offer', 'price' => '0.00', 'priceCurrency' => 'INR'),
             'description' => 'Custom image resizer with precise control. Set dimensions in centimeters (cm), adjust DPI (50-1200), and specify max file size.',
             'featureList' => array('Custom dimensions in centimeters', 'Adjustable DPI (50-1200)', 'Custom max file size (1-500 KB)', 'Precise cm to pixels conversion', 'Suitable for any document')
+        ),
+        'specifications' => array(
+            '@context' => 'https://schema.org',
+            '@type' => 'WebPage',
+            'name' => 'PAN Card Photo Resize Specifications',
+            'url' => $base_url . '/#specifications',
+            'description' => 'Complete specifications for PAN card photo and signature resizing. Detailed requirements for NSDL (Protean), UTI/ITSL formats, and custom centimeter resizing with DPI and file size guidelines.',
+            'mainEntity' => array(
+                '@type' => 'Table',
+                'about' => 'PAN Card Image Resize Specifications for NSDL, UTI, and Custom Requirements'
+            )
+        ),
+        'features' => array(
+            '@context' => 'https://schema.org',
+            '@type' => 'WebPage',
+            'name' => 'Key Features - PAN Card Photo Resizer',
+            'url' => $base_url . '/#features',
+            'description' => 'Discover powerful features of our PAN card resizer: instant resizing, multiple format support, client-side processing for privacy, white background support, and no registration required.',
+            'mainEntity' => array(
+                '@type' => 'ItemList',
+                'itemListElement' => array(
+                    array('@type' => 'ListItem', 'position' => 1, 'name' => 'Instant Resizing'),
+                    array('@type' => 'ListItem', 'position' => 2, 'name' => 'Multiple Format Support'),
+                    array('@type' => 'ListItem', 'position' => 3, 'name' => 'Client-Side Processing'),
+                    array('@type' => 'ListItem', 'position' => 4, 'name' => 'No Registration Required'),
+                    array('@type' => 'ListItem', 'position' => 5, 'name' => 'Free Forever')
+                )
+            )
+        ),
+        'how-to-use' => array(
+            '@context' => 'https://schema.org',
+            '@type' => 'HowTo',
+            'name' => 'How to Resize PAN Card Photo and Signature',
+            'url' => $base_url . '/#how-to-use',
+            'description' => 'Learn how to resize PAN card photos and signatures in 3 easy steps: upload your image, adjust settings, and download the resized file.',
+            'step' => array(
+                array('@type' => 'HowToStep', 'position' => 1, 'name' => 'Upload Image', 'text' => 'Select and upload your PAN card photo or signature'),
+                array('@type' => 'HowToStep', 'position' => 2, 'name' => 'Adjust Settings', 'text' => 'Choose NSDL or UTI format, adjust DPI if needed'),
+                array('@type' => 'HowToStep', 'position' => 3, 'name' => 'Download', 'text' => 'Click resize and download the optimized image')
+            )
+        ),
+        'faq' => array(
+            '@context' => 'https://schema.org',
+            '@type' => 'FAQPage',
+            'name' => 'PAN Card Photo Resizer - Frequently Asked Questions',
+            'url' => $base_url . '/#faq',
+            'description' => 'Frequently asked questions about PAN card photo resizing, signature compression, file size limits, and NSDL/UTI requirements.'
+        ),
+        'privacy' => array(
+            '@context' => 'https://schema.org',
+            '@type' => 'WebPage',
+            'name' => 'Privacy Policy - Client-Side Processing',
+            'url' => $base_url . '/#privacy',
+            'description' => 'Our PAN card resizer processes all images locally in your browser. No uploads to servers, complete privacy guaranteed. Your photos and documents never leave your device.',
+            'about' => array(
+                '@type' => 'Thing',
+                'name' => 'Privacy and Data Security Policy'
+            )
         )
     );
     

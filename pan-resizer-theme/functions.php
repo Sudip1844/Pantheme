@@ -82,7 +82,7 @@ function pan_resizer_enqueue_scripts() {
     // Expose SEO metadata to JavaScript for dynamic updates
     $metadata_registry = pan_resizer_get_section_metadata();
     $structured_data_map = array();
-    foreach ( array( 'default', 'home-editor', 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer' ) as $section ) {
+    foreach ( array( 'default', 'home-editor', 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer', 'specifications', 'features', 'how-to-use', 'faq', 'privacy' ) as $section ) {
         $structured_data_map[ $section ] = pan_resizer_get_section_structured_data( $section );
     }
     
@@ -202,6 +202,61 @@ function pan_resizer_get_section_metadata() {
             'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
             'twitter_title' => 'All-in-One PAN Card Editor',
             'section_name' => 'All-in-One PAN Card Editor'
+        ),
+        'specifications' => array(
+            'title' => 'PAN Card Photo Resize Specifications - NSDL, UTI & Custom Requirements',
+            'description' => 'Complete specifications for PAN card photo and signature resizing. Detailed requirements for NSDL (Protean), UTI/ITSL formats, and custom centimeter resizing with DPI and file size guidelines.',
+            'keywords' => 'PAN card specifications, NSDL photo requirements, UTI photo size, PAN signature specifications, photo resize requirements, NSDL UTI specifications',
+            'canonical' => $base_url . '#specifications',
+            'og_title' => 'PAN Card Photo Resize Specifications',
+            'og_url' => $base_url . '#specifications',
+            'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
+            'twitter_title' => 'PAN Card Resize Specifications',
+            'section_name' => 'Resize Specifications'
+        ),
+        'features' => array(
+            'title' => 'Key Features - Free Online PAN Card Photo Resizer Tool',
+            'description' => 'Discover powerful features of our PAN card resizer: instant resizing, multiple format support, client-side processing for privacy, white background support, and no registration required. Fast, secure, and completely free.',
+            'keywords' => 'PAN resizer features, free photo resizer, online image compressor, instant resize, client-side processing, privacy-focused tool, no registration required',
+            'canonical' => $base_url . '#features',
+            'og_title' => 'PAN Card Resizer - Key Features',
+            'og_url' => $base_url . '#features',
+            'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
+            'twitter_title' => 'PAN Resizer Features',
+            'section_name' => 'Key Features'
+        ),
+        'how-to-use' => array(
+            'title' => 'How to Use PAN Card Photo Resizer - Step by Step Guide',
+            'description' => 'Learn how to resize PAN card photos and signatures in 3 easy steps: upload your image, adjust settings, and download the resized file. Simple step-by-step guide for NSDL and UTI applications.',
+            'keywords' => 'how to resize PAN photo, PAN card photo guide, resize signature tutorial, NSDL photo upload, UTI photo resize guide, step by step resize',
+            'canonical' => $base_url . '#how-to-use',
+            'og_title' => 'How to Use PAN Card Photo Resizer',
+            'og_url' => $base_url . '#how-to-use',
+            'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
+            'twitter_title' => 'How to Resize PAN Photo',
+            'section_name' => 'How to Use Guide'
+        ),
+        'faq' => array(
+            'title' => 'FAQ - Common Questions About PAN Card Photo Resizing',
+            'description' => 'Frequently asked questions about PAN card photo resizing, signature compression, file size limits, and NSDL/UTI requirements. Get answers to all your questions about our free online resizer tool.',
+            'keywords' => 'PAN card FAQ, photo resize questions, NSDL photo FAQ, UTI signature questions, image resizing help, PAN card requirements FAQ',
+            'canonical' => $base_url . '#faq',
+            'og_title' => 'PAN Card Photo Resizer - FAQ',
+            'og_url' => $base_url . '#faq',
+            'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
+            'twitter_title' => 'PAN Resizer FAQ',
+            'section_name' => 'Frequently Asked Questions'
+        ),
+        'privacy' => array(
+            'title' => 'Privacy Policy - Your Data is Safe with Client-Side Processing',
+            'description' => 'Our PAN card resizer processes all images locally in your browser. No uploads to servers, complete privacy guaranteed. Your photos and documents never leave your device.',
+            'keywords' => 'privacy policy, client-side processing, secure photo resize, no upload required, data privacy, image processing privacy, local processing',
+            'canonical' => $base_url . '#privacy',
+            'og_title' => 'Privacy Policy - Client-Side Processing',
+            'og_url' => $base_url . '#privacy',
+            'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
+            'twitter_title' => 'Privacy & Security',
+            'section_name' => 'Privacy Policy'
         )
     );
 }
@@ -217,7 +272,7 @@ function pan_resizer_get_current_section() {
         $uri_parts = explode( '#', $_SERVER['REQUEST_URI'] );
         if ( isset( $uri_parts[1] ) ) {
             $hash = $uri_parts[1];
-            $valid_sections = array( 'home-editor', 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer' );
+            $valid_sections = array( 'home-editor', 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer', 'specifications', 'features', 'how-to-use', 'faq', 'privacy' );
             if ( in_array( $hash, $valid_sections ) ) {
                 $section = $hash;
             }
@@ -227,7 +282,7 @@ function pan_resizer_get_current_section() {
     // Also check for section query parameter as fallback
     if ( isset( $_GET['section'] ) ) {
         $query_section = sanitize_text_field( $_GET['section'] );
-        $valid_sections = array( 'home-editor', 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer' );
+        $valid_sections = array( 'home-editor', 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer', 'specifications', 'features', 'how-to-use', 'faq', 'privacy' );
         if ( in_array( $query_section, $valid_sections ) ) {
             $section = $query_section;
         }
@@ -363,26 +418,123 @@ function pan_resizer_get_section_structured_data( $section ) {
                 'Client-side processing for privacy',
                 'No registration required'
             )
+        ),
+        'specifications' => array(
+            'type' => 'WebPage',
+            'name' => 'PAN Card Photo Resize Specifications',
+            'description' => 'Complete specifications for PAN card photo and signature resizing. Detailed requirements for NSDL (Protean), UTI/ITSL formats, and custom centimeter resizing with DPI and file size guidelines.'
+        ),
+        'features' => array(
+            'type' => 'WebPage',
+            'name' => 'Key Features - PAN Card Photo Resizer',
+            'description' => 'Discover powerful features of our PAN card resizer: instant resizing, multiple format support, client-side processing for privacy, white background support, and no registration required.',
+            'features' => array(
+                'Instant Resizing',
+                'Multiple Format Support',
+                'Client-Side Processing',
+                'No Registration Required',
+                'Free Forever'
+            )
+        ),
+        'how-to-use' => array(
+            'type' => 'HowTo',
+            'name' => 'How to Resize PAN Card Photo and Signature',
+            'description' => 'Learn how to resize PAN card photos and signatures in 3 easy steps: upload your image, adjust settings, and download the resized file.',
+            'steps' => array(
+                array('name' => 'Upload Image', 'text' => 'Select and upload your PAN card photo or signature'),
+                array('name' => 'Adjust Settings', 'text' => 'Choose NSDL or UTI format, adjust DPI if needed'),
+                array('name' => 'Download', 'text' => 'Click resize and download the optimized image')
+            )
+        ),
+        'faq' => array(
+            'type' => 'FAQPage',
+            'name' => 'PAN Card Photo Resizer - Frequently Asked Questions',
+            'description' => 'Frequently asked questions about PAN card photo resizing, signature compression, file size limits, and NSDL/UTI requirements.'
+        ),
+        'privacy' => array(
+            'type' => 'WebPage',
+            'name' => 'Privacy Policy - Client-Side Processing',
+            'description' => 'Our PAN card resizer processes all images locally in your browser. No uploads to servers, complete privacy guaranteed. Your photos and documents never leave your device.'
         )
     );
     
     $config = $structured_data_configs[ $section ];
+    $schema_type = isset( $config['type'] ) ? $config['type'] : 'WebApplication';
     
-    return array(
-        '@context' => 'https://schema.org',
-        '@type' => 'WebApplication',
-        'name' => $config['name'],
-        'url' => $metadata['canonical'],
-        'applicationCategory' => 'Utility',
-        'operatingSystem' => 'All',
-        'offers' => array(
-            '@type' => 'Offer',
-            'price' => '0.00',
-            'priceCurrency' => 'INR'
-        ),
-        'description' => $config['description'],
-        'featureList' => $config['features']
-    );
+    // Handle different schema types
+    if ( $schema_type === 'HowTo' && isset( $config['steps'] ) ) {
+        $steps = array();
+        $position = 1;
+        foreach ( $config['steps'] as $step ) {
+            $steps[] = array(
+                '@type' => 'HowToStep',
+                'position' => $position++,
+                'name' => $step['name'],
+                'text' => $step['text']
+            );
+        }
+        
+        return array(
+            '@context' => 'https://schema.org',
+            '@type' => 'HowTo',
+            'name' => $config['name'],
+            'url' => $metadata['canonical'],
+            'description' => $config['description'],
+            'step' => $steps
+        );
+    } elseif ( $schema_type === 'FAQPage' ) {
+        return array(
+            '@context' => 'https://schema.org',
+            '@type' => 'FAQPage',
+            'name' => $config['name'],
+            'url' => $metadata['canonical'],
+            'description' => $config['description']
+        );
+    } elseif ( $schema_type === 'WebPage' ) {
+        $schema = array(
+            '@context' => 'https://schema.org',
+            '@type' => 'WebPage',
+            'name' => $config['name'],
+            'url' => $metadata['canonical'],
+            'description' => $config['description']
+        );
+        
+        // Add features if available
+        if ( isset( $config['features'] ) && $section === 'features' ) {
+            $items = array();
+            $position = 1;
+            foreach ( $config['features'] as $feature ) {
+                $items[] = array(
+                    '@type' => 'ListItem',
+                    'position' => $position++,
+                    'name' => $feature
+                );
+            }
+            $schema['mainEntity'] = array(
+                '@type' => 'ItemList',
+                'itemListElement' => $items
+            );
+        }
+        
+        return $schema;
+    } else {
+        // WebApplication (default for editor tools)
+        return array(
+            '@context' => 'https://schema.org',
+            '@type' => 'WebApplication',
+            'name' => $config['name'],
+            'url' => $metadata['canonical'],
+            'applicationCategory' => 'Utility',
+            'operatingSystem' => 'All',
+            'offers' => array(
+                '@type' => 'Offer',
+                'price' => '0.00',
+                'priceCurrency' => 'INR'
+            ),
+            'description' => $config['description'],
+            'featureList' => $config['features']
+        );
+    }
 }
 
 /**

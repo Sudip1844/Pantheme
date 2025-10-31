@@ -3584,7 +3584,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get section from hash
         function getSectionFromHash() {
             const hash = window.location.hash.substring(1);
-            const validSections = ['home-editor', 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer'];
+            const validSections = ['home-editor', 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer', 'specifications', 'features', 'how-to-use', 'faq', 'privacy'];
             return validSections.includes(hash) ? hash : 'default';
         }
         
