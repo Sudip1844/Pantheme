@@ -27,7 +27,7 @@
             <i class="fas fa-bars"></i>
         </button>
         
-        <h1>Online PAN Resizer</h1>
+        <h1 style="font-weight: 800;">Online PAN Resizer</h1>
         
         <button id="shareButton" class="share-button" aria-label="Share website" title="Share this website">
             <i class="fas fa-share-alt"></i>
@@ -35,6 +35,12 @@
         
         <div class="mobile-menu" id="mobileMenu">
             <a href="#top">Home</a>
+            <a href="#home-editor">All-in-One Editor</a>
+            <a href="#nsdl-photo">NSDL Photo</a>
+            <a href="#nsdl-signature">NSDL Signature</a>
+            <a href="#uti-photo">UTI Photo</a>
+            <a href="#uti-signature">UTI Signature</a>
+            <a href="#custom-cm-resizer">Custom CM Resizer</a>
             <a href="#specifications">Specifications</a>
             <a href="#features">Key Features</a>
             <a href="#how-to-use">How to Use</a>
