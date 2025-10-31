@@ -2422,8 +2422,10 @@ document.addEventListener('DOMContentLoaded', function() {
     previewTitle.textContent = type.charAt(0).toUpperCase() + type.slice(1) + ' Preview';
 
     const closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
     closeBtn.className = 'preview-close-btn';
-    closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+    closeBtn.textContent = '×';
+    closeBtn.setAttribute('aria-label', 'Close preview');
     closeBtn.addEventListener('click', function() {
       document.body.removeChild(previewOverlay);
     });
