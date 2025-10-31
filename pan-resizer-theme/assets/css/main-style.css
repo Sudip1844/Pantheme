@@ -1826,19 +1826,26 @@ textarea:focus-visible,
     font-size: 14px !important;
   }
 }
+
 /* Preset Resizer Sections */
 .preset-resizer-section {
-  margin: 40px 0;
+  margin: 40px 0 !important;
   scroll-margin-top: 80px;
+  width: 100%;
+  display: block;
 }
 
 .preset-card {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 18px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 12px !important;
+  padding: 18px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 0;
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
 }
 
 .preset-card:hover {
@@ -1847,26 +1854,33 @@ textarea:focus-visible,
 }
 
 .preset-title {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 12px;
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  margin-bottom: 12px !important;
+  margin-top: 0 !important;
   display: flex;
   align-items: center;
+  color: #333 !important;
 }
 
 .nsdl-color {
-  color: #6366f1;
+  color: #6366f1 !important;
 }
 
 .uti-color {
-  color: #8b5cf6;
+  color: #8b5cf6 !important;
+}
+
+.custom-color {
+  color: #10b981 !important;
 }
 
 .preset-description {
-  color: #6b7280;
-  font-size: 15px;
-  line-height: 1.6;
-  margin-bottom: 12px;
+  color: #6b7280 !important;
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+  margin-bottom: 12px !important;
+  margin-top: 0 !important;
 }
 
 .preset-single-column {

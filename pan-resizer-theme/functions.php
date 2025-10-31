@@ -41,7 +41,7 @@ function pan_resizer_enqueue_scripts() {
         'pan-resizer-style', 
         get_template_directory_uri() . '/assets/css/main-style.css',
         array(),
-        '1.0.0'
+        '1.0.2'
     );
     
     // Enqueue Font Awesome
