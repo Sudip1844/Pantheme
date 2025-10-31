@@ -2421,6 +2421,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const previewTitle = document.createElement('h3');
     previewTitle.textContent = type.charAt(0).toUpperCase() + type.slice(1) + ' Preview';
 
+    previewHeader.appendChild(previewTitle);
+
     const closeBtn = document.createElement('button');
     closeBtn.type = 'button';
     closeBtn.className = 'preview-close-btn';
@@ -2429,9 +2431,6 @@ document.addEventListener('DOMContentLoaded', function() {
     closeBtn.addEventListener('click', function() {
       document.body.removeChild(previewOverlay);
     });
-
-    previewHeader.appendChild(previewTitle);
-    previewHeader.appendChild(closeBtn);
 
     const previewContent = document.createElement('div');
     previewContent.className = 'preview-content';
@@ -2528,6 +2527,7 @@ document.addEventListener('DOMContentLoaded', function() {
     previewContent.appendChild(fileInfo);
     previewContent.appendChild(downloadBtn);
 
+    previewContainer.appendChild(closeBtn);
     previewContainer.appendChild(previewHeader);
     previewContainer.appendChild(previewContent);
 

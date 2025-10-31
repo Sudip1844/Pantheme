@@ -1359,6 +1359,7 @@ img {
   flex-direction: column;
   max-height: 90vh;
   overflow: hidden;
+  position: relative;
 }
 
 .preview-header {
