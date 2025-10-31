@@ -3559,11 +3559,17 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update Open Graph tags
             updateMetaTag('og:title', metadata.og_title, true);
             updateMetaTag('og:description', metadata.description, true);
-            updateMetaTag('og:url', metadata.canonical, true);
+            updateMetaTag('og:url', metadata.og_url || metadata.canonical, true);
+            if (metadata.og_image) {
+                updateMetaTag('og:image', metadata.og_image, true);
+            }
             
             // Update Twitter Card tags
             updateMetaTag('twitter:title', metadata.twitter_title);
             updateMetaTag('twitter:description', metadata.description);
+            if (metadata.og_image) {
+                updateMetaTag('twitter:image', metadata.og_image);
+            }
             
             // Update canonical URL
             updateCanonical(metadata.canonical);
@@ -3578,7 +3584,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get section from hash
         function getSectionFromHash() {
             const hash = window.location.hash.substring(1);
-            const validSections = ['nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer'];
+            const validSections = ['home-editor', 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer'];
             return validSections.includes(hash) ? hash : 'default';
         }
         

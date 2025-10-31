@@ -82,7 +82,7 @@ function pan_resizer_enqueue_scripts() {
     // Expose SEO metadata to JavaScript for dynamic updates
     $metadata_registry = pan_resizer_get_section_metadata();
     $structured_data_map = array();
-    foreach ( array( 'default', 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer' ) as $section ) {
+    foreach ( array( 'default', 'home-editor', 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer' ) as $section ) {
         $structured_data_map[ $section ] = pan_resizer_get_section_structured_data( $section );
     }
     
@@ -132,6 +132,8 @@ function pan_resizer_get_section_metadata() {
             'keywords' => 'PAN card photo resizer, resize PAN card photo, compress PAN photo, PAN signature resizer, NSDL photo resize, UTI photo size, free photo resizer, online image compressor, PAN document converter, custom size resizer',
             'canonical' => $base_url,
             'og_title' => 'PAN Card Photo Resizer - Free Online Tool',
+            'og_url' => $base_url,
+            'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
             'twitter_title' => 'PAN Card Photo Resizer - Free Tool',
             'section_name' => 'PAN Card Resizer'
         ),
@@ -141,6 +143,8 @@ function pan_resizer_get_section_metadata() {
             'keywords' => 'NSDL photo resize, Protean PAN photo, NSDL photograph 3.5x2.5cm, PAN card photo 200 DPI, NSDL photo 20KB, resize photo for NSDL PAN, Protean photo resize',
             'canonical' => $base_url . '#nsdl-photo',
             'og_title' => 'NSDL (Protean) Photograph Resize - 3.5cm x 2.5cm',
+            'og_url' => $base_url . '#nsdl-photo',
+            'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
             'twitter_title' => 'NSDL Photo Resize Tool',
             'section_name' => 'NSDL Photograph Resizer'
         ),
@@ -150,6 +154,8 @@ function pan_resizer_get_section_metadata() {
             'keywords' => 'NSDL signature resize, Protean PAN signature, NSDL signature 2x4.5cm, PAN card signature 200 DPI, NSDL signature 10KB, resize signature for NSDL',
             'canonical' => $base_url . '#nsdl-signature',
             'og_title' => 'NSDL (Protean) Signature Resize - 2cm x 4.5cm',
+            'og_url' => $base_url . '#nsdl-signature',
+            'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
             'twitter_title' => 'NSDL Signature Resize Tool',
             'section_name' => 'NSDL Signature Resizer'
         ),
@@ -159,6 +165,8 @@ function pan_resizer_get_section_metadata() {
             'keywords' => 'UTI photo resize, ITSL PAN photo, UTI photograph 213x213, PAN card photo 300 DPI, UTI photo 30KB, resize photo for UTI PAN, ITSL photo resize',
             'canonical' => $base_url . '#uti-photo',
             'og_title' => 'UTI/ITSL Photograph Resize - 213x213 pixels',
+            'og_url' => $base_url . '#uti-photo',
+            'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
             'twitter_title' => 'UTI Photo Resize Tool',
             'section_name' => 'UTI Photograph Resizer'
         ),
@@ -168,6 +176,8 @@ function pan_resizer_get_section_metadata() {
             'keywords' => 'UTI signature resize, ITSL PAN signature, UTI signature 400x200, PAN card signature 600 DPI, UTI signature 60KB, resize signature for UTI',
             'canonical' => $base_url . '#uti-signature',
             'og_title' => 'UTI/ITSL Signature Resize - 400x200 pixels',
+            'og_url' => $base_url . '#uti-signature',
+            'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
             'twitter_title' => 'UTI Signature Resize Tool',
             'section_name' => 'UTI Signature Resizer'
         ),
@@ -177,8 +187,21 @@ function pan_resizer_get_section_metadata() {
             'keywords' => 'custom image resizer, resize by centimeters, cm to pixels converter, DPI resizer, custom size photo resize, precise image dimensions, resize by cm and DPI',
             'canonical' => $base_url . '#custom-cm-resizer',
             'og_title' => 'Custom CM Resizer - Resize by Centimeters & DPI',
+            'og_url' => $base_url . '#custom-cm-resizer',
+            'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
             'twitter_title' => 'Custom CM Image Resizer',
             'section_name' => 'Custom Centimeter Resizer'
+        ),
+        'home-editor' => array(
+            'title' => 'All-in-One PAN Card Editor - Photo, Signature & PDF Resizer',
+            'description' => 'Professional all-in-one PAN card editor. Resize photos, compress signatures, and optimize PDF documents for NSDL/UTI applications. Edit multiple file types in a single tool - fast, secure, and free.',
+            'keywords' => 'PAN card editor, all in one photo editor, PAN signature editor, PDF resize tool, multi-purpose image resizer, document optimizer, PAN card photo editor, free online editor',
+            'canonical' => $base_url . '#home-editor',
+            'og_title' => 'All-in-One PAN Card Editor - Photo, Signature & PDF',
+            'og_url' => $base_url . '#home-editor',
+            'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
+            'twitter_title' => 'All-in-One PAN Card Editor',
+            'section_name' => 'All-in-One PAN Card Editor'
         )
     );
 }
@@ -194,7 +217,7 @@ function pan_resizer_get_current_section() {
         $uri_parts = explode( '#', $_SERVER['REQUEST_URI'] );
         if ( isset( $uri_parts[1] ) ) {
             $hash = $uri_parts[1];
-            $valid_sections = array( 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer' );
+            $valid_sections = array( 'home-editor', 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer' );
             if ( in_array( $hash, $valid_sections ) ) {
                 $section = $hash;
             }
@@ -204,7 +227,7 @@ function pan_resizer_get_current_section() {
     // Also check for section query parameter as fallback
     if ( isset( $_GET['section'] ) ) {
         $query_section = sanitize_text_field( $_GET['section'] );
-        $valid_sections = array( 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer' );
+        $valid_sections = array( 'home-editor', 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer' );
         if ( in_array( $query_section, $valid_sections ) ) {
             $section = $query_section;
         }
@@ -236,13 +259,19 @@ function pan_resizer_add_seo_meta_tags() {
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?php echo esc_attr( $metadata['og_title'] ); ?>">
     <meta property="og:description" content="<?php echo esc_attr( $metadata['description'] ); ?>">
-    <meta property="og:url" content="<?php echo esc_url( $metadata['canonical'] ); ?>">
+    <meta property="og:url" content="<?php echo esc_url( $metadata['og_url'] ?? $metadata['canonical'] ); ?>">
     <meta property="og:site_name" content="<?php echo esc_attr( $site_name ); ?>">
+    <?php if ( isset( $metadata['og_image'] ) ) : ?>
+    <meta property="og:image" content="<?php echo esc_url( $metadata['og_image'] ); ?>">
+    <?php endif; ?>
     
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<?php echo esc_attr( $metadata['twitter_title'] ); ?>">
     <meta name="twitter:description" content="<?php echo esc_attr( $metadata['description'] ); ?>">
+    <?php if ( isset( $metadata['og_image'] ) ) : ?>
+    <meta name="twitter:image" content="<?php echo esc_url( $metadata['og_image'] ); ?>">
+    <?php endif; ?>
     
     <?php
 }
@@ -321,6 +350,18 @@ function pan_resizer_get_section_structured_data( $section ) {
                 'Custom max file size (1-500 KB)',
                 'Precise cm to pixels conversion',
                 'Suitable for any document'
+            )
+        ),
+        'home-editor' => array(
+            'name' => 'All-in-One PAN Card Editor',
+            'description' => 'Professional all-in-one PAN card editor. Resize photos, compress signatures, and optimize PDF documents for NSDL/UTI applications. Edit multiple file types in a single tool.',
+            'features' => array(
+                'Edit PAN card photos',
+                'Compress signatures',
+                'Resize PDF documents',
+                'Multi-format support (JPG, PNG, WEBP, PDF)',
+                'Client-side processing for privacy',
+                'No registration required'
             )
         )
     );

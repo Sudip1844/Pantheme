@@ -76,7 +76,19 @@
             'keywords' => 'PAN card photo resizer, resize PAN card photo, compress PAN photo, PAN signature resizer, NSDL photo resize, UTI photo size, free photo resizer, online image compressor, PAN document converter, custom size resizer',
             'canonical' => $base_url . '/',
             'og_title' => 'PAN Card Photo Resizer - Free Online Tool',
+            'og_url' => $base_url . '/',
+            'og_image' => $base_url . '/pan-resizer-theme/assets/images/og-image.jpg',
             'twitter_title' => 'PAN Card Photo Resizer - Free Tool'
+        ),
+        'home-editor' => array(
+            'title' => 'All-in-One PAN Card Editor - Photo, Signature & PDF Resizer',
+            'description' => 'Professional all-in-one PAN card editor. Resize photos, compress signatures, and optimize PDF documents for NSDL/UTI applications. Edit multiple file types in a single tool - fast, secure, and free.',
+            'keywords' => 'PAN card editor, all in one photo editor, PAN signature editor, PDF resize tool, multi-purpose image resizer, document optimizer, PAN card photo editor, free online editor',
+            'canonical' => $base_url . '/#home-editor',
+            'og_title' => 'All-in-One PAN Card Editor - Photo, Signature & PDF',
+            'og_url' => $base_url . '/#home-editor',
+            'og_image' => $base_url . '/pan-resizer-theme/assets/images/og-image.jpg',
+            'twitter_title' => 'All-in-One PAN Card Editor'
         ),
         'nsdl-photo' => array(
             'title' => 'NSDL (Protean) Photograph Resize - 3.5cm x 2.5cm, 200 DPI, 20 KB',
@@ -84,6 +96,8 @@
             'keywords' => 'NSDL photo resize, Protean PAN photo, NSDL photograph 3.5x2.5cm, PAN card photo 200 DPI, NSDL photo 20KB, resize photo for NSDL PAN, Protean photo resize',
             'canonical' => $base_url . '/#nsdl-photo',
             'og_title' => 'NSDL (Protean) Photograph Resize - 3.5cm x 2.5cm',
+            'og_url' => $base_url . '/#nsdl-photo',
+            'og_image' => $base_url . '/pan-resizer-theme/assets/images/og-image.jpg',
             'twitter_title' => 'NSDL Photo Resize Tool'
         ),
         'nsdl-signature' => array(
@@ -92,6 +106,8 @@
             'keywords' => 'NSDL signature resize, Protean PAN signature, NSDL signature 2x4.5cm, PAN card signature 200 DPI, NSDL signature 10KB, resize signature for NSDL',
             'canonical' => $base_url . '/#nsdl-signature',
             'og_title' => 'NSDL (Protean) Signature Resize - 2cm x 4.5cm',
+            'og_url' => $base_url . '/#nsdl-signature',
+            'og_image' => $base_url . '/pan-resizer-theme/assets/images/og-image.jpg',
             'twitter_title' => 'NSDL Signature Resize Tool'
         ),
         'uti-photo' => array(
@@ -100,6 +116,8 @@
             'keywords' => 'UTI photo resize, ITSL PAN photo, UTI photograph 213x213, PAN card photo 300 DPI, UTI photo 30KB, resize photo for UTI PAN, ITSL photo resize',
             'canonical' => $base_url . '/#uti-photo',
             'og_title' => 'UTI/ITSL Photograph Resize - 213x213 pixels',
+            'og_url' => $base_url . '/#uti-photo',
+            'og_image' => $base_url . '/pan-resizer-theme/assets/images/og-image.jpg',
             'twitter_title' => 'UTI Photo Resize Tool'
         ),
         'uti-signature' => array(
@@ -108,6 +126,8 @@
             'keywords' => 'UTI signature resize, ITSL PAN signature, UTI signature 400x200, PAN card signature 600 DPI, UTI signature 60KB, resize signature for UTI',
             'canonical' => $base_url . '/#uti-signature',
             'og_title' => 'UTI/ITSL Signature Resize - 400x200 pixels',
+            'og_url' => $base_url . '/#uti-signature',
+            'og_image' => $base_url . '/pan-resizer-theme/assets/images/og-image.jpg',
             'twitter_title' => 'UTI Signature Resize Tool'
         ),
         'custom-cm-resizer' => array(
@@ -116,6 +136,8 @@
             'keywords' => 'custom image resizer, resize by centimeters, cm to pixels converter, DPI resizer, custom size photo resize, precise image dimensions, resize by cm and DPI',
             'canonical' => $base_url . '/#custom-cm-resizer',
             'og_title' => 'Custom CM Resizer - Resize by Centimeters & DPI',
+            'og_url' => $base_url . '/#custom-cm-resizer',
+            'og_image' => $base_url . '/pan-resizer-theme/assets/images/og-image.jpg',
             'twitter_title' => 'Custom CM Image Resizer'
         )
     );
@@ -131,6 +153,17 @@
             'offers' => array('@type' => 'Offer', 'price' => '0.00', 'priceCurrency' => 'INR'),
             'description' => 'Resize PAN card photo and signature instantly for NSDL and UTI formats. Also supports custom image sizes in cm with DPI control. Free and easy to use.',
             'featureList' => array('NSDL Photo Resize - 3.5cm x 2.5cm, 20KB', 'NSDL Signature Resize - 2cm x 4.5cm, 10KB', 'UTI Photo Resize - 213x213px, 30KB', 'UTI Signature Resize - 400x200px, 60KB', 'Custom CM Resizer with DPI control')
+        ),
+        'home-editor' => array(
+            '@context' => 'https://schema.org',
+            '@type' => 'WebApplication',
+            'name' => 'All-in-One PAN Card Editor',
+            'url' => $base_url . '/#home-editor',
+            'applicationCategory' => 'Utility',
+            'operatingSystem' => 'All',
+            'offers' => array('@type' => 'Offer', 'price' => '0.00', 'priceCurrency' => 'INR'),
+            'description' => 'Professional all-in-one PAN card editor. Resize photos, compress signatures, and optimize PDF documents for NSDL/UTI applications. Edit multiple file types in a single tool.',
+            'featureList' => array('Edit PAN card photos', 'Compress signatures', 'Resize PDF documents', 'Multi-format support (JPG, PNG, WEBP, PDF)', 'Client-side processing for privacy', 'No registration required')
         ),
         'nsdl-photo' => array(
             '@context' => 'https://schema.org',
@@ -216,6 +249,7 @@
         
         <div class="mobile-menu" id="mobileMenu">
             <a href="#" onclick="scrollToSection('top')">Home</a>
+            <a href="#home-editor">All-in-One Editor</a>
             <a href="#nsdl-photo">NSDL Photo</a>
             <a href="#nsdl-signature">NSDL Signature</a>
             <a href="#uti-photo">UTI Photo</a>
@@ -240,9 +274,10 @@
 
 <main id="main-content">
     <div class="container">
-        <div class="resizer-card">
-            <h2>Photo, Signature & Document Editor</h2>
-            <p class="seo-subtitle">Professional online tool to resize and optimize your documents</p>
+        <div class="resizer-card" id="home-editor">
+            <h2 class="editor-title">All-in-One PAN Card Editor</h2>
+            <h3 class="editor-subtitle">Photo, Signature & Document Resizer Tool</h3>
+            <p class="seo-subtitle">Professional online tool to resize and optimize your PAN card images and documents. Edit photos, signatures, and PDFs - all in one place!</p>
             
             <?php include 'pan-resizer-theme/template-parts/pan-resizer-editor.php'; ?>
         </div>
