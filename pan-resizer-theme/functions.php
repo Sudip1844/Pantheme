@@ -11,6 +11,168 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Define tool sections for SEO routing
+ */
+function pan_resizer_get_tool_sections() {
+    return array(
+        'nsdl-photo' => array(
+            'slug' => 'nsdl-photo',
+            'hash' => 'nsdl-photo',
+            'name' => 'NSDL Photo Resizer'
+        ),
+        'nsdl-signature' => array(
+            'slug' => 'nsdl-signature',
+            'hash' => 'nsdl-signature',
+            'name' => 'NSDL Signature Resizer'
+        ),
+        'uti-photo' => array(
+            'slug' => 'uti-photo',
+            'hash' => 'uti-photo',
+            'name' => 'UTI Photo Resizer'
+        ),
+        'uti-signature' => array(
+            'slug' => 'uti-signature',
+            'hash' => 'uti-signature',
+            'name' => 'UTI Signature Resizer'
+        ),
+        'custom-cm-resizer' => array(
+            'slug' => 'custom-cm-resizer',
+            'hash' => 'custom-cm-resizer',
+            'name' => 'Custom CM Resizer'
+        ),
+        'home-editor' => array(
+            'slug' => 'pan-card-editor',
+            'hash' => 'home-editor',
+            'name' => 'All-in-One PAN Card Editor'
+        )
+    );
+}
+
+/**
+ * Register Custom Rewrite Rules for SEO-Friendly URLs
+ */
+function pan_resizer_register_rewrite_rules() {
+    $tool_sections = pan_resizer_get_tool_sections();
+    
+    foreach ( $tool_sections as $key => $section ) {
+        add_rewrite_rule(
+            '^' . $section['slug'] . '/?$',
+            'index.php?pan_resizer_tool=' . $key,
+            'top'
+        );
+    }
+    
+    // Add sitemap rule
+    add_rewrite_rule(
+        '^sitemap\.xml$',
+        'index.php?pan_resizer_sitemap=1',
+        'top'
+    );
+}
+add_action( 'init', 'pan_resizer_register_rewrite_rules' );
+
+/**
+ * Register Query Variables
+ */
+function pan_resizer_register_query_vars( $vars ) {
+    $vars[] = 'pan_resizer_tool';
+    $vars[] = 'pan_resizer_sitemap';
+    return $vars;
+}
+add_filter( 'query_vars', 'pan_resizer_register_query_vars' );
+
+/**
+ * Handle Sitemap Request
+ */
+function pan_resizer_handle_sitemap() {
+    if ( get_query_var( 'pan_resizer_sitemap' ) ) {
+        header( 'Content-Type: application/xml; charset=utf-8' );
+        echo pan_resizer_generate_sitemap();
+        exit;
+    }
+}
+add_action( 'template_redirect', 'pan_resizer_handle_sitemap', 0 );
+
+/**
+ * Generate XML Sitemap with all tool pages
+ */
+function pan_resizer_generate_sitemap() {
+    $base_url = home_url( '/' );
+    $tool_sections = pan_resizer_get_tool_sections();
+    $lastmod = date( 'Y-m-d' );
+    
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+    
+    // Homepage
+    $xml .= '  <url>' . "\n";
+    $xml .= '    <loc>' . esc_url( $base_url ) . '</loc>' . "\n";
+    $xml .= '    <lastmod>' . $lastmod . '</lastmod>' . "\n";
+    $xml .= '    <changefreq>weekly</changefreq>' . "\n";
+    $xml .= '    <priority>1.0</priority>' . "\n";
+    $xml .= '  </url>' . "\n";
+    
+    // Tool pages
+    foreach ( $tool_sections as $key => $section ) {
+        $xml .= '  <url>' . "\n";
+        $xml .= '    <loc>' . esc_url( $base_url . $section['slug'] . '/' ) . '</loc>' . "\n";
+        $xml .= '    <lastmod>' . $lastmod . '</lastmod>' . "\n";
+        $xml .= '    <changefreq>weekly</changefreq>' . "\n";
+        $xml .= '    <priority>0.9</priority>' . "\n";
+        $xml .= '  </url>' . "\n";
+    }
+    
+    $xml .= '</urlset>';
+    
+    return $xml;
+}
+
+/**
+ * Flush rewrite rules on theme activation
+ */
+function pan_resizer_flush_rewrite_rules() {
+    pan_resizer_register_rewrite_rules();
+    flush_rewrite_rules();
+}
+add_action( 'after_switch_theme', 'pan_resizer_flush_rewrite_rules' );
+
+/**
+ * Get current tool section from URL
+ */
+function pan_resizer_get_current_tool() {
+    $tool = get_query_var( 'pan_resizer_tool' );
+    $tool_sections = pan_resizer_get_tool_sections();
+    
+    if ( $tool && isset( $tool_sections[ $tool ] ) ) {
+        return $tool;
+    }
+    
+    return null;
+}
+
+/**
+ * Get current section for SEO (includes tool pages)
+ */
+function pan_resizer_get_current_section() {
+    // First check if it's a tool page
+    $tool = pan_resizer_get_current_tool();
+    if ( $tool ) {
+        return $tool;
+    }
+    
+    // Check for hash or query parameter (fallback)
+    if ( isset( $_GET['section'] ) ) {
+        $query_section = sanitize_text_field( $_GET['section'] );
+        $valid_sections = array( 'home-editor', 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer', 'specifications', 'features', 'how-to-use', 'faq', 'privacy' );
+        if ( in_array( $query_section, $valid_sections ) ) {
+            return $query_section;
+        }
+    }
+    
+    return 'default';
+}
+
+/**
  * Theme Setup
  */
 function pan_resizer_theme_setup() {
@@ -41,7 +203,7 @@ function pan_resizer_enqueue_scripts() {
         'pan-resizer-style', 
         get_template_directory_uri() . '/assets/css/main-style.css',
         array(),
-        '1.0.2'
+        '1.0.3'
     );
     
     // Enqueue Font Awesome
@@ -75,24 +237,23 @@ function pan_resizer_enqueue_scripts() {
         'pan-resizer-script',
         get_template_directory_uri() . '/assets/js/main-script.js',
         array( 'jquery' ),
-        '1.0.0',
+        '1.0.1',
         true
     );
     
-    // Expose SEO metadata to JavaScript for dynamic updates
-    $metadata_registry = pan_resizer_get_section_metadata();
-    $structured_data_map = array();
-    foreach ( array( 'default', 'home-editor', 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer', 'specifications', 'features', 'how-to-use', 'faq', 'privacy' ) as $section ) {
-        $structured_data_map[ $section ] = pan_resizer_get_section_structured_data( $section );
-    }
+    // Expose SEO metadata and current tool to JavaScript
+    $current_tool = pan_resizer_get_current_tool();
+    $tool_sections = pan_resizer_get_tool_sections();
     
     wp_localize_script(
         'pan-resizer-script',
         'panResizerSEO',
         array(
-            'metadata' => $metadata_registry,
-            'structuredData' => $structured_data_map,
-            'siteUrl' => home_url( '/' )
+            'metadata' => pan_resizer_get_section_metadata(),
+            'structuredData' => pan_resizer_get_all_structured_data(),
+            'siteUrl' => home_url( '/' ),
+            'currentTool' => $current_tool,
+            'toolHash' => $current_tool && isset( $tool_sections[ $current_tool ] ) ? $tool_sections[ $current_tool ]['hash'] : null
         )
     );
 }
@@ -119,11 +280,12 @@ remove_action( 'wp_head', 'wp_generator' );
 
 /**
  * Get Section-Specific SEO Metadata Registry
- * Returns metadata for each of the 5 editor sections
+ * Returns metadata for each section with clean URLs
  */
 function pan_resizer_get_section_metadata() {
     $site_name = get_bloginfo( 'name' );
     $base_url = home_url( '/' );
+    $tool_sections = pan_resizer_get_tool_sections();
     
     return array(
         'default' => array(
@@ -141,9 +303,9 @@ function pan_resizer_get_section_metadata() {
             'title' => 'NSDL (Protean) Photograph Resize - 3.5cm x 2.5cm, 200 DPI, 20 KB',
             'description' => 'Resize PAN card photograph for NSDL (Protean) requirements. Automatically resize to 3.5cm x 2.5cm at 200 DPI, compress under 20 KB. Free online tool with white background support.',
             'keywords' => 'NSDL photo resize, Protean PAN photo, NSDL photograph 3.5x2.5cm, PAN card photo 200 DPI, NSDL photo 20KB, resize photo for NSDL PAN, Protean photo resize',
-            'canonical' => $base_url . '#nsdl-photo',
+            'canonical' => $base_url . $tool_sections['nsdl-photo']['slug'] . '/',
             'og_title' => 'NSDL (Protean) Photograph Resize - 3.5cm x 2.5cm',
-            'og_url' => $base_url . '#nsdl-photo',
+            'og_url' => $base_url . $tool_sections['nsdl-photo']['slug'] . '/',
             'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
             'twitter_title' => 'NSDL Photo Resize Tool',
             'section_name' => 'NSDL Photograph Resizer'
@@ -152,9 +314,9 @@ function pan_resizer_get_section_metadata() {
             'title' => 'NSDL (Protean) Signature Resize - 2cm x 4.5cm, 200 DPI, 10 KB',
             'description' => 'Resize signature for NSDL (Protean) PAN card. Automatically resize to 2cm x 4.5cm at 200 DPI, compress under 10 KB. Free tool for perfect NSDL signature requirements.',
             'keywords' => 'NSDL signature resize, Protean PAN signature, NSDL signature 2x4.5cm, PAN card signature 200 DPI, NSDL signature 10KB, resize signature for NSDL',
-            'canonical' => $base_url . '#nsdl-signature',
+            'canonical' => $base_url . $tool_sections['nsdl-signature']['slug'] . '/',
             'og_title' => 'NSDL (Protean) Signature Resize - 2cm x 4.5cm',
-            'og_url' => $base_url . '#nsdl-signature',
+            'og_url' => $base_url . $tool_sections['nsdl-signature']['slug'] . '/',
             'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
             'twitter_title' => 'NSDL Signature Resize Tool',
             'section_name' => 'NSDL Signature Resizer'
@@ -163,9 +325,9 @@ function pan_resizer_get_section_metadata() {
             'title' => 'UTI/ITSL Photograph Resize - 213x213 pixels, 300 DPI, 30 KB',
             'description' => 'Resize PAN card photograph for UTI/ITSL requirements. Automatically resize to 213x213 pixels at 300 DPI, compress under 30 KB. Free online UTI photo resizer tool.',
             'keywords' => 'UTI photo resize, ITSL PAN photo, UTI photograph 213x213, PAN card photo 300 DPI, UTI photo 30KB, resize photo for UTI PAN, ITSL photo resize',
-            'canonical' => $base_url . '#uti-photo',
+            'canonical' => $base_url . $tool_sections['uti-photo']['slug'] . '/',
             'og_title' => 'UTI/ITSL Photograph Resize - 213x213 pixels',
-            'og_url' => $base_url . '#uti-photo',
+            'og_url' => $base_url . $tool_sections['uti-photo']['slug'] . '/',
             'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
             'twitter_title' => 'UTI Photo Resize Tool',
             'section_name' => 'UTI Photograph Resizer'
@@ -174,9 +336,9 @@ function pan_resizer_get_section_metadata() {
             'title' => 'UTI/ITSL Signature Resize - 400x200 pixels, 600 DPI, 60 KB',
             'description' => 'Resize signature for UTI/ITSL PAN card. Automatically resize to 400x200 pixels at 600 DPI, compress under 60 KB. Free tool for perfect UTI signature requirements.',
             'keywords' => 'UTI signature resize, ITSL PAN signature, UTI signature 400x200, PAN card signature 600 DPI, UTI signature 60KB, resize signature for UTI',
-            'canonical' => $base_url . '#uti-signature',
+            'canonical' => $base_url . $tool_sections['uti-signature']['slug'] . '/',
             'og_title' => 'UTI/ITSL Signature Resize - 400x200 pixels',
-            'og_url' => $base_url . '#uti-signature',
+            'og_url' => $base_url . $tool_sections['uti-signature']['slug'] . '/',
             'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
             'twitter_title' => 'UTI Signature Resize Tool',
             'section_name' => 'UTI Signature Resizer'
@@ -185,9 +347,9 @@ function pan_resizer_get_section_metadata() {
             'title' => 'Custom CM Resizer - Resize Images by Centimeters, DPI & File Size',
             'description' => 'Custom image resizer with precise control. Set dimensions in centimeters (cm), adjust DPI (50-1200), and specify max file size. Perfect for any document or photo resize requirements.',
             'keywords' => 'custom image resizer, resize by centimeters, cm to pixels converter, DPI resizer, custom size photo resize, precise image dimensions, resize by cm and DPI',
-            'canonical' => $base_url . '#custom-cm-resizer',
+            'canonical' => $base_url . $tool_sections['custom-cm-resizer']['slug'] . '/',
             'og_title' => 'Custom CM Resizer - Resize by Centimeters & DPI',
-            'og_url' => $base_url . '#custom-cm-resizer',
+            'og_url' => $base_url . $tool_sections['custom-cm-resizer']['slug'] . '/',
             'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
             'twitter_title' => 'Custom CM Image Resizer',
             'section_name' => 'Custom Centimeter Resizer'
@@ -196,9 +358,9 @@ function pan_resizer_get_section_metadata() {
             'title' => 'All-in-One PAN Card Editor - Photo, Signature & PDF Resizer',
             'description' => 'Professional all-in-one PAN card editor. Resize photos, compress signatures, and optimize PDF documents for NSDL/UTI applications. Edit multiple file types in a single tool - fast, secure, and free.',
             'keywords' => 'PAN card editor, all in one photo editor, PAN signature editor, PDF resize tool, multi-purpose image resizer, document optimizer, PAN card photo editor, free online editor',
-            'canonical' => $base_url . '#home-editor',
+            'canonical' => $base_url . $tool_sections['home-editor']['slug'] . '/',
             'og_title' => 'All-in-One PAN Card Editor - Photo, Signature & PDF',
-            'og_url' => $base_url . '#home-editor',
+            'og_url' => $base_url . $tool_sections['home-editor']['slug'] . '/',
             'og_image' => get_template_directory_uri() . '/assets/images/og-image.jpg',
             'twitter_title' => 'All-in-One PAN Card Editor',
             'section_name' => 'All-in-One PAN Card Editor'
@@ -262,33 +424,17 @@ function pan_resizer_get_section_metadata() {
 }
 
 /**
- * Detect current section from URL hash or query parameter
+ * Get all structured data for JavaScript
  */
-function pan_resizer_get_current_section() {
-    $section = 'default';
+function pan_resizer_get_all_structured_data() {
+    $sections = array( 'default', 'home-editor', 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer', 'specifications', 'features', 'how-to-use', 'faq', 'privacy' );
+    $data = array();
     
-    // Check if there's a hash in the URL
-    if ( isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], '#' ) !== false ) {
-        $uri_parts = explode( '#', $_SERVER['REQUEST_URI'] );
-        if ( isset( $uri_parts[1] ) ) {
-            $hash = $uri_parts[1];
-            $valid_sections = array( 'home-editor', 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer', 'specifications', 'features', 'how-to-use', 'faq', 'privacy' );
-            if ( in_array( $hash, $valid_sections ) ) {
-                $section = $hash;
-            }
-        }
+    foreach ( $sections as $section ) {
+        $data[ $section ] = pan_resizer_get_section_structured_data( $section );
     }
     
-    // Also check for section query parameter as fallback
-    if ( isset( $_GET['section'] ) ) {
-        $query_section = sanitize_text_field( $_GET['section'] );
-        $valid_sections = array( 'home-editor', 'nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer', 'specifications', 'features', 'how-to-use', 'faq', 'privacy' );
-        if ( in_array( $query_section, $valid_sections ) ) {
-            $section = $query_section;
-        }
-    }
-    
-    return $section;
+    return $data;
 }
 
 /**
@@ -331,6 +477,23 @@ function pan_resizer_add_seo_meta_tags() {
     <?php
 }
 add_action( 'wp_head', 'pan_resizer_add_seo_meta_tags', 1 );
+
+/**
+ * Customize document title for tool pages
+ */
+function pan_resizer_custom_document_title( $title ) {
+    $current_section = pan_resizer_get_current_section();
+    
+    if ( $current_section !== 'default' ) {
+        $metadata_registry = pan_resizer_get_section_metadata();
+        if ( isset( $metadata_registry[ $current_section ] ) ) {
+            return $metadata_registry[ $current_section ]['title'];
+        }
+    }
+    
+    return $title;
+}
+add_filter( 'pre_get_document_title', 'pan_resizer_custom_document_title' );
 
 /**
  * Get Section-Specific Structured Data
@@ -581,6 +744,21 @@ function pan_resizer_add_structured_data() {
 add_action( 'wp_head', 'pan_resizer_add_structured_data', 2 );
 
 /**
+ * Add Internal Links to Tool Pages in Footer
+ */
+function pan_resizer_add_tool_links() {
+    $tool_sections = pan_resizer_get_tool_sections();
+    $base_url = home_url( '/' );
+    
+    $links = array();
+    foreach ( $tool_sections as $key => $section ) {
+        $links[] = '<a href="' . esc_url( $base_url . $section['slug'] . '/' ) . '">' . esc_html( $section['name'] ) . '</a>';
+    }
+    
+    return $links;
+}
+
+/**
  * Add Cache Control Headers for HTML pages
  */
 function pan_resizer_add_cache_headers() {
@@ -590,3 +768,15 @@ function pan_resizer_add_cache_headers() {
     }
 }
 add_action( 'template_redirect', 'pan_resizer_add_cache_headers', 1 );
+
+/**
+ * Add tool page links to robots.txt
+ */
+function pan_resizer_robots_txt( $output, $public ) {
+    if ( $public ) {
+        $output .= "\n# PAN Resizer Tool Pages\n";
+        $output .= "Sitemap: " . home_url( '/sitemap.xml' ) . "\n";
+    }
+    return $output;
+}
+add_filter( 'robots_txt', 'pan_resizer_robots_txt', 10, 2 );
