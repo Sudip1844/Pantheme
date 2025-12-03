@@ -8,13 +8,28 @@
  * @package PAN_Resizer
  */
 
-// Get current tool if on a tool page
-$current_tool = pan_resizer_get_current_tool();
-$tool_sections = pan_resizer_get_tool_sections();
+// Get current section from URL
+$current_section = pan_resizer_get_current_section();
 $scroll_to_section = null;
 
-if ( $current_tool && isset( $tool_sections[ $current_tool ] ) ) {
-    $scroll_to_section = $tool_sections[ $current_tool ]['hash'];
+// Map section to hash for scrolling
+$section_to_hash = array(
+    'nsdl-photo' => 'nsdl-photo',
+    'nsdl-signature' => 'nsdl-signature',
+    'uti-photo' => 'uti-photo',
+    'uti-signature' => 'uti-signature',
+    'custom-cm-resizer' => 'custom-cm-resizer',
+    'home-editor' => 'home-editor',
+    'pan-card-editor' => 'home-editor',
+    'specifications' => 'specifications',
+    'features' => 'features',
+    'how-to-use' => 'how-to-use',
+    'faq' => 'faq',
+    'privacy' => 'privacy'
+);
+
+if ( $current_section !== 'default' && isset( $section_to_hash[ $current_section ] ) ) {
+    $scroll_to_section = $section_to_hash[ $current_section ];
 }
 
 get_header();
@@ -23,9 +38,9 @@ get_header();
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="container">
-        <?php if ( $current_tool ) : 
+        <?php if ( $current_section !== 'default' ) : 
             $metadata = pan_resizer_get_section_metadata();
-            $section_meta = $metadata[ $current_tool ];
+            $section_meta = isset($metadata[ $current_section ]) ? $metadata[ $current_section ] : $metadata['default'];
         ?>
             <h1 class="hero-title"><?php echo esc_html( $section_meta['section_name'] ); ?></h1>
             <p class="hero-description"><?php echo esc_html( $section_meta['description'] ); ?></p>
@@ -54,21 +69,6 @@ get_header();
 </div>
 
 <?php get_template_part( 'template-parts/specifications-section' ); ?>
-
-<!-- SEO Internal Links Section -->
-<section class="seo-links-section" style="background: #f8f9fa; padding: 40px 0; margin-top: 40px;">
-    <div class="container">
-        <h2 style="text-align: center; margin-bottom: 30px; font-size: 1.5rem; color: #333;">Quick Access to PAN Card Resizer Tools</h2>
-        <div class="tool-links-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto;">
-            <?php 
-            $tool_links = pan_resizer_add_tool_links();
-            foreach ( $tool_links as $link ) {
-                echo '<div class="tool-link-card" style="background: white; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">' . $link . '</div>';
-            }
-            ?>
-        </div>
-    </div>
-</section>
 
 <?php if ( $scroll_to_section ) : ?>
 <script>

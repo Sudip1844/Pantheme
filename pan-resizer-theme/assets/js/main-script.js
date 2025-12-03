@@ -1,3 +1,52 @@
+// SEO: Redirect hash URLs to clean URLs for better indexing
+document.addEventListener('DOMContentLoaded', function() {
+    // If URL has hash but we're on the main page, redirect to proper URL
+    if (window.location.hash && !window.location.search.includes('section=')) {
+        const hash = window.location.hash.replace('#', '');
+        const validSections = ['nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer', 'pan-card-editor', 'home-editor', 'specifications', 'features', 'how-to-use', 'faq', 'privacy'];
+        
+        if (validSections.includes(hash)) {
+            // Map home-editor to pan-card-editor for URL
+            const urlSlug = hash === 'home-editor' ? 'pan-card-editor' : hash;
+            
+            // Update browser history without reload for users
+            history.replaceState(null, null, '/' + urlSlug + '/');
+            
+            // Update SEO meta tags dynamically
+            if (typeof panResizerSEO !== 'undefined') {
+                updateSEOMetaTags(hash);
+            }
+        }
+    }
+});
+
+function updateSEOMetaTags(section) {
+    if (typeof panResizerSEO === 'undefined' || !panResizerSEO.metadata || !panResizerSEO.metadata[section]) return;
+    
+    const meta = panResizerSEO.metadata[section];
+    
+    // Update title
+    document.title = meta.title;
+    
+    // Update meta description
+    let descMeta = document.querySelector('meta[name="description"]');
+    if (descMeta) descMeta.content = meta.description;
+    
+    // Update canonical
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.href = meta.canonical;
+    
+    // Update OG tags
+    let ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.content = meta.og_title;
+    
+    let ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.content = meta.description;
+    
+    let ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.content = meta.og_url || meta.canonical;
+}
+
 // Immediately start loading critical resources
 document.addEventListener('DOMContentLoaded', function() {
   // Mark the LCP element when it's loaded
