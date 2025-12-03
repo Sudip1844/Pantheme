@@ -9,8 +9,14 @@ document.addEventListener('DOMContentLoaded', function() {
             // Map home-editor to pan-card-editor for URL
             const urlSlug = hash === 'home-editor' ? 'pan-card-editor' : hash;
             
+            // Use site URL from WordPress for proper subdirectory support
+            let baseUrl = '/';
+            if (typeof panResizerSEO !== 'undefined' && panResizerSEO.siteUrl) {
+                baseUrl = panResizerSEO.siteUrl;
+            }
+            
             // Update browser history without reload for users
-            history.replaceState(null, null, '/' + urlSlug + '/');
+            history.replaceState(null, null, baseUrl + urlSlug + '/');
             
             // Update SEO meta tags dynamically
             if (typeof panResizerSEO !== 'undefined') {

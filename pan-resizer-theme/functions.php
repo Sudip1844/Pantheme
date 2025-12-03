@@ -123,12 +123,30 @@ function pan_resizer_virtual_pages() {
     foreach ($sections as $slug => $title) {
         add_rewrite_rule(
             '^' . $slug . '/?$',
-            'index.php?pagename=home&section=' . $slug,
+            'index.php?section=' . $slug,
             'top'
         );
     }
 }
 add_action('init', 'pan_resizer_virtual_pages');
+
+/**
+ * Load front-page template for section URLs
+ */
+function pan_resizer_template_include($template) {
+    $section = get_query_var('section');
+    if ($section) {
+        $valid_sections = array('nsdl-photo', 'nsdl-signature', 'uti-photo', 'uti-signature', 'custom-cm-resizer', 'pan-card-editor', 'specifications', 'features', 'how-to-use', 'faq', 'privacy');
+        if (in_array($section, $valid_sections)) {
+            $front_page_template = get_template_directory() . '/front-page.php';
+            if (file_exists($front_page_template)) {
+                return $front_page_template;
+            }
+        }
+    }
+    return $template;
+}
+add_filter('template_include', 'pan_resizer_template_include');
 
 /**
  * Add query var for sections
