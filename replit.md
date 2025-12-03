@@ -23,8 +23,10 @@ The interface features an accordion-style FAQ component with ARIA-compliant acce
 ### SEO and Performance Optimization
 The system incorporates advanced SEO features, including context-aware canonical URLs, comprehensive meta tags (description, keywords, author, robots), Open Graph and Twitter Card tags for social sharing, and JSON-LD structured data (WebApplication, FAQPage schemas). Performance optimizations include browser caching strategies, deferred script loading, critical CSS and JS preloading, asynchronous resource loading, and DNS prefetching/preconnect for CDN resources.
 
-### SEO-Friendly URL Routing (Added December 2025)
-The WordPress theme now includes SEO-friendly URL routing for each tool section:
+### SEO-Friendly URL Routing (Updated December 2025)
+The WordPress theme now includes SEO-friendly URL routing using the "pseudo-pages" approach:
+
+**Tool Sections:**
 - `/nsdl-photo/` - NSDL Photograph Resizer
 - `/nsdl-signature/` - NSDL Signature Resizer
 - `/uti-photo/` - UTI Photograph Resizer
@@ -32,15 +34,32 @@ The WordPress theme now includes SEO-friendly URL routing for each tool section:
 - `/custom-cm-resizer/` - Custom Centimeter Resizer
 - `/pan-card-editor/` - All-in-One PAN Card Editor
 
-Each URL:
-- Has unique title, meta description, and canonical URL
-- Includes proper Open Graph and Twitter Card tags
-- Contains JSON-LD structured data (WebApplication schema)
-- Auto-scrolls to the relevant section on page load
+**Information Sections:**
+- `/specifications/` - Resize Specifications
+- `/features/` - Key Features
+- `/how-to-use/` - How to Use Guide
+- `/faq/` - Frequently Asked Questions
+- `/privacy/` - Privacy Policy
 
-A dynamic sitemap.xml is generated at `/sitemap.xml` containing all tool pages for search engine indexing. The sitemap URL is also added to robots.txt.
+**Technical Implementation:**
+- Uses `pagename=home&section=SLUG` pseudo-page approach
+- WordPress rewrite rules map clean URLs to query parameters
+- JavaScript redirects hash URLs to clean URLs for SEO
+- Dynamic meta tag updates for each section
+- Auto-scrolling to relevant section on page load
 
-**Important:** After activating the theme, go to WordPress Settings > Permalinks and click "Save Changes" to flush rewrite rules.
+**Each URL Features:**
+- Unique title, meta description, and canonical URL
+- Proper Open Graph and Twitter Card tags
+- JSON-LD structured data (WebApplication/WebPage/HowTo/FAQPage schemas)
+
+**Sitemap:**
+A dynamic sitemap.xml is generated at `/sitemap.xml` containing all pages for search engine indexing. The sitemap URL is also added to robots.txt.
+
+**Important After WordPress Installation:**
+1. Upload and activate the theme
+2. Go to **Settings > Permalinks** and click **"Save Changes"** to flush rewrite rules
+3. All SEO-friendly URLs will work automatically
 
 ## External Dependencies
 
