@@ -707,3 +707,121 @@ function pan_resizer_robots_txt( $output, $public ) {
     return $output;
 }
 add_filter( 'robots_txt', 'pan_resizer_robots_txt', 10, 2 );
+
+/**
+ * Create All PAN Resizer Pages
+ */
+function pan_resizer_create_all_pages() {
+    $metadata_registry = pan_resizer_get_section_metadata();
+    
+    // Pages to create (excluding default and home-editor which are on homepage)
+    $pages_to_create = array(
+        'nsdl-photo' => 'NSDL (Protean) Photograph Resize - 3.5cm x 2.5cm, 200 DPI, 20 KB',
+        'nsdl-signature' => 'NSDL (Protean) Signature Resize - 2cm x 4.5cm, 200 DPI, 10 KB',
+        'uti-photo' => 'UTI/ITSL Photograph Resize - 213x213 pixels, 300 DPI, 30 KB',
+        'uti-signature' => 'UTI/ITSL Signature Resize - 400x200 pixels, 600 DPI, 60 KB',
+        'custom-cm-resizer' => 'Custom CM Resizer - Resize Images by Centimeters, DPI & File Size',
+        'specifications' => 'PAN Card Photo Resize Specifications - NSDL, UTI & Custom Requirements',
+        'features' => 'Key Features - Free Online PAN Card Photo Resizer Tool',
+        'how-to-use' => 'How to Use PAN Card Photo Resizer - Step by Step Guide',
+        'faq' => 'FAQ - Common Questions About PAN Card Photo Resizing',
+        'privacy' => 'Privacy Policy - Your Data is Safe with Client-Side Processing'
+    );
+    
+    $created_count = 0;
+    
+    foreach ( $pages_to_create as $slug => $title ) {
+        // Check if page already exists
+        $page = get_page_by_path( $slug, OBJECT, 'page' );
+        
+        if ( ! $page ) {
+            $page_args = array(
+                'post_type' => 'page',
+                'post_title' => $title,
+                'post_name' => $slug,
+                'post_status' => 'publish',
+                'post_content' => sprintf( 
+                    '[pan_resizer_tool section="%s"]', 
+                    sanitize_text_field( $slug )
+                ),
+            );
+            
+            $page_id = wp_insert_post( $page_args );
+            
+            if ( $page_id ) {
+                update_post_meta( $page_id, '_pan_resizer_section', $slug );
+                $created_count++;
+            }
+        }
+    }
+    
+    return $created_count;
+}
+
+/**
+ * Create Pages Button in Admin Theme Info
+ */
+function pan_resizer_admin_init() {
+    add_theme_page(
+        'PAN Resizer Settings',
+        'PAN Resizer',
+        'manage_options',
+        'pan-resizer-settings',
+        'pan_resizer_settings_page'
+    );
+}
+add_action( 'admin_menu', 'pan_resizer_admin_init' );
+
+/**
+ * Settings Page with Create Pages Button
+ */
+function pan_resizer_settings_page() {
+    ?>
+    <div class="wrap">
+        <h1>PAN Resizer Theme Setup</h1>
+        <div class="card" style="max-width: 600px; margin-top: 20px; padding: 20px;">
+            <h2>Create All Tool Pages</h2>
+            <p>Click the button below to automatically create all PAN resizer tool pages (NSDL Photo, UTI Photo, Custom Resizer, etc.). These pages will be optimized for SEO and will help your website rank higher in search results.</p>
+            
+            <?php
+            if ( isset( $_POST['pan_resizer_create_pages'] ) ) {
+                check_admin_referer( 'pan_resizer_create_pages_nonce' );
+                $count = pan_resizer_create_all_pages();
+                echo '<div class="notice notice-success"><p>' . sprintf( 
+                    'Successfully created %d pages! Your tool pages are now published and ready for SEO.', 
+                    $count 
+                ) . '</p></div>';
+            }
+            ?>
+            
+            <form method="post" action="">
+                <?php wp_nonce_field( 'pan_resizer_create_pages_nonce' ); ?>
+                <button type="submit" name="pan_resizer_create_pages" class="button button-primary button-large" style="font-size: 16px; padding: 10px 30px;">
+                    📄 Create All Pages Now
+                </button>
+            </form>
+            
+            <hr style="margin-top: 30px;">
+            
+            <h3>What This Does:</h3>
+            <ul style="line-height: 1.8;">
+                <li>✅ Creates individual pages for each tool (NSDL Photo, UTI Photo, etc.)</li>
+                <li>✅ Each page has unique SEO meta tags for better Google ranking</li>
+                <li>✅ Pages are indexed separately for different keyword searches</li>
+                <li>✅ Increases your website visibility across multiple search terms</li>
+                <li>✅ Safe to run multiple times - won't duplicate existing pages</li>
+            </ul>
+        </div>
+    </div>
+    <?php
+}
+
+/**
+ * Auto-create pages when theme is activated
+ */
+function pan_resizer_on_theme_activation() {
+    pan_resizer_virtual_pages();
+    pan_resizer_sitemap_rewrite();
+    flush_rewrite_rules();
+}
+add_action( 'after_switch_theme', 'pan_resizer_on_theme_activation' );
