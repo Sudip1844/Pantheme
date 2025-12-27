@@ -67,6 +67,18 @@
     display: block;
     margin-bottom: 8px;
     color: #333;
+    font-size: 15px;
+}
+
+.banner-group .position-hint {
+    display: block;
+    font-size: 12px;
+    color: #0073aa;
+    font-weight: 500;
+    margin-bottom: 10px;
+    background: #e7f3ff;
+    padding: 8px 12px;
+    border-radius: 4px;
 }
 
 .banner-group textarea {

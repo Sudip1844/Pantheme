@@ -40,11 +40,12 @@ function pan_resizer_ads_settings_page() {
                 </div>
                 
                 <div class="ads-section">
-                    <h2>📌 Banner Ads (Multiple)</h2>
-                    <p class="help-text">These banners will be placed in gaps between sections. You can add up to 3 different banner codes.</p>
+                    <h2>📌 Banner Ads - Multiple Placements</h2>
+                    <p class="help-text">Place banners between different sections and within large content areas. You can add up to 10 different banner codes.</p>
                     
                     <div class="banner-group">
-                        <label for="banner_1"><strong>Banner 1</strong></label>
+                        <label for="banner_1"><strong>🔴 Banner Ad 1</strong></label>
+                        <span class="position-hint">Position: Between Hero Section & All-in-One Editor</span>
                         <textarea 
                             name="pan_resizer_ads_options[banner_1]" 
                             id="banner_1" 
@@ -54,7 +55,8 @@ function pan_resizer_ads_settings_page() {
                     </div>
                     
                     <div class="banner-group">
-                        <label for="banner_2"><strong>Banner 2</strong></label>
+                        <label for="banner_2"><strong>🟠 Banner Ad 2</strong></label>
+                        <span class="position-hint">Position: Between All-in-One Editor & Preset Resizers</span>
                         <textarea 
                             name="pan_resizer_ads_options[banner_2]" 
                             id="banner_2" 
@@ -64,13 +66,91 @@ function pan_resizer_ads_settings_page() {
                     </div>
                     
                     <div class="banner-group">
-                        <label for="banner_3"><strong>Banner 3</strong></label>
+                        <label for="banner_3"><strong>🟡 Banner Ad 3</strong></label>
+                        <span class="position-hint">Position: Within Preset Resizers Section (middle)</span>
                         <textarea 
                             name="pan_resizer_ads_options[banner_3]" 
                             id="banner_3" 
                             placeholder="Paste your third banner ad code here..."
                             rows="5"
                         ><?php echo esc_textarea( pan_resizer_ads_get_option( 'banner_3' ) ); ?></textarea>
+                    </div>
+                    
+                    <div class="banner-group">
+                        <label for="banner_4"><strong>🟢 Banner Ad 4</strong></label>
+                        <span class="position-hint">Position: Between Preset Resizers & Specifications</span>
+                        <textarea 
+                            name="pan_resizer_ads_options[banner_4]" 
+                            id="banner_4" 
+                            placeholder="Paste your fourth banner ad code here..."
+                            rows="5"
+                        ><?php echo esc_textarea( pan_resizer_ads_get_option( 'banner_4' ) ); ?></textarea>
+                    </div>
+                    
+                    <div class="banner-group">
+                        <label for="banner_5"><strong>🔵 Banner Ad 5</strong></label>
+                        <span class="position-hint">Position: Between Specifications & Key Features</span>
+                        <textarea 
+                            name="pan_resizer_ads_options[banner_5]" 
+                            id="banner_5" 
+                            placeholder="Paste your fifth banner ad code here..."
+                            rows="5"
+                        ><?php echo esc_textarea( pan_resizer_ads_get_option( 'banner_5' ) ); ?></textarea>
+                    </div>
+                    
+                    <div class="banner-group">
+                        <label for="banner_6"><strong>🟣 Banner Ad 6</strong></label>
+                        <span class="position-hint">Position: Within Key Features Section (middle)</span>
+                        <textarea 
+                            name="pan_resizer_ads_options[banner_6]" 
+                            id="banner_6" 
+                            placeholder="Paste your sixth banner ad code here..."
+                            rows="5"
+                        ><?php echo esc_textarea( pan_resizer_ads_get_option( 'banner_6' ) ); ?></textarea>
+                    </div>
+                    
+                    <div class="banner-group">
+                        <label for="banner_7"><strong>⚫ Banner Ad 7</strong></label>
+                        <span class="position-hint">Position: Between Key Features & How-to-Use</span>
+                        <textarea 
+                            name="pan_resizer_ads_options[banner_7]" 
+                            id="banner_7" 
+                            placeholder="Paste your seventh banner ad code here..."
+                            rows="5"
+                        ><?php echo esc_textarea( pan_resizer_ads_get_option( 'banner_7' ) ); ?></textarea>
+                    </div>
+                    
+                    <div class="banner-group">
+                        <label for="banner_8"><strong>⚪ Banner Ad 8</strong></label>
+                        <span class="position-hint">Position: Within How-to-Use Section (after steps)</span>
+                        <textarea 
+                            name="pan_resizer_ads_options[banner_8]" 
+                            id="banner_8" 
+                            placeholder="Paste your eighth banner ad code here..."
+                            rows="5"
+                        ><?php echo esc_textarea( pan_resizer_ads_get_option( 'banner_8' ) ); ?></textarea>
+                    </div>
+                    
+                    <div class="banner-group">
+                        <label for="banner_9"><strong>🟥 Banner Ad 9</strong></label>
+                        <span class="position-hint">Position: Between How-to-Use & FAQ</span>
+                        <textarea 
+                            name="pan_resizer_ads_options[banner_9]" 
+                            id="banner_9" 
+                            placeholder="Paste your ninth banner ad code here..."
+                            rows="5"
+                        ><?php echo esc_textarea( pan_resizer_ads_get_option( 'banner_9' ) ); ?></textarea>
+                    </div>
+                    
+                    <div class="banner-group">
+                        <label for="banner_10"><strong>🟨 Banner Ad 10</strong></label>
+                        <span class="position-hint">Position: Within FAQ Section (between questions)</span>
+                        <textarea 
+                            name="pan_resizer_ads_options[banner_10]" 
+                            id="banner_10" 
+                            placeholder="Paste your tenth banner ad code here..."
+                            rows="5"
+                        ><?php echo esc_textarea( pan_resizer_ads_get_option( 'banner_10' ) ); ?></textarea>
                     </div>
                 </div>
                 

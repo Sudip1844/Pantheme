@@ -36,9 +36,22 @@ add_action( 'wp_footer', 'pan_resizer_ads_inject_popunder', 10 );
 /**
  * Inject Banner Ads (between sections)
  */
-function pan_resizer_ads_get_banner_html() {
+function pan_resizer_ads_get_banner_html( $banner_number = null ) {
+    if ( $banner_number ) {
+        $banner_key = 'banner_' . $banner_number;
+        $banner_code = pan_resizer_ads_get_option( $banner_key );
+        if ( $banner_code ) {
+            $html = '<div class="pan-resizer-ad pan-resizer-ad-banner" style="text-align: center; margin: 30px 0; padding: 20px 0;">';
+            $html .= wp_kses_post( $banner_code );
+            $html .= '</div>';
+            return $html;
+        }
+        return '';
+    }
+    
+    // If no specific number, return all banners
     $html = '';
-    $banners = array( 'banner_1', 'banner_2', 'banner_3' );
+    $banners = array( 'banner_1', 'banner_2', 'banner_3', 'banner_4', 'banner_5', 'banner_6', 'banner_7', 'banner_8', 'banner_9', 'banner_10' );
     
     foreach ( $banners as $banner_key ) {
         $banner_code = pan_resizer_ads_get_option( $banner_key );

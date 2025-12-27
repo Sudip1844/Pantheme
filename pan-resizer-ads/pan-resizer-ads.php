@@ -78,6 +78,13 @@ function pan_resizer_ads_activate() {
         'banner_1' => '',
         'banner_2' => '',
         'banner_3' => '',
+        'banner_4' => '',
+        'banner_5' => '',
+        'banner_6' => '',
+        'banner_7' => '',
+        'banner_8' => '',
+        'banner_9' => '',
+        'banner_10' => '',
         'native_banner' => '',
         'smart_link_code' => '',
     );
