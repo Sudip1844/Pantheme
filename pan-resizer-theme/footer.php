@@ -15,6 +15,14 @@
                 <a href="<?php echo esc_url( home_url( '/faq/' ) ); ?>">FAQ</a>
                 <a href="<?php echo esc_url( home_url( '/privacy/' ) ); ?>">Privacy</a>
             </div>
+            
+            <!-- Our Other Tools Section -->
+            <div class="footer-other-tools">
+                <a href="https://qrcodegenerator.example.com" class="other-tools-btn" target="_blank" rel="noopener noreferrer">
+                    📱 QR Code Generator & Scanner
+                </a>
+            </div>
+            
             <p class="copyright">
                 &copy; <?php echo date('Y'); ?> <?php bloginfo( 'name' ); ?>. All rights reserved. | 
                 <a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="color: white; text-decoration: underline;">
@@ -24,6 +32,30 @@
         </div>
     </div>
 </footer>
+
+<style>
+    .footer-other-tools {
+        margin: 20px 0;
+    }
+    
+    .other-tools-btn {
+        display: inline-block;
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+    
+    .other-tools-btn:hover {
+        background-color: #45a049;
+        color: white;
+        text-decoration: none;
+    }
+</style>
 
 <?php wp_footer(); ?>
 
