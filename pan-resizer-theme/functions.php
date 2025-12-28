@@ -759,57 +759,77 @@ function pan_resizer_create_all_pages() {
 }
 
 /**
- * Create Pages Button in Admin Theme Info
+ * Add Admin Menu for PAN Resizer Settings
  */
-function pan_resizer_admin_init() {
-    add_theme_page(
-        'PAN Resizer Settings',
+function pan_resizer_admin_menu() {
+    add_menu_page(
         'PAN Resizer',
+        '📱 PAN Resizer',
         'manage_options',
-        'pan-resizer-settings',
-        'pan_resizer_settings_page'
+        'pan-resizer',
+        'pan_resizer_settings_page',
+        'dashicons-images-alt',
+        '99'
     );
 }
-add_action( 'admin_menu', 'pan_resizer_admin_init' );
+add_action( 'admin_menu', 'pan_resizer_admin_menu', 5 );
 
 /**
  * Settings Page with Create Pages Button
  */
 function pan_resizer_settings_page() {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_die( 'You do not have permission to access this page.' );
+    }
+    
+    // Handle form submission
+    $message = '';
+    if ( isset( $_POST['pan_resizer_create_pages'] ) && $_POST['pan_resizer_create_pages'] == '1' ) {
+        if ( check_admin_referer( 'pan_resizer_nonce', 'pan_resizer_nonce_field' ) ) {
+            $count = pan_resizer_create_all_pages();
+            $message = sprintf( '<div class="notice notice-success"><p>✅ Successfully created %d pages!</p></div>', $count );
+        }
+    }
     ?>
     <div class="wrap">
-        <h1>PAN Resizer Theme Setup</h1>
-        <div class="card" style="max-width: 600px; margin-top: 20px; padding: 20px;">
-            <h2>Create All Tool Pages</h2>
-            <p>Click the button below to automatically create all PAN resizer tool pages (NSDL Photo, UTI Photo, Custom Resizer, etc.). These pages will be optimized for SEO and will help your website rank higher in search results.</p>
+        <h1>🎨 PAN Resizer Theme Settings</h1>
+        
+        <?php echo $message; ?>
+        
+        <div class="card" style="max-width: 700px; margin-top: 30px; padding: 30px; border: 2px solid #4CAF50;">
+            <h2 style="color: #333;">📄 Create All Tool Pages</h2>
+            <p style="font-size: 16px; line-height: 1.6;">Click the button below to automatically create all PAN resizer tool pages. This will create 10 individual pages that are optimized for search engines:</p>
             
-            <?php
-            if ( isset( $_POST['pan_resizer_create_pages'] ) ) {
-                check_admin_referer( 'pan_resizer_create_pages_nonce' );
-                $count = pan_resizer_create_all_pages();
-                echo '<div class="notice notice-success"><p>' . sprintf( 
-                    'Successfully created %d pages! Your tool pages are now published and ready for SEO.', 
-                    $count 
-                ) . '</p></div>';
-            }
-            ?>
+            <ul style="margin: 20px 0; padding-left: 20px;">
+                <li>✅ NSDL Photo Resizer</li>
+                <li>✅ NSDL Signature Resizer</li>
+                <li>✅ UTI Photo Resizer</li>
+                <li>✅ UTI Signature Resizer</li>
+                <li>✅ Custom CM Resizer</li>
+                <li>✅ All-in-One PAN Card Editor</li>
+                <li>✅ Specifications</li>
+                <li>✅ Key Features</li>
+                <li>✅ How to Use Guide</li>
+                <li>✅ FAQ</li>
+            </ul>
             
-            <form method="post" action="">
-                <?php wp_nonce_field( 'pan_resizer_create_pages_nonce' ); ?>
-                <button type="submit" name="pan_resizer_create_pages" class="button button-primary button-large" style="font-size: 16px; padding: 10px 30px;">
-                    📄 Create All Pages Now
+            <form method="post" style="margin: 30px 0;">
+                <?php wp_nonce_field( 'pan_resizer_nonce', 'pan_resizer_nonce_field' ); ?>
+                <input type="hidden" name="pan_resizer_create_pages" value="1">
+                <button type="submit" class="button button-primary button-hero" style="font-size: 18px; padding: 15px 40px; height: auto;">
+                    ✨ Create All Pages Now
                 </button>
             </form>
             
-            <hr style="margin-top: 30px;">
+            <hr style="margin: 30px 0; border: none; border-top: 2px solid #eee;">
             
-            <h3>What This Does:</h3>
-            <ul style="line-height: 1.8;">
-                <li>✅ Creates individual pages for each tool (NSDL Photo, UTI Photo, etc.)</li>
-                <li>✅ Each page has unique SEO meta tags for better Google ranking</li>
-                <li>✅ Pages are indexed separately for different keyword searches</li>
-                <li>✅ Increases your website visibility across multiple search terms</li>
-                <li>✅ Safe to run multiple times - won't duplicate existing pages</li>
+            <h3>Benefits:</h3>
+            <ul style="line-height: 2;">
+                <li>🔍 Each page has unique SEO meta tags</li>
+                <li>📊 Better ranking for different keywords</li>
+                <li>🌐 Increased visibility in search results</li>
+                <li>⚡ Pages are published and ready immediately</li>
+                <li>🔁 Safe to run multiple times - won't create duplicates</li>
             </ul>
         </div>
     </div>
