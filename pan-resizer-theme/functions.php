@@ -759,70 +759,82 @@ function pan_resizer_create_all_pages() {
 }
 
 /**
- * Admin Menu - Create Tool Pages
+ * Add Theme Option Page for Page Creation
  */
-function pan_resizer_admin_menu() {
-    add_menu_page(
-        'PAN Resizer',
-        'PAN Resizer',
+function pan_resizer_add_theme_page() {
+    add_theme_page(
+        __( 'Create Tool Pages', 'pan-resizer' ),
+        __( 'Create Tool Pages', 'pan-resizer' ),
         'manage_options',
-        'pan_resizer_tools',
-        'pan_resizer_admin_page',
-        'dashicons-images-alt',
-        25
+        'pan-resizer-create-pages',
+        'pan_resizer_create_pages_callback'
     );
 }
-add_action( 'admin_menu', 'pan_resizer_admin_menu' );
+add_action( 'admin_menu', 'pan_resizer_add_theme_page' );
 
 /**
- * Admin Page Callback
+ * Render Page Creation Interface
  */
-function pan_resizer_admin_page() {
+function pan_resizer_create_pages_callback() {
     if ( ! current_user_can( 'manage_options' ) ) {
-        return;
+        wp_die( __( 'You do not have permission to access this page.', 'pan-resizer' ) );
     }
     
-    $created = false;
-    $count = 0;
-    
-    if ( isset( $_POST['pan_resizer_create_pages'] ) ) {
-        if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'pan_resizer_create_pages' ) ) {
-            $count = pan_resizer_create_all_pages();
-            $created = true;
-        }
+    // Handle form submission
+    $message = '';
+    if ( isset( $_POST['pan_resizer_action'] ) && $_POST['pan_resizer_action'] === 'create_pages' ) {
+        check_admin_referer( 'pan_resizer_nonce' );
+        $count = pan_resizer_create_all_pages();
+        $message = sprintf( 
+            '<div class="notice notice-success is-dismissible"><p>✅ <strong>Success!</strong> Created %d pages! Your tool pages are now published and ready for SEO.</p></div>', 
+            $count 
+        );
     }
     ?>
     <div class="wrap">
-        <h1 style="margin-bottom: 30px;">PAN Resizer - Create Tool Pages</h1>
+        <h1><?php _e( 'PAN Resizer - Create All Tool Pages', 'pan-resizer' ); ?></h1>
         
-        <?php if ( $created ): ?>
-        <div class="notice notice-success"><p><strong>✅ Success!</strong> Created <?php echo $count; ?> pages. Your tool pages are now published!</p></div>
-        <?php endif; ?>
+        <?php echo $message; ?>
         
-        <div class="postbox" style="max-width: 700px; padding: 20px;">
-            <h2 style="margin-top: 0;">📄 Create All Tool Pages</h2>
+        <div class="card" style="max-width: 800px; margin: 20px 0; padding: 20px;">
+            <h2><?php _e( '📄 Automatic Page Creation', 'pan-resizer' ); ?></h2>
             
-            <p>Click the button below to automatically create 10 SEO-optimized tool pages:</p>
+            <p style="font-size: 16px; line-height: 1.6;">
+                <?php _e( 'Click the button below to automatically create all 10 SEO-optimized tool pages with proper templates and canonical URLs.', 'pan-resizer' ); ?>
+            </p>
             
-            <ul style="padding-left: 20px; line-height: 1.8;">
-                <li>✅ NSDL Photo Resizer</li>
-                <li>✅ NSDL Signature Resizer</li>
-                <li>✅ UTI Photo Resizer</li>
-                <li>✅ UTI Signature Resizer</li>
+            <h3><?php _e( 'Pages to be created:', 'pan-resizer' ); ?></h3>
+            <ul style="padding-left: 20px; line-height: 2;">
+                <li>✅ NSDL Photograph Resizer (3.5cm x 2.5cm, 20KB)</li>
+                <li>✅ NSDL Signature Resizer (2cm x 4.5cm, 10KB)</li>
+                <li>✅ UTI Photograph Resizer (213x213px, 30KB)</li>
+                <li>✅ UTI Signature Resizer (400x200px, 60KB)</li>
                 <li>✅ Custom CM Resizer</li>
                 <li>✅ All-in-One PAN Card Editor</li>
-                <li>✅ Specifications</li>
+                <li>✅ Specifications & Requirements</li>
                 <li>✅ Key Features</li>
                 <li>✅ How to Use Guide</li>
                 <li>✅ FAQ</li>
             </ul>
             
-            <form method="post" style="margin: 20px 0;">
-                <?php wp_nonce_field( 'pan_resizer_create_pages' ); ?>
-                <button type="submit" name="pan_resizer_create_pages" class="button button-primary button-large" style="font-size: 16px; padding: 10px 30px;">
-                    CREATE PAGES
+            <form method="post" action="" style="margin: 30px 0;">
+                <?php wp_nonce_field( 'pan_resizer_nonce' ); ?>
+                <input type="hidden" name="pan_resizer_action" value="create_pages">
+                <button type="submit" class="button button-primary button-large" style="font-size: 16px; padding: 10px 30px; height: auto;">
+                    <?php _e( 'CREATE ALL PAGES NOW', 'pan-resizer' ); ?>
                 </button>
             </form>
+            
+            <hr>
+            
+            <h3><?php _e( 'Benefits:', 'pan-resizer' ); ?></h3>
+            <ul style="padding-left: 20px; line-height: 2;">
+                <li>🔍 Each page optimized for different keywords</li>
+                <li>📊 Better ranking for multiple search queries</li>
+                <li>⚡ Pages published immediately</li>
+                <li>🔁 Safe - won\'t create duplicate pages</li>
+                <li>📈 Track analytics separately per tool</li>
+            </ul>
         </div>
     </div>
     <?php
