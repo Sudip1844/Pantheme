@@ -3,7 +3,7 @@
  * Plugin Name: PAN Resizer AdStyle Ads Manager
  * Plugin URI: https://panresizer.com
  * Description: Manage AdStyle ads (Social Bar, Popunder, Banners, Native Banner, Smart Links) for PAN Resizer theme
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: PAN Resizer Team
  * Author URI: https://panresizer.com
  * License: GPL v2 or later
@@ -47,12 +47,12 @@ add_action( 'init', 'pan_resizer_ads_init' );
  * Add admin menu
  */
 function pan_resizer_ads_add_admin_menu() {
-    add_submenu_page(
-        'pan-resizer-settings',
-        'AdStyle Ads Manager',
+    // Add as submenu under Appearance (which always exists)
+    add_theme_page(
+        'PAN Resizer Ads Manager',
         'Ads Manager',
         'manage_options',
-        'pan-resizer-ads',
+        'pan-resizer-ads-manager',
         'pan_resizer_ads_settings_page'
     );
 }
@@ -61,7 +61,7 @@ function pan_resizer_ads_add_admin_menu() {
  * Enqueue admin scripts and styles
  */
 function pan_resizer_ads_enqueue_admin_scripts( $hook ) {
-    if ( 'appearance_page_pan-resizer-ads' !== $hook ) {
+    if ( 'appearance_page_pan-resizer-ads-manager' !== $hook ) {
         return;
     }
     
