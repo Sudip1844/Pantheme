@@ -759,48 +759,52 @@ function pan_resizer_create_all_pages() {
 }
 
 /**
- * Add Admin Menu for PAN Resizer Settings
+ * Admin Menu - Create Tool Pages
  */
 function pan_resizer_admin_menu() {
     add_menu_page(
         'PAN Resizer',
-        '📱 PAN Resizer',
+        'PAN Resizer',
         'manage_options',
-        'pan-resizer',
-        'pan_resizer_settings_page',
+        'pan_resizer_tools',
+        'pan_resizer_admin_page',
         'dashicons-images-alt',
-        '99'
+        25
     );
 }
-add_action( 'admin_menu', 'pan_resizer_admin_menu', 5 );
+add_action( 'admin_menu', 'pan_resizer_admin_menu' );
 
 /**
- * Settings Page with Create Pages Button
+ * Admin Page Callback
  */
-function pan_resizer_settings_page() {
+function pan_resizer_admin_page() {
     if ( ! current_user_can( 'manage_options' ) ) {
-        wp_die( 'You do not have permission to access this page.' );
+        return;
     }
     
-    // Handle form submission
-    $message = '';
-    if ( isset( $_POST['pan_resizer_create_pages'] ) && $_POST['pan_resizer_create_pages'] == '1' ) {
-        if ( check_admin_referer( 'pan_resizer_nonce', 'pan_resizer_nonce_field' ) ) {
+    $created = false;
+    $count = 0;
+    
+    if ( isset( $_POST['pan_resizer_create_pages'] ) ) {
+        if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'pan_resizer_create_pages' ) ) {
             $count = pan_resizer_create_all_pages();
-            $message = sprintf( '<div class="notice notice-success"><p>✅ Successfully created %d pages!</p></div>', $count );
+            $created = true;
         }
     }
     ?>
     <div class="wrap">
-        <h1>🎨 PAN Resizer Theme Settings</h1>
+        <h1 style="margin-bottom: 30px;">PAN Resizer - Create Tool Pages</h1>
         
-        <?php echo $message; ?>
+        <?php if ( $created ): ?>
+        <div class="notice notice-success"><p><strong>✅ Success!</strong> Created <?php echo $count; ?> pages. Your tool pages are now published!</p></div>
+        <?php endif; ?>
         
-        <div class="card" style="max-width: 700px; margin-top: 30px; padding: 30px; border: 2px solid #4CAF50;">
-            <h2 style="color: #333;">📄 Create All Tool Pages</h2>
-            <p style="font-size: 16px; line-height: 1.6;">Click the button below to automatically create all PAN resizer tool pages. This will create 10 individual pages that are optimized for search engines:</p>
+        <div class="postbox" style="max-width: 700px; padding: 20px;">
+            <h2 style="margin-top: 0;">📄 Create All Tool Pages</h2>
             
-            <ul style="margin: 20px 0; padding-left: 20px;">
+            <p>Click the button below to automatically create 10 SEO-optimized tool pages:</p>
+            
+            <ul style="padding-left: 20px; line-height: 1.8;">
                 <li>✅ NSDL Photo Resizer</li>
                 <li>✅ NSDL Signature Resizer</li>
                 <li>✅ UTI Photo Resizer</li>
@@ -813,24 +817,12 @@ function pan_resizer_settings_page() {
                 <li>✅ FAQ</li>
             </ul>
             
-            <form method="post" style="margin: 30px 0;">
-                <?php wp_nonce_field( 'pan_resizer_nonce', 'pan_resizer_nonce_field' ); ?>
-                <input type="hidden" name="pan_resizer_create_pages" value="1">
-                <button type="submit" class="button button-primary button-hero" style="font-size: 18px; padding: 15px 40px; height: auto;">
-                    ✨ Create All Pages Now
+            <form method="post" style="margin: 20px 0;">
+                <?php wp_nonce_field( 'pan_resizer_create_pages' ); ?>
+                <button type="submit" name="pan_resizer_create_pages" class="button button-primary button-large" style="font-size: 16px; padding: 10px 30px;">
+                    CREATE PAGES
                 </button>
             </form>
-            
-            <hr style="margin: 30px 0; border: none; border-top: 2px solid #eee;">
-            
-            <h3>Benefits:</h3>
-            <ul style="line-height: 2;">
-                <li>🔍 Each page has unique SEO meta tags</li>
-                <li>📊 Better ranking for different keywords</li>
-                <li>🌐 Increased visibility in search results</li>
-                <li>⚡ Pages are published and ready immediately</li>
-                <li>🔁 Safe to run multiple times - won't create duplicates</li>
-            </ul>
         </div>
     </div>
     <?php
