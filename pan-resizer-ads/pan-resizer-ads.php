@@ -3,7 +3,7 @@
  * Plugin Name: PAN Resizer AdStyle Ads Manager
  * Plugin URI: https://panresizer.com
  * Description: Manage AdStyle ads for PAN Resizer theme
- * Version: 1.0.3
+ * Version: 1.0.4
  * Author: PAN Resizer Team
  * Author URI: https://panresizer.com
  * License: GPL v2 or later
@@ -24,83 +24,290 @@ add_action( 'admin_menu', function() {
         'Ads Manager',
         'manage_options',
         'pan-resizer-ads',
-        function() {
-            if ( ! current_user_can( 'manage_options' ) ) {
-                wp_die( 'Unauthorized' );
-            }
-            
-            // Save form
-            if ( isset( $_POST['pan_resizer_submit'] ) ) {
-                check_admin_referer( 'pan_resizer_ads_nonce' );
-                
-                $data = array(
-                    'social_bar' => isset( $_POST['social_bar'] ) ? sanitize_textarea_field( $_POST['social_bar'] ) : '',
-                    'popunder' => isset( $_POST['popunder'] ) ? sanitize_textarea_field( $_POST['popunder'] ) : '',
-                    'native_banner' => isset( $_POST['native_banner'] ) ? sanitize_textarea_field( $_POST['native_banner'] ) : '',
-                    'smart_link' => isset( $_POST['smart_link'] ) ? sanitize_textarea_field( $_POST['smart_link'] ) : '',
-                );
-                
-                for ( $i = 1; $i <= 10; $i++ ) {
-                    $data[ 'banner_' . $i ] = isset( $_POST[ 'banner_' . $i ] ) ? sanitize_textarea_field( $_POST[ 'banner_' . $i ] ) : '';
-                }
-                
-                update_option( 'pan_resizer_ads', $data );
-                echo '<div class="notice notice-success"><p>✅ Ads saved successfully!</p></div>';
-            }
-            
-            $ads = get_option( 'pan_resizer_ads', array() );
-            ?>
-            <div class="wrap">
-                <h1>📱 PAN Resizer - Ads Manager</h1>
-                <p>Manage all your AdStyle ads in one place. Paste your ad codes below:</p>
-                
-                <form method="post" style="max-width: 900px;">
-                    <?php wp_nonce_field( 'pan_resizer_ads_nonce' ); ?>
-                    
-                    <div style="background: white; padding: 20px; border-radius: 5px; margin: 20px 0;">
-                        <h2>📍 Social Bar Ad</h2>
-                        <p style="color: #666;">Appears on left/right side of website</p>
-                        <textarea name="social_bar" rows="5" style="width: 100%; padding: 10px; font-family: monospace;"><?php echo esc_textarea( $ads['social_bar'] ?? '' ); ?></textarea>
-                    </div>
-                    
-                    <div style="background: white; padding: 20px; border-radius: 5px; margin: 20px 0;">
-                        <h2>⬆️ Popunder Ad</h2>
-                        <p style="color: #666;">Appears as popup window</p>
-                        <textarea name="popunder" rows="5" style="width: 100%; padding: 10px; font-family: monospace;"><?php echo esc_textarea( $ads['popunder'] ?? '' ); ?></textarea>
-                    </div>
-                    
-                    <div style="background: white; padding: 20px; border-radius: 5px; margin: 20px 0;">
-                        <h2>🏷️ Native Banner Ad</h2>
-                        <p style="color: #666;">Integrated ad format</p>
-                        <textarea name="native_banner" rows="5" style="width: 100%; padding: 10px; font-family: monospace;"><?php echo esc_textarea( $ads['native_banner'] ?? '' ); ?></textarea>
-                    </div>
-                    
-                    <div style="background: white; padding: 20px; border-radius: 5px; margin: 20px 0;">
-                        <h2>🔗 Smart Link Ad</h2>
-                        <p style="color: #666;">Link to header text</p>
-                        <textarea name="smart_link" rows="5" style="width: 100%; padding: 10px; font-family: monospace;"><?php echo esc_textarea( $ads['smart_link'] ?? '' ); ?></textarea>
-                    </div>
-                    
-                    <div style="background: white; padding: 20px; border-radius: 5px; margin: 20px 0;">
-                        <h2>📌 Banner Ads (10 Slots)</h2>
-                        <?php for ( $i = 1; $i <= 10; $i++ ) { ?>
-                        <div style="margin-bottom: 20px;">
-                            <h3>Banner <?php echo $i; ?></h3>
-                            <textarea name="banner_<?php echo $i; ?>" rows="3" style="width: 100%; padding: 10px; font-family: monospace;"><?php echo esc_textarea( $ads[ 'banner_' . $i ] ?? '' ); ?></textarea>
-                        </div>
-                        <?php } ?>
-                    </div>
-                    
-                    <input type="hidden" name="pan_resizer_submit" value="1">
-                    <button type="submit" class="button button-primary button-large" style="font-size: 16px; padding: 10px 30px;">
-                        Save All Ads
-                    </button>
-                </form>
-            </div>
-            <?php
-        }
+        'pan_resizer_ads_page'
     );
 });
+
+// Admin styles and scripts
+add_action( 'admin_enqueue_scripts', function( $hook ) {
+    if ( strpos( $hook, 'pan-resizer-ads' ) === false ) {
+        return;
+    }
+    
+    wp_add_inline_style( 'wp-admin', '
+        .pan-ads-container {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .pan-ads-container h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        .pan-ads-container .help-text {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+        
+        .pan-ads-textarea {
+            width: 100%;
+            padding: 10px;
+            font-family: monospace;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            height: 120px;
+            resize: none;
+            display: block;
+        }
+        
+        .pan-ads-textarea:focus {
+            outline: none;
+            border-color: #0073aa;
+            box-shadow: 0 0 0 2px rgba(0, 115, 170, 0.1);
+        }
+        
+        .pan-ads-textarea:disabled {
+            background-color: #f5f5f5;
+            color: #666;
+            cursor: not-allowed;
+        }
+        
+        .pan-ads-textarea:not(:disabled):hover {
+            border-color: #999;
+        }
+        
+        .pan-ads-buttons {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .pan-ads-buttons button {
+            padding: 8px 16px;
+            font-size: 13px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background: #f8f8f8;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .pan-ads-buttons .save-btn {
+            background: #0073aa;
+            color: white;
+            border-color: #0073aa;
+        }
+        
+        .pan-ads-buttons .save-btn:hover {
+            background: #005a87;
+        }
+        
+        .pan-ads-buttons .edit-btn {
+            background: #f0f0f0;
+            color: #333;
+            border-color: #ccc;
+        }
+        
+        .pan-ads-buttons .edit-btn:hover {
+            background: #e8e8e8;
+        }
+        
+        .pan-ads-buttons button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .banner-position {
+            display: block;
+            font-size: 12px;
+            color: #0073aa;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .form-section-title {
+            margin-top: 30px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #0073aa;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+    ' );
+    
+    wp_add_inline_script( 'wp-admin', '
+    document.addEventListener("DOMContentLoaded", function() {
+        // Initialize all ad fields
+        document.querySelectorAll("[data-ad-key]").forEach(function(textarea) {
+            pan_init_ad_field(textarea);
+        });
+    });
+    
+    function pan_init_ad_field(textarea) {
+        const key = textarea.dataset.adKey;
+        const container = textarea.closest(".pan-ads-container");
+        const saveBtn = container.querySelector("[data-ad-save=\'' + key + '\']");
+        const editBtn = container.querySelector("[data-ad-edit=\'' + key + '\']");
+        
+        function updateState() {
+            const hasContent = textarea.value.trim() !== "";
+            
+            if (hasContent) {
+                textarea.disabled = true;
+                saveBtn.style.display = "none";
+                editBtn.style.display = "inline-block";
+            } else {
+                textarea.disabled = false;
+                saveBtn.style.display = "inline-block";
+                editBtn.style.display = "none";
+            }
+        }
+        
+        saveBtn.addEventListener("click", function() {
+            pan_save_ad(key, textarea.value, function() {
+                updateState();
+            });
+        });
+        
+        editBtn.addEventListener("click", function() {
+            textarea.disabled = false;
+            textarea.focus();
+            editBtn.style.display = "none";
+            saveBtn.style.display = "inline-block";
+        });
+        
+        updateState();
+    }
+    
+    function pan_save_ad(key, value, callback) {
+        const formData = new FormData();
+        formData.append("action", "pan_save_ad");
+        formData.append("key", key);
+        formData.append("value", value);
+        formData.append("nonce", document.querySelector("[name=pan_ads_nonce]").value);
+        
+        fetch(ajaxurl, {
+            method: "POST",
+            body: formData
+        })
+        .then(r => r.json())
+        .then(r => {
+            if (r.success) {
+                callback();
+            } else {
+                alert("Error saving: " + (r.data ? r.data.message : "Unknown error"));
+            }
+        })
+        .catch(e => alert("Error: " + e.message));
+    }
+    ' );
+});
+
+// AJAX save handler
+add_action( 'wp_ajax_pan_save_ad', function() {
+    check_ajax_referer( 'pan_ads_nonce' );
+    
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_send_json_error( array( 'message' => 'Unauthorized' ) );
+    }
+    
+    $key = sanitize_key( $_POST['key'] ?? '' );
+    $value = sanitize_textarea_field( $_POST['value'] ?? '' );
+    
+    $ads = get_option( 'pan_resizer_ads', array() );
+    $ads[ $key ] = $value;
+    update_option( 'pan_resizer_ads', $ads );
+    
+    wp_send_json_success( array( 'message' => 'Saved' ) );
+});
+
+// Settings page
+function pan_resizer_ads_page() {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_die( 'Unauthorized' );
+    }
+    
+    $ads = get_option( 'pan_resizer_ads', array() );
+    $banner_positions = array(
+        'banner_1' => 'Between Hero Section & All-in-One Editor',
+        'banner_2' => 'Between All-in-One Editor & Preset Resizers',
+        'banner_3' => 'Within Preset Resizers Section (middle)',
+        'banner_4' => 'Between Preset Resizers & Specifications',
+        'banner_5' => 'Between Specifications & Key Features',
+        'banner_6' => 'Within Key Features Section (middle)',
+        'banner_7' => 'Between Key Features & How-to-Use',
+        'banner_8' => 'Within How-to-Use Section (after steps)',
+        'banner_9' => 'Between How-to-Use & FAQ',
+        'banner_10' => 'Within FAQ Section (between questions)',
+    );
+    
+    $ad_types = array(
+        'social_bar' => array(
+            'label' => '📍 Social Bar Ad',
+            'description' => 'Appears on left/right side of website'
+        ),
+        'popunder' => array(
+            'label' => '⬆️ Popunder Ad',
+            'description' => 'Appears as popup window'
+        ),
+        'native_banner' => array(
+            'label' => '🏷️ Native Banner Ad',
+            'description' => 'Integrated ad format'
+        ),
+        'smart_link' => array(
+            'label' => '🔗 Smart Link Ad',
+            'description' => 'Link to header text'
+        ),
+    );
+    ?>
+    <div class="wrap">
+        <h1>🎯 PAN Resizer - Ads Manager</h1>
+        <p style="font-size: 15px; color: #666;">Manage all your AdStyle ads. Edit and save each ad individually with the Save and Edit buttons.</p>
+        
+        <?php wp_nonce_field( 'pan_ads_nonce', 'pan_ads_nonce' ); ?>
+        
+        <?php foreach ( $ad_types as $key => $type ) { ?>
+        <div class="pan-ads-container">
+            <h3><?php echo $type['label']; ?></h3>
+            <p class="help-text"><?php echo $type['description']; ?></p>
+            <textarea 
+                class="pan-ads-textarea"
+                data-ad-key="<?php echo $key; ?>"
+                placeholder="Paste your ad code here..."
+            ><?php echo esc_textarea( $ads[ $key ] ?? '' ); ?></textarea>
+            <div class="pan-ads-buttons">
+                <button type="button" class="save-btn" data-ad-save="<?php echo $key; ?>">Save</button>
+                <button type="button" class="edit-btn" data-ad-edit="<?php echo $key; ?>">Edit</button>
+            </div>
+        </div>
+        <?php } ?>
+        
+        <div class="form-section-title">📌 Banner Ads (10 Slots)</div>
+        
+        <?php foreach ( $banner_positions as $key => $position ) { ?>
+        <div class="pan-ads-container">
+            <h3><?php echo ucfirst( str_replace( '_', ' ', $key ) ); ?></h3>
+            <span class="banner-position">Position: <?php echo $position; ?></span>
+            <textarea 
+                class="pan-ads-textarea"
+                data-ad-key="<?php echo $key; ?>"
+                placeholder="Paste your ad code here..."
+            ><?php echo esc_textarea( $ads[ $key ] ?? '' ); ?></textarea>
+            <div class="pan-ads-buttons">
+                <button type="button" class="save-btn" data-ad-save="<?php echo $key; ?>">Save</button>
+                <button type="button" class="edit-btn" data-ad-edit="<?php echo $key; ?>">Edit</button>
+            </div>
+        </div>
+        <?php } ?>
+    </div>
+    <?php
+}
 
 // Display ads on frontend
 add_action( 'wp_footer', function() {
