@@ -3,7 +3,7 @@
  * Plugin Name: PAN Resizer AdStyle Ads Manager
  * Plugin URI: https://panresizer.com
  * Description: Manage AdStyle ads for PAN Resizer theme
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: PAN Resizer Team
  * Author URI: https://panresizer.com
  * License: GPL v2 or later
@@ -143,20 +143,19 @@ add_action( 'admin_enqueue_scripts', function( $hook ) {
     
     wp_add_inline_script( 'wp-admin', '
     document.addEventListener("DOMContentLoaded", function() {
-        // Initialize all ad fields
         document.querySelectorAll("[data-ad-key]").forEach(function(textarea) {
             pan_init_ad_field(textarea);
         });
     });
     
     function pan_init_ad_field(textarea) {
-        const key = textarea.dataset.adKey;
-        const container = textarea.closest(".pan-ads-container");
-        const saveBtn = container.querySelector("[data-ad-save=\'' + key + '\']");
-        const editBtn = container.querySelector("[data-ad-edit=\'' + key + '\']");
+        var key = textarea.getAttribute("data-ad-key");
+        var container = textarea.closest(".pan-ads-container");
+        var saveBtn = container.querySelector("[data-ad-save=\"" + key + "\"]");
+        var editBtn = container.querySelector("[data-ad-edit=\"" + key + "\"]");
         
         function updateState() {
-            const hasContent = textarea.value.trim() !== "";
+            var hasContent = textarea.value.trim() !== "";
             
             if (hasContent) {
                 textarea.disabled = true;
@@ -169,13 +168,15 @@ add_action( 'admin_enqueue_scripts', function( $hook ) {
             }
         }
         
-        saveBtn.addEventListener("click", function() {
+        saveBtn.addEventListener("click", function(e) {
+            e.preventDefault();
             pan_save_ad(key, textarea.value, function() {
                 updateState();
             });
         });
         
-        editBtn.addEventListener("click", function() {
+        editBtn.addEventListener("click", function(e) {
+            e.preventDefault();
             textarea.disabled = false;
             textarea.focus();
             editBtn.style.display = "none";
@@ -186,7 +187,7 @@ add_action( 'admin_enqueue_scripts', function( $hook ) {
     }
     
     function pan_save_ad(key, value, callback) {
-        const formData = new FormData();
+        var formData = new FormData();
         formData.append("action", "pan_save_ad");
         formData.append("key", key);
         formData.append("value", value);
@@ -196,15 +197,15 @@ add_action( 'admin_enqueue_scripts', function( $hook ) {
             method: "POST",
             body: formData
         })
-        .then(r => r.json())
-        .then(r => {
+        .then(function(r) { return r.json(); })
+        .then(function(r) {
             if (r.success) {
                 callback();
             } else {
                 alert("Error saving: " + (r.data ? r.data.message : "Unknown error"));
             }
         })
-        .catch(e => alert("Error: " + e.message));
+        .catch(function(e) { alert("Error: " + e.message); });
     }
     ' );
 });
@@ -225,6 +226,19 @@ add_action( 'wp_ajax_pan_save_ad', function() {
     update_option( 'pan_resizer_ads', $ads );
     
     wp_send_json_success( array( 'message' => 'Saved' ) );
+});
+
+// Replace "Visit plugin site" with "View details"
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), function( $links ) {
+    $new_links = array();
+    foreach ( $links as $link ) {
+        if ( strpos( $link, 'Visit plugin site' ) !== false ) {
+            $new_links[] = '<a href="' . admin_url( 'themes.php?page=pan-resizer-ads' ) . '">View Details</a>';
+        } else {
+            $new_links[] = $link;
+        }
+    }
+    return $new_links;
 });
 
 // Settings page
