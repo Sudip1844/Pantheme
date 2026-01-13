@@ -335,21 +335,21 @@ add_action( 'wp_footer', function() {
     $ads = get_option( 'pan_resizer_ads', array() );
     
     if ( ! empty( $ads['social_bar'] ) ) {
-        echo '<div class="pan-resizer-ad-social">' . wp_kses_post( $ads['social_bar'] ) . '</div>';
+        echo '<div class="pan-resizer-ad-social">' . $ads['social_bar'] . '</div>';
     }
     if ( ! empty( $ads['popunder'] ) ) {
-        echo '<div class="pan-resizer-ad-popunder">' . wp_kses_post( $ads['popunder'] ) . '</div>';
+        echo '<div class="pan-resizer-ad-popunder">' . $ads['popunder'] . '</div>';
     }
     if ( ! empty( $ads['native_banner'] ) ) {
-        echo '<div class="pan-resizer-ad-native">' . wp_kses_post( $ads['native_banner'] ) . '</div>';
+        echo '<div class="pan-resizer-ad-native">' . $ads['native_banner'] . '</div>';
     }
     if ( ! empty( $ads['smart_link'] ) ) {
-        echo '<div class="pan-resizer-ad-smart">' . wp_kses_post( $ads['smart_link'] ) . '</div>';
+        echo '<div class="pan-resizer-ad-smart">' . $ads['smart_link'] . '</div>';
     }
     
     for ( $i = 1; $i <= 10; $i++ ) {
         if ( ! empty( $ads[ 'banner_' . $i ] ) ) {
-            echo '<div class="pan-resizer-ad-banner-' . $i . '">' . wp_kses_post( $ads[ 'banner_' . $i ] ) . '</div>';
+            echo '<div class="pan-resizer-ad-banner-' . $i . '">' . $ads[ 'banner_' . $i ] . '</div>';
         }
     }
 });
