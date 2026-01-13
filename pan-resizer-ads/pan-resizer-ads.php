@@ -3,7 +3,7 @@
  * Plugin Name: PAN Resizer AdStyle Ads Manager
  * Plugin URI: https://panresizer.com
  * Description: Manage AdStyle ads for PAN Resizer theme
- * Version: 1.0.5
+ * Version: 1.0.6
  * Author: PAN Resizer Team
  * Author URI: https://panresizer.com
  * License: GPL v2 or later
@@ -200,6 +200,12 @@ add_action( 'admin_enqueue_scripts', function( $hook ) {
         .then(function(r) { return r.json(); })
         .then(function(r) {
             if (r.success) {
+                // Show success message
+                var msg = document.createElement("div");
+                msg.style.cssText = "position:fixed;top:32px;right:20px;background:#00a32a;color:white;padding:15px 20px;border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.2);z-index:999999;font-size:14px;";
+                msg.textContent = "✓ Ad saved successfully!";
+                document.body.appendChild(msg);
+                setTimeout(function() { msg.remove(); }, 3000);
                 callback();
             } else {
                 alert("Error saving: " + (r.data ? r.data.message : "Unknown error"));
@@ -212,20 +218,21 @@ add_action( 'admin_enqueue_scripts', function( $hook ) {
 
 // AJAX save handler
 add_action( 'wp_ajax_pan_save_ad', function() {
-    check_ajax_referer( 'pan_ads_nonce' );
+    check_ajax_referer( 'pan_ads_nonce', 'nonce' );
     
     if ( ! current_user_can( 'manage_options' ) ) {
         wp_send_json_error( array( 'message' => 'Unauthorized' ) );
     }
     
     $key = sanitize_key( $_POST['key'] ?? '' );
-    $value = sanitize_textarea_field( $_POST['value'] ?? '' );
+    // Use wp_unslash and don't sanitize to preserve ad code HTML/scripts
+    $value = wp_unslash( $_POST['value'] ?? '' );
     
     $ads = get_option( 'pan_resizer_ads', array() );
     $ads[ $key ] = $value;
     update_option( 'pan_resizer_ads', $ads );
     
-    wp_send_json_success( array( 'message' => 'Saved' ) );
+    wp_send_json_success( array( 'message' => 'Saved successfully' ) );
 });
 
 // Replace "Visit plugin site" with "View details"
