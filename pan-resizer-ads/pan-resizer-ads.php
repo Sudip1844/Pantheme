@@ -3,7 +3,7 @@
  * Plugin Name: PAN Resizer AdStyle Ads Manager
  * Plugin URI: https://panresizer.in
  * Description: Manage AdStyle ads for PAN Resizer theme
- * Version: 1.0.6
+ * Version: 1.0.7
  * Author: PAN Resizer Team
  * Author URI: https://panresizer.in
  * License: GPL v2 or later
@@ -140,9 +140,18 @@ add_action( 'admin_enqueue_scripts', function( $hook ) {
             color: #333;
         }
     ' );
-    
-    wp_add_inline_script( 'wp-admin', '
+});
+
+// Admin footer script for Better Reliability
+add_action( 'admin_footer', function() {
+    $screen = get_current_screen();
+    if ( ! $screen || strpos( $screen->base, 'pan-resizer-ads' ) === false ) {
+        return;
+    }
+    ?>
+    <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
+        console.log("PAN Ads Manager: Initializing...");
         document.querySelectorAll("[data-ad-key]").forEach(function(textarea) {
             pan_init_ad_field(textarea);
         });
@@ -154,8 +163,14 @@ add_action( 'admin_enqueue_scripts', function( $hook ) {
         var saveBtn = container.querySelector("[data-ad-save=\"" + key + "\"]");
         var editBtn = container.querySelector("[data-ad-edit=\"" + key + "\"]");
         
+        if (!saveBtn || !editBtn) {
+            console.error("PAN Ads Manager: Buttons not found for key: " + key);
+            return;
+        }
+
         function updateState() {
             var hasContent = textarea.value.trim() !== "";
+            console.log("PAN Ads Manager: Updating state for " + key + ", hasContent: " + hasContent);
             
             if (hasContent) {
                 textarea.disabled = true;
@@ -170,7 +185,13 @@ add_action( 'admin_enqueue_scripts', function( $hook ) {
         
         saveBtn.addEventListener("click", function(e) {
             e.preventDefault();
+            var originalText = saveBtn.textContent;
+            saveBtn.disabled = true;
+            saveBtn.textContent = "Saving...";
+            
             pan_save_ad(key, textarea.value, function() {
+                saveBtn.disabled = false;
+                saveBtn.textContent = originalText;
                 updateState();
             });
         });
@@ -187,18 +208,27 @@ add_action( 'admin_enqueue_scripts', function( $hook ) {
     }
     
     function pan_save_ad(key, value, callback) {
+        var nonceField = document.querySelector("[name=pan_ads_nonce]");
+        if (!nonceField) {
+            alert("Error: Nonce field not found!");
+            return;
+        }
+
         var formData = new FormData();
         formData.append("action", "pan_save_ad");
         formData.append("key", key);
         formData.append("value", value);
-        formData.append("nonce", document.querySelector("[name=pan_ads_nonce]").value);
+        formData.append("nonce", nonceField.value);
         
-        fetch(ajaxurl, {
+        console.log("PAN Ads Manager: Saving " + key + "...");
+        
+        fetch(typeof ajaxurl !== "undefined" ? ajaxurl : "/wp-admin/admin-ajax.php", {
             method: "POST",
             body: formData
         })
         .then(function(r) { return r.json(); })
         .then(function(r) {
+            console.log("PAN Ads Manager: Response for " + key, r);
             if (r.success) {
                 // Show success message
                 var msg = document.createElement("div");
@@ -209,11 +239,26 @@ add_action( 'admin_enqueue_scripts', function( $hook ) {
                 callback();
             } else {
                 alert("Error saving: " + (r.data ? r.data.message : "Unknown error"));
+                // Reset button if error
+                var saveBtn = document.querySelector("[data-ad-save=\"" + key + "\"]");
+                if (saveBtn) {
+                    saveBtn.disabled = false;
+                    saveBtn.textContent = "Save";
+                }
             }
         })
-        .catch(function(e) { alert("Error: " + e.message); });
+        .catch(function(e) { 
+            console.error("PAN Ads Manager: Error saving " + key, e);
+            alert("Error: " + e.message); 
+            var saveBtn = document.querySelector("[data-ad-save=\"" + key + "\"]");
+            if (saveBtn) {
+                saveBtn.disabled = false;
+                saveBtn.textContent = "Save";
+            }
+        });
     }
-    ' );
+    </script>
+    <?php
 });
 
 // AJAX save handler
