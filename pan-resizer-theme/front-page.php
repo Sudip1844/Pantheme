@@ -70,10 +70,24 @@ if ( function_exists('pan_display_banner_ad') ) {
     </div>
 </main>
 
+<?php 
+// Banner Ad 2: Between All-in-One Editor & Preset Resizers
+if ( function_exists('pan_display_banner_ad') ) {
+    pan_display_banner_ad( 2 );
+}
+?>
+
 <!-- Preset Resizer Sections -->
 <div class="container">
     <?php get_template_part( 'template-parts/preset-resizers' ); ?>
 </div>
+
+<?php 
+// Banner Ad 4: Between Preset Resizers & Specifications
+if ( function_exists('pan_display_banner_ad') ) {
+    pan_display_banner_ad( 4 );
+}
+?>
 
 <?php get_template_part( 'template-parts/specifications-section' ); ?>
 
