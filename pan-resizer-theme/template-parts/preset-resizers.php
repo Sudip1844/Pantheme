@@ -61,6 +61,13 @@
     </div>
 </section>
 
+<?php 
+// Banner Ad 2: Between NSDL Photo & NSDL Signature
+if ( function_exists('pan_display_banner_ad') ) {
+    pan_display_banner_ad( 2 );
+}
+?>
+
 <!-- NSDL (Protean) Signature Section -->
 <section class="preset-resizer-section" id="nsdl-signature">
     <div class="resizer-card preset-card">
@@ -114,6 +121,13 @@
         </div>
     </div>
 </section>
+
+<?php 
+// Banner Ad 3: Between NSDL Signature & UTI Photo
+if ( function_exists('pan_display_banner_ad') ) {
+    pan_display_banner_ad( 3 );
+}
+?>
 
 <!-- UTI/ITSL (UTI) Photograph Section -->
 <section class="preset-resizer-section" id="uti-photo">
@@ -169,6 +183,13 @@
     </div>
 </section>
 
+<?php 
+// Banner Ad 4: Between UTI Photo & UTI Signature
+if ( function_exists('pan_display_banner_ad') ) {
+    pan_display_banner_ad( 4 );
+}
+?>
+
 <!-- UTI/ITSL (UTI) Signature Section -->
 <section class="preset-resizer-section" id="uti-signature">
     <div class="resizer-card preset-card">
@@ -222,6 +243,13 @@
         </div>
     </div>
 </section>
+
+<?php 
+// Banner Ad 5: Between UTI Signature & Custom CM Resizer
+if ( function_exists('pan_display_banner_ad') ) {
+    pan_display_banner_ad( 5 );
+}
+?>
 
 <!-- Custom Centimeter Resizer Section -->
 <section class="preset-resizer-section" id="custom-cm-resizer">

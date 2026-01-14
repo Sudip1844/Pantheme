@@ -42,14 +42,21 @@ get_header();
             $metadata = pan_resizer_get_section_metadata();
             $section_meta = isset($metadata[ $current_section ]) ? $metadata[ $current_section ] : $metadata['default'];
         ?>
-            <h1 class="hero-title"><?php echo esc_html( $section_meta['section_name'] ); ?></h1>
+            <h1 class="hero-title"><?php echo function_exists('pan_wrap_with_smart_link') ? pan_wrap_with_smart_link( esc_html( $section_meta['section_name'] ) ) : esc_html( $section_meta['section_name'] ); ?></h1>
             <p class="hero-description"><?php echo esc_html( $section_meta['description'] ); ?></p>
         <?php else : ?>
-            <h1 class="hero-title">PAN Card Photo, Signature & Document Resizer</h1>
+            <h1 class="hero-title"><?php echo function_exists('pan_wrap_with_smart_link') ? pan_wrap_with_smart_link( 'PAN Card Photo, Signature & Document Resizer' ) : 'PAN Card Photo, Signature & Document Resizer'; ?></h1>
             <p class="hero-description">Free online tool to resize PAN card photos, signatures and documents. Compress images to required size for NSDL/UTI PAN applications without losing quality. Quick, secure and completely free - no software installation needed.</p>
         <?php endif; ?>
     </div>
 </section>
+
+<?php 
+// Banner Ad 1: Between Hero Section & All-in-One Editor
+if ( function_exists('pan_display_banner_ad') ) {
+    pan_display_banner_ad( 1 );
+}
+?>
 
 <main id="main-content">
     <div class="container">

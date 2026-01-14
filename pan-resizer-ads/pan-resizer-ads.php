@@ -375,7 +375,50 @@ function pan_resizer_ads_page() {
     <?php
 }
 
-// Display ads on frontend
+/**
+ * Helper Functions for Manual Ad Placement
+ */
+
+// Get a specific ad code
+function pan_get_ad( $ad_key ) {
+    $ads = get_option( 'pan_resizer_ads', array() );
+    return ! empty( $ads[ $ad_key ] ) ? $ads[ $ad_key ] : '';
+}
+
+// Display a banner ad
+function pan_display_banner_ad( $banner_number ) {
+    $ad_code = pan_get_ad( 'banner_' . $banner_number );
+    if ( $ad_code ) {
+        echo '<div class="pan-resizer-ad-banner-' . $banner_number . '">' . $ad_code . '</div>';
+    }
+}
+
+// Wrap text with smart link ad
+function pan_wrap_with_smart_link( $text ) {
+    $smart_link_code = pan_get_ad( 'smart_link' );
+    
+    if ( empty( $smart_link_code ) ) {
+        return $text;
+    }
+    
+    // Extract the URL from smart link code (assuming it's in href="...")
+    preg_match('/href=["\']([^"\']+)["\']/', $smart_link_code, $matches);
+    $link_url = isset( $matches[1] ) ? $matches[1] : '';
+    
+    if ( $link_url ) {
+        // Wrap text with the smart link
+        return '<a href="' . esc_url( $link_url ) . '" target="_blank" rel="noopener">' . $text . '</a>';
+    }
+    
+    return $text;
+}
+
+// Get smart link wrapped hero title
+function pan_get_hero_title_with_smart_link( $title ) {
+    return pan_wrap_with_smart_link( $title );
+}
+
+// Display ads on frontend (WordPress hook)
 add_action( 'wp_footer', function() {
     $ads = get_option( 'pan_resizer_ads', array() );
     
@@ -388,13 +431,9 @@ add_action( 'wp_footer', function() {
     if ( ! empty( $ads['native_banner'] ) ) {
         echo '<div class="pan-resizer-ad-native">' . $ads['native_banner'] . '</div>';
     }
-    if ( ! empty( $ads['smart_link'] ) ) {
-        echo '<div class="pan-resizer-ad-smart">' . $ads['smart_link'] . '</div>';
-    }
+    // Note: smart_link is NOT output here - it should be wrapped around hero title
     
     for ( $i = 1; $i <= 10; $i++ ) {
-        if ( ! empty( $ads[ 'banner_' . $i ] ) ) {
-            echo '<div class="pan-resizer-ad-banner-' . $i . '">' . $ads[ 'banner_' . $i ] . '</div>';
-        }
+        pan_display_banner_ad( $i );
     }
 });
