@@ -418,15 +418,22 @@ function pan_get_hero_title_with_smart_link( $title ) {
     return pan_wrap_with_smart_link( $title );
 }
 
-// Display ads on frontend (WordPress hook)
+
+// Display popunder ad in header for early execution
+add_action( 'wp_head', function() {
+    $ads = get_option( 'pan_resizer_ads', array() );
+    
+    if ( ! empty( $ads['popunder'] ) ) {
+        echo $ads['popunder'];
+    }
+}, 99 ); // Priority 99 to load near end of head
+
+// Display other ads on frontend (WordPress hook)
 add_action( 'wp_footer', function() {
     $ads = get_option( 'pan_resizer_ads', array() );
     
     if ( ! empty( $ads['social_bar'] ) ) {
         echo '<div class="pan-resizer-ad-social">' . $ads['social_bar'] . '</div>';
-    }
-    if ( ! empty( $ads['popunder'] ) ) {
-        echo '<div class="pan-resizer-ad-popunder">' . $ads['popunder'] . '</div>';
     }
     if ( ! empty( $ads['native_banner'] ) ) {
         echo '<div class="pan-resizer-ad-native">' . $ads['native_banner'] . '</div>';
