@@ -2,34 +2,35 @@ const fs = require("fs");
 const archiver = require("archiver");
 const path = require("path");
 
-// Create a proper WordPress plugin ZIP
-const output = fs.createWriteStream("pan-resizer-ads-fixed.zip");
-const archive = archiver("zip", { zlib: { level: 9 } });
+console.log("🔧 Creating WordPress Plugin ZIP...\n");
 
-output.on("close", () => {
-  console.log("✅ Fixed plugin ZIP created: pan-resizer-ads-fixed.zip");
-  console.log("   Total bytes: " + archive.pointer());
-  console.log("\n📦 Upload this file to WordPress!");
+// Create plugin ZIP
+const pluginOutput = fs.createWriteStream("pan-resizer-ads.zip");
+const pluginArchive = archiver("zip", { zlib: { level: 9 } });
+
+pluginOutput.on("close", () => {
+  console.log("✅ Plugin ZIP created: pan-resizer-ads.zip");
+  console.log("   Total bytes: " + pluginArchive.pointer());
 });
 
-archive.on("error", (err) => {
+pluginArchive.on("error", (err) => {
   throw err;
 });
 
-archive.pipe(output);
+pluginArchive.pipe(pluginOutput);
 
-// Add files with correct structure: pan-resizer-ads/file.php
+// Add plugin files with correct structure: pan-resizer-ads/file.php
 const pluginDir = "pan-resizer-ads";
-const files = fs.readdirSync(pluginDir);
+const pluginFiles = fs.readdirSync(pluginDir);
 
-files.forEach((file) => {
+pluginFiles.forEach((file) => {
   const filePath = path.join(pluginDir, file);
   const stat = fs.statSync(filePath);
 
   if (stat.isFile()) {
-    archive.file(filePath, { name: `pan-resizer-ads/${file}` });
-    console.log(`Adding: pan-resizer-ads/${file}`);
+    pluginArchive.file(filePath, { name: `pan-resizer-ads/${file}` });
+    console.log(`  Adding: pan-resizer-ads/${file}`);
   }
 });
 
-archive.finalize();
+pluginArchive.finalize();

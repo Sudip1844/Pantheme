@@ -3,7 +3,7 @@
  * Plugin Name: PAN Resizer AdStyle Ads Manager
  * Plugin URI: https://panresizer.in
  * Description: Manage AdStyle ads for PAN Resizer theme
- * Version: 1.0.7
+ * Version: 1.0.8
  * Author: PAN Resizer Team
  * Author URI: https://panresizer.in
  * License: GPL v2 or later
