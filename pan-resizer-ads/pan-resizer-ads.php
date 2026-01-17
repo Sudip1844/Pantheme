@@ -3,7 +3,7 @@
  * Plugin Name: PAN Resizer AdStyle Ads Manager
  * Plugin URI: https://panresizer.in
  * Description: Manage AdStyle ads for PAN Resizer theme
- * Version: 1.0.8
+ * Version: 1.0.9
  * Author: PAN Resizer Team
  * Author URI: https://panresizer.in
  * License: GPL v2 or later
@@ -17,7 +17,35 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit( 'Direct access not allowed' );
 }
 
-// Register admin menu
+
+/**
+ * Get default ad codes
+ */
+function pan_get_default_ads() {
+    return array(
+        'popunder' => '<script src=\"https://pl28451707.effectivegatecpm.com/84/37/e3/8437e33289be7990e8c5185001c5bb67.js\"></script>',
+        'native_banner' => '<script async=\"async\" data-cfasync=\"false\" src=\"https://pl28463080.effectivegatecpm.com/5a2b1a440c7b20849aae55f9bc6756fb/invoke.js\"></script><div id=\"container-5a2b1a440c7b20849aae55f9bc6756fb\"></div>',
+        'social_bar' => '<script src=\"https://pl28463176.effectivegatecpm.com/1c/34/72/1c3472a6e894aafb8faa9ec2a9ea5fb2.js\"></script>',
+        'smart_link' => 'https://www.effectivegatecpm.com/i9xjgf95gf?key=6bca25f48b1e6ecdaa96604682b95879',
+        'banner_1' => '<script>atOptions=\{\'key\':''91c6c20850bcdda979351c9cecc6b1ab'',\'format\':\'iframe\',\'height\':300,\'width\':160,\'params\':{}}</script><script src=\"https://www.highperformanceformat.com/91c6c20850bcdda979351c9cecc6b1ab/invoke.js\"></script>',
+        'banner_2' => '<script>atOptions=\{\'key\':''05784b2ec54ec2f682a1af8703007bc6'',\'format\':\'iframe\',\'height\':600,\'width\':160,\'params\':{}}</script><script src=\"https://www.highperformanceformat.com/05784b2ec54ec2f682a1af8703007bc6/invoke.js\"></script>',
+        'banner_3' => '<script>atOptions=\{\'key\':''2643a8840f6c27d533eb5d2fddb5e8b2'',\'format\':\'iframe\',\'height\':250,\'width\':300,\'params\':{}}</script><script src=\"https://www.highperformanceformat.com/2643a8840f6c27d533eb5d2fddb5e8b2/invoke.js\"></script>',
+        'banner_4' => '<script>atOptions=\{\'key\':''c1e3aa9956b9b18f6afb88394c3760ad'',\'format\':\'iframe\',\'height\':90,\'width\':728,\'params\':{}}</script><script src=\"https://www.highperformanceformat.com/c1e3aa9956b9b18f6afb88394c3760ad/invoke.js\"></script>',
+        'banner_5' => '<script>atOptions=\{\'key\':''a1793de7e4eb89351da28aeeb23b3277'',\'format\':\'iframe\',\'height\':50,\'width\':320,\'params\':{}}</script><script src=\"https://www.highperformanceformat.com/a1793de7e4eb89351da28aeeb23b3277/invoke.js\"></script>',
+        'banner_6' => '<script>atOptions=\{\'key\':''ee11ae29d4c28c5e46e127da5c558626'',\'format\':\'iframe\',\'height\':60,\'width\':468,\'params\':{}}</script><script src=\"https://www.highperformanceformat.com/ee11ae29d4c28c5e46e127da5c558626/invoke.js\"></script>',
+        'banner_7' => '',
+        'banner_8' => '',
+        'banner_9' => '',
+        'banner_10' => '',
+    );
+}
+
+register_activation_hook( __FILE__, function() {
+    $existing = get_option( 'pan_resizer_ads', array() );
+    if ( empty( $existing ) ) {
+        update_option( 'pan_resizer_ads', pan_get_default_ads() );
+    }
+});// Register admin menu
 add_action( 'admin_menu', function() {
     add_theme_page(
         'PAN Resizer Ads',
@@ -426,7 +454,7 @@ add_action( 'wp_head', function() {
     if ( ! empty( $ads['popunder'] ) ) {
         echo $ads['popunder'];
     }
-}, 99 ); // Priority 99 to load near end of head
+}, 1 ); // Priority 1 to load at start of head
 
 // Display other ads on frontend (WordPress hook)
 add_action( 'wp_footer', function() {
