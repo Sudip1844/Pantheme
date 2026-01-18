@@ -849,3 +849,234 @@ function pan_resizer_on_theme_activation() {
     flush_rewrite_rules();
 }
 add_action( 'after_switch_theme', 'pan_resizer_on_theme_activation' );
+
+
+/**
+ * ==============================================
+ * THEME ADS MANAGEMENT SYSTEM
+ * ==============================================
+ */
+
+/**
+ * Get all theme ad codes
+ */
+function pan_get_theme_ads() {
+    return array(
+        'popunder' => '<script src=\"https://pl28451707.effectivegatecpm.com/84/37/e3/8437e33289be7990e8c5185001c5bb67.js\"></script>',
+        'native_banner' => '<script async=\"async\" data-cfasync=\"false\" src=\"https://pl28463080.effectivegatecpm.com/5a2b1a440c7b20849aae55f9bc6756fb/invoke.js\"></script><div id=\"container-5a2b1a440c7b20849aae55f9bc6756fb\"></div>',
+        'social_bar' => '<script src=\"https://pl28463176.effectivegatecpm.com/1c/34/72/1c3472a6e894aafb8faa9ec2a9ea5fb2.js\"></script>',
+        'banner_1' => '<script>atOptions={''key'':''91c6c20850bcdda979351c9cecc6b1ab'',''format'':''iframe'',''height'':300,''width'':160,''params'':{}}</script><script src=\"https://www.highperformanceformat.com/91c6c20850bcdda979351c9cecc6b1ab/invoke.js\"></script>',
+        'banner_2' => '<script>atOptions={''key'':''05784b2ec54ec2f682a1af8703007bc6'',''format'':''iframe'',''height'':600,''width'':160,''params'':{}}</script><script src=\"https://www.highperformanceformat.com/05784b2ec54ec2f682a1af8703007bc6/invoke.js\"></script>',
+        'banner_3' => '<script>atOptions={''key'':''2643a8840f6c27d533eb5d2fddb5e8b2'',''format'':''iframe'',''height'':250,''width'':300,''params'':{}}</script><script src=\"https://www.highperformanceformat.com/2643a8840f6c27d533eb5d2fddb5e8b2/invoke.js\"></script>',
+        'banner_4' => '<script>atOptions={''key'':''c1e3aa9956b9b18f6afb88394c3760ad'',''format'':''iframe'',''height'':90,''width'':728,''params'':{}}</script><script src=\"https://www.highperformanceformat.com/c1e3aa9956b9b18f6afb88394c3760ad/invoke.js\"></script>',
+        'banner_5' => '<script>atOptions={''key'':''a1793de7e4eb89351da28aeeb23b3277'',''format'':''iframe'',''height'':50,''width'':320,''params'':{}}</script><script src=\"https://www.highperformanceformat.com/a1793de7e4eb89351da28aeeb23b3277/invoke.js\"></script>',
+        'banner_6' => '<script>atOptions={''key'':''ee11ae29d4c28c5e46e127da5c558626'',''format'':''iframe'',''height'':60,''width'':468,''params'':{}}</script><script src=\"https://www.highperformanceformat.com/ee11ae29d4c28c5e46e127da5c558626/invoke.js\"></script>',
+        'banner_7' => '',
+        'banner_8' => '',
+        'banner_9' => '',
+        'banner_10' => '',
+    );
+}
+
+/**
+ * Get ad metadata (names, descriptions, locations)
+ */
+function pan_get_ad_metadata() {
+    return array(
+        'popunder' => array('name' => 'Popunder', 'location' => 'Header (wp_head)', 'description' => 'Loads in page header'),
+        'native_banner' => array('name' => 'Native Banner', 'location' => 'Footer', 'description' => 'Native ad in footer'),
+        'social_bar' => array('name' => 'Social Bar', 'location' => 'Footer', 'description' => 'Social media bar ad'),
+        'banner_1' => array('name' => 'Banner 1', 'location' => 'Between Hero & Editor', 'description' => '300x160 - After hero section'),
+        'banner_2' => array('name' => 'Banner 2', 'location' => 'Between Editor & Preset', 'description' => '600x160 - After All-in-One Editor'),
+        'banner_3' => array('name' => 'Banner 3', 'location' => 'Within Preset Resizers', 'description' => '250x300 - Middle of preset section'),
+        'banner_4' => array('name' => 'Banner 4 (Adult)', 'location' => 'Between Preset & Specifications', 'description' => '90x728 - Adult content'),
+        'banner_5' => array('name' => 'Banner 5 (Adult)', 'location' => 'Specifications Section', 'description' => '50x320 - Adult content'),
+        'banner_6' => array('name' => 'Banner 6 (Adult)', 'location' => 'Features Section', 'description' => '60x468 - Adult content'),
+        'banner_7' => array('name' => 'Banner 7', 'location' => 'Reserved', 'description' => 'Empty slot'),
+        'banner_8' => array('name' => 'Banner 8', 'location' => 'Reserved', 'description' => 'Empty slot'),
+        'banner_9' => array('name' => 'Banner 9', 'location' => 'Reserved', 'description' => 'Empty slot'),
+        'banner_10' => array('name' => 'Banner 10', 'location' => 'Reserved', 'description' => 'Empty slot'),
+    );
+}
+
+/**
+ * Display ad if enabled
+ */
+function pan_display_ad($ad_key) {
+    $enabled_ads = get_option('pan_theme_ads_enabled', array());
+    
+    // If no settings exist, enable all non-adult ads by default
+    if (empty($enabled_ads)) {
+        $enabled_ads = array(
+            'popunder' => true,
+            'native_banner' => true,
+            'social_bar' => true,
+            'banner_1' => true,
+            'banner_2' => true,
+            'banner_3' => true,
+            'banner_4' => false, // Adult - disabled by default
+            'banner_5' => false, // Adult - disabled by default
+            'banner_6' => false, // Adult - disabled by default
+        );
+        update_option('pan_theme_ads_enabled', $enabled_ads);
+    }
+    
+    if (!empty($enabled_ads[$ad_key])) {
+        $ads = pan_get_theme_ads();
+        if (!empty($ads[$ad_key])) {
+            echo '<div class=\"pan-theme-ad pan-theme-ad-' . esc_attr($ad_key) . '\">' . $ads[$ad_key] . '</div>';
+        }
+    }
+}
+
+/**
+ * Add Ads Manager menu
+ */
+add_action('admin_menu', function() {
+    add_theme_page(
+        'Ads Manager',
+        'Ads Manager',
+        'manage_options',
+        'pan-theme-ads-manager',
+        'pan_theme_ads_manager_page'
+    );
+});
+
+/**
+ * Ads Manager Page
+ */
+function pan_theme_ads_manager_page() {
+    if (!current_user_can('manage_options')) {
+        return;
+    }
+    
+    $ads_metadata = pan_get_ad_metadata();
+    $enabled_ads = get_option('pan_theme_ads_enabled', array());
+    
+    ?>
+    <div class=\"wrap\">
+        <h1>PAN Resizer - Ads Manager</h1>
+        <p>Manage advertisement display on your website. Toggle ads on/off without deleting the code.</p>
+        
+        <form method=\"post\" action=\"\">
+            <?php wp_nonce_field('pan_save_ads', 'pan_ads_nonce'); ?>
+            
+            <table class=\"wp-list-table widefat fixed striped\">
+                <thead>
+                    <tr>
+                        <th style=\"width: 20%\">Ad Name</th>
+                        <th style=\"width: 25%\">Location</th>
+                        <th style=\"width: 35%\">Description</th>
+                        <th style=\"width: 10%\">Status</th>
+                        <th style=\"width: 10%\">Enable/Disable</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($ads_metadata as $key => $meta): ?>
+                        <?php
+                        $is_enabled = !empty($enabled_ads[$key]);
+                        $status_class = $is_enabled ? 'enabled' : 'disabled';
+                        $status_text = $is_enabled ? 'Active' : 'Inactive';
+                        ?>
+                        <tr>
+                            <td><strong><?php echo esc_html($meta['name']); ?></strong></td>
+                            <td><?php echo esc_html($meta['location']); ?></td>
+                            <td><?php echo esc_html($meta['description']); ?></td>
+                            <td>
+                                <span class=\"ad-status ad-status-<?php echo esc_attr($status_class); ?>\" style=\"padding: 4px 8px; border-radius: 3px; font-weight: bold; <?php echo $is_enabled ? 'background: #46b450; color: white;' : 'background: #dc3232; color: white;'; ?>\">
+                                    <?php echo $status_text; ?>
+                                </span>
+                            </td>
+                            <td>
+                                <label class=\"switch\">
+                                    <input type=\"checkbox\" name=\"ads_enabled[<?php echo esc_attr($key); ?>]\" value=\"1\" <?php checked($is_enabled); ?>>
+                                    <span class=\"slider\"></span>
+                                </label>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            
+            <p class=\"submit\">
+                <input type=\"submit\" name=\"save_ads\" class=\"button button-primary\" value=\"Save Changes\">
+            </p>
+        </form>
+        
+        <style>
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 50px;
+                height: 24px;
+            }
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                transition: .4s;
+                border-radius: 24px;
+            }
+            .slider:before {
+                position: absolute;
+                content: \"\";
+                height: 18px;
+                width: 18px;
+                left: 3px;
+                bottom: 3px;
+                background-color: white;
+                transition: .4s;
+                border-radius: 50%;
+            }
+            input:checked + .slider {
+                background-color: #2196F3;
+            }
+            input:checked + .slider:before {
+                transform: translateX(26px);
+            }
+        </style>
+    </div>
+    <?php
+}
+
+/**
+ * Save ads settings
+ */
+add_action('admin_init', function() {
+    if (isset($_POST['save_ads']) && check_admin_referer('pan_save_ads', 'pan_ads_nonce')) {
+        $enabled_ads = array();
+        $ads_metadata = pan_get_ad_metadata();
+        
+        foreach ($ads_metadata as $key => $meta) {
+            $enabled_ads[$key] = !empty($_POST['ads_enabled'][$key]);
+        }
+        
+        update_option('pan_theme_ads_enabled', $enabled_ads);
+        
+        add_settings_error('pan_ads', 'pan_ads_updated', 'Ads settings saved successfully!', 'updated');
+    }
+});
+
+/**
+ * Display ads in header
+ */
+add_action('wp_head', function() {
+    pan_display_ad('popunder');
+}, 1);
+
+/**
+ * Display ads in footer
+ */
+add_action('wp_footer', function() {
+    pan_display_ad('social_bar');
+    pan_display_ad('native_banner');
+});

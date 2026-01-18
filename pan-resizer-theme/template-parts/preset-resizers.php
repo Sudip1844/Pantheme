@@ -171,9 +171,7 @@
 
 <?php 
 // Banner Ad 3: Within Preset Resizers Section (middle)
-if ( function_exists('pan_display_banner_ad') ) {
-    pan_display_banner_ad( 3 );
-}
+pan_display_ad('banner_3');
 ?>
 
 <!-- UTI/ITSL (UTI) Signature Section -->
